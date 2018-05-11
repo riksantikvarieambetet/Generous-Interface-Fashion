@@ -13,8 +13,8 @@
                     91625
                 ]
             },
-            "dc_publisher": {
-                "$id": "#/items/properties/dc_publisher",
+            "edm_data_provider": {
+                "$id": "#/items/properties/edm_data_provider",
                 "type": "string",
                 "examples": [
                     "Stiftelsen Nordiska museet"
@@ -80,7 +80,7 @@
         },
         "required": [
             "europeana_record",
-            "dc_publisher",
+            "edm_data_provider",
             "dc_title",
             "dc_description",
             "edm_rights",
