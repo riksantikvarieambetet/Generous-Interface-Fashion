@@ -46,9 +46,7 @@ for item in europeana_generator():
     output = {}
     output['application'] = {}
 
-    edm_id = re.search(r'^\/(\d+)\/', item['id'])
-
-    output['europeana_record'] = int(edm_id.group(1))
+    output['europeana_record'] = item['id']
     output['dc_title'] = item['title'][0]
     output['edm_data_provider'] = provider
     output['edm_rights'] = item['rights'][0]

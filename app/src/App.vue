@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <HelloWorld v-bind:list="items"/>
+    <p v-if="items">hej</p>
   </div>
 </template>
 
@@ -12,6 +13,16 @@ export default {
   name: 'app',
   components: {
     HelloWorld
+  },
+  asyncComputed: {
+    items: {
+      get() {
+        return this.$http
+          .get('data.json')
+          .then(response => response.body);
+      },
+      default: false
+    }
   }
 }
 </script>
