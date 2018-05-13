@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <HelloWorld v-bind:list="items"/>
+    <ImageWall v-bind:list="items"/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import ImageWall from './components/ImageWall.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    ImageWall
   },
   asyncComputed: {
     items: {

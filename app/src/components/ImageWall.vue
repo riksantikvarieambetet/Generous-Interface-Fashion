@@ -11,7 +11,7 @@ import isotope from 'vueisotope';
 import imagesLoaded from 'vue-images-loaded';
 
 export default {
-  name: 'HelloWorld',
+  name: 'ImageWall',
   components: {
     isotope
   },
