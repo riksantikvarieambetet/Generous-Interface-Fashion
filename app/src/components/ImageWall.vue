@@ -1,7 +1,7 @@
 <template>
   <isotope ref="cpt" v-if="list" v-bind:list="list" id="root_isotope" v-bind:options="option" v-images-loaded:on.progress="layout">
     <div v-for="item in list" v-bind:key="item.europeana_record" class="image">
-      <img v-bind:src="item.edm_preview" v-bind:alt="item.dc_title" />
+      <ObjectView v-bind:object="item"/>
     </div>
   </isotope>
 </template>
@@ -10,10 +10,13 @@
 import isotope from 'vueisotope';
 import imagesLoaded from 'vue-images-loaded';
 
+import ObjectView from './ObjectView.vue'
+
 export default {
   name: 'ImageWall',
   components: {
-    isotope
+    isotope,
+    ObjectView
   },
   directives: {
     imagesLoaded,
