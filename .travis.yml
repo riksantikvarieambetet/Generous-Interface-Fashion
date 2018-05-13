@@ -3,6 +3,7 @@ node_js:
   - "8.4"
   - "stable"
 
+install: cd app && npm install
 script: cd app && npm run build
 
 deploy:
