@@ -1,22 +1,27 @@
 <template>
-  <isotope ref="cpt" v-if="list" v-bind:list="list" id="root_isotope" v-bind:options="option" v-images-loaded:on.progress="layout">
-    <div v-for="item in list" v-bind:key="item.europeana_record" class="image">
-      <ObjectView v-bind:object="item"/>
-    </div>
-  </isotope>
+  <div>
+    <isotope ref="cpt" v-if="list" v-bind:list="list" id="root_isotope" v-bind:options="option" v-images-loaded:on.progress="layout">
+      <div v-for="item in list" v-bind:key="item.europeana_record" class="image">
+        <ObjectView v-bind:object="item"/>
+      </div>
+    </isotope>
+    <FilterMenu />
+  </div>
 </template>
 
 <script>
 import isotope from 'vueisotope';
 import imagesLoaded from 'vue-images-loaded';
 
-import ObjectView from './ObjectView.vue'
+import ObjectView from './ObjectView.vue';
+import FilterMenu from './FilterMenu.vue';
 
 export default {
   name: 'ImageWall',
   components: {
     isotope,
-    ObjectView
+    ObjectView,
+    FilterMenu,
   },
   directives: {
     imagesLoaded,
