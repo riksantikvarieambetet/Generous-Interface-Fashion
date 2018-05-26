@@ -14,7 +14,8 @@ Vue.config.productionTip = false;
 export const store = new Vuex.Store({
   state: {
     allItems: null,
-    visibleLimit: 5 //#TODO low change this in the future
+    visibleLimit: 5, // #TODO low change this in the future
+    garmentFilter: []
   },
   mutations: {
     addAllItems(state, items) {
@@ -26,7 +27,16 @@ export const store = new Vuex.Store({
     },
 
     resetVisibleLimit(state) {
-      state.visibleLimit = 5; //#TODO low change this in the future
+      state.visibleLimit = 5; // #TODO low change this in the future
+    },
+
+    toggleGarment(state, garment) {
+      let index = state.garmentFilter.indexOf(garment);
+      if (index === -1) {
+        state.garmentFilter.push(garment);
+      } else {
+        state.garmentFilter.splice(index, 1);
+      }
     }
   }
 });

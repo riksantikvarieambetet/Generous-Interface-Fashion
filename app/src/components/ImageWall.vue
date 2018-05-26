@@ -30,6 +30,8 @@ export default {
   computed: {
     list () {
       if (store.state.allItems) {
+        //#TODO filtering is done here, needs better setup the just inline here as a computed value, a bunch of methods chained as promises?
+
         return store.state.allItems.slice(0, store.state.visibleLimit);
       } else {
         return null;
