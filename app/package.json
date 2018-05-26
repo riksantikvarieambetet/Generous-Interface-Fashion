@@ -12,7 +12,8 @@
     "vue-async-computed": "^3.3.1",
     "vue-images-loaded": "^1.1.2",
     "vue-resource": "^1.5.0",
-    "vueisotope": "^3.1.2"
+    "vueisotope": "^3.1.2",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.0-beta.9",

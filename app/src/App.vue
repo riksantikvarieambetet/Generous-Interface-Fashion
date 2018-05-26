@@ -1,26 +1,28 @@
 <template>
   <div id="app">
-    <ImageWall v-bind:list="items"/>
+    <ImageWall />
   </div>
 </template>
 
 <script>
-import ImageWall from './components/ImageWall.vue'
+import ImageWall from './components/ImageWall.vue';
+import { store } from "./main.js";
 
 export default {
   name: 'app',
   components: {
     ImageWall
   },
-  asyncComputed: {
-    items: {
-      get() {
-        return this.$http
-          .get('data.json')
-          .then(response => response.body);
-      },
-      default: false
+  methods: {
+    fetchIntoState: function() {
+      this.$http
+        .get('data.json')
+        .then(response => response.body)
+        .then(data =>  store.commit('addAllItems', data));
     }
+  },
+  beforeMount() {
+    this.fetchIntoState();
   }
 }
 </script>

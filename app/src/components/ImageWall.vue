@@ -15,6 +15,7 @@ import imagesLoaded from 'vue-images-loaded';
 
 import ObjectView from './ObjectView.vue';
 import FilterMenu from './FilterMenu.vue';
+import { store } from "../main.js";
 
 export default {
   name: 'ImageWall',
@@ -26,8 +27,10 @@ export default {
   directives: {
     imagesLoaded,
   },
-  props: {
-    list: false
+  computed: {
+    list () {
+      return store.state.allItems;
+    }
   },
   data() {
     return {
