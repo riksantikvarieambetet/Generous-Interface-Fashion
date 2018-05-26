@@ -19,10 +19,23 @@ export default {
         .get('data.json')
         .then(response => response.body)
         .then(data =>  store.commit('addAllItems', data));
+    },
+
+    handleScroll: function() {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+        // #TODO update state and disable while items load, show sprinner too?
+        console.log('end of page');
+      }
     }
   },
   beforeMount() {
     this.fetchIntoState();
+  },
+  created: function () {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  destroyed: function () {
+    window.removeEventListener('scroll', this.handleScroll);
   }
 }
 </script>
