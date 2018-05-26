@@ -13,11 +13,20 @@ Vue.config.productionTip = false;
 
 export const store = new Vuex.Store({
   state: {
-    allItems: null
+    allItems: null,
+    visibleLimit: 5 //#TODO low change this in the future
   },
   mutations: {
     addAllItems(state, items) {
       state.allItems = items;
+    },
+
+    increaseVisibleLimit(state, increase) {
+      state.visibleLimit += increase;
+    },
+
+    resetVisibleLimit(state) {
+      state.visibleLimit = 5; //#TODO low change this in the future
     }
   }
 });

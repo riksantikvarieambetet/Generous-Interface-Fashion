@@ -29,7 +29,12 @@ export default {
   },
   computed: {
     list () {
-      return store.state.allItems;
+      if (store.state.allItems) {
+        return store.state.allItems.slice(0, store.state.visibleLimit);
+      } else {
+        return null;
+      }
+      
     }
   },
   data() {

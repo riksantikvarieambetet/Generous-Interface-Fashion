@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { store } from "../main.js";
+
 export default {
   name: 'FilterMenu',
   data() {
