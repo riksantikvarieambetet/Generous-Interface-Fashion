@@ -23,8 +23,9 @@ export default {
 
     handleScroll: function() {
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-        // #TODO update state and disable while items load, show sprinner too?
-        console.log('end of page');
+        if (!store.state.isLoadingImages) {
+          store.commit('increaseVisibleLimit', 5);
+        }
       }
     }
   },
