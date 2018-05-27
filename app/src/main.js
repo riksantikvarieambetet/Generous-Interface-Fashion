@@ -14,8 +14,11 @@ Vue.config.productionTip = false;
 export const store = new Vuex.Store({
   state: {
     allItems: null,
+
     visibleLimit: 5, // #TODO low change this in the future
-    garmentFilter: []
+    garmentFilter: [],
+
+    isLoadingImages: false,
   },
   mutations: {
     addAllItems(state, items) {
@@ -37,7 +40,10 @@ export const store = new Vuex.Store({
       } else {
         state.garmentFilter.splice(index, 1);
       }
-    }
+    },
+
+    loadingImages: state => state.isLoadingImages = true,
+    notLoadingImages: state => state.isLoadingImages = false,
   }
 });
 

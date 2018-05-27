@@ -6,12 +6,12 @@
 
 <script>
 import ImageWall from './components/ImageWall.vue';
-import { store } from "./main.js";
+import { store } from './main.js';
 
 export default {
   name: 'app',
   components: {
-    ImageWall
+    ImageWall,
   },
   methods: {
     fetchIntoState: function() {

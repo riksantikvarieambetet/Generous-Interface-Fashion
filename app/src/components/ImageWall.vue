@@ -1,6 +1,7 @@
 <template>
   <div>
-    <isotope ref="cpt" v-if="list" v-bind:list="list" id="root_isotope" v-bind:options="option" v-images-loaded:on.progress="layout">
+    <spinner v-if="loading" class="spinner" size="big" />
+    <isotope ref="cpt" v-if="list" v-bind:list="list" id="root_isotope" v-bind:options="option" v-images-loaded:on.progress="imageChange">
       <div v-for="item in list" v-bind:key="item.europeana_record" class="image">
         <ObjectView v-bind:object="item"/>
       </div>
@@ -12,6 +13,7 @@
 <script>
 import isotope from 'vueisotope';
 import imagesLoaded from 'vue-images-loaded';
+import Spinner from 'vue-simple-spinner';
 
 import ObjectView from './ObjectView.vue';
 import FilterMenu from './FilterMenu.vue';
@@ -23,6 +25,7 @@ export default {
     isotope,
     ObjectView,
     FilterMenu,
+    Spinner,
   },
   directives: {
     imagesLoaded,
@@ -40,7 +43,9 @@ export default {
       } else {
         return null;
       }
-      
+    },
+    loading() {
+      return store.state.isLoadingImages;
     }
   },
   data() {
@@ -54,12 +59,25 @@ export default {
     }
   },
   methods: {
-    layout() {
+    imageChange(instance) {
+      // redraw the layout
       this.$refs.cpt.layout('masonry');
+
+      // handle image loading state
+      if (instance.isComplete) {
+        store.commit('notLoadingImages');
+      } else {
+        store.commit('loadingImages');
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+.spinner {
+  position: fixed;
+  right: 7px;
+  top: 7px;
+}
 </style>
