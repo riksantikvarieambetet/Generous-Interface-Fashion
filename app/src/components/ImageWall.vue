@@ -29,10 +29,14 @@ export default {
   },
   computed: {
     list () {
-      if (store.state.allItems) {
-        //#TODO filtering is done here, needs better setup the just inline here as a computed value, a bunch of methods chained as promises?
+      let finalList = store.state.allItems;
+      if (finalList) {
+        // garment filter
+        if (store.state.garmentFilter.length > 0) {
+          finalList = finalList.filter(item => store.state.garmentFilter.some(garment => item.application.garment.includes(garment)));
+        }
 
-        return store.state.allItems.slice(0, store.state.visibleLimit);
+        return finalList.slice(0, store.state.visibleLimit);
       } else {
         return null;
       }
