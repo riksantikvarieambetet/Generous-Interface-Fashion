@@ -79,5 +79,6 @@ export default {
   position: fixed;
   right: 7px;
   top: 7px;
+  z-index: 100;
 }
 </style>
