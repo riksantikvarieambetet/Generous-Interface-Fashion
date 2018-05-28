@@ -25,7 +25,7 @@ def get_shortified_description(desc: str) -> str:
         sentences = filterfalse(is_list_item, sentences)
         for sentence in sentences:
             if sentence
-            return sentence + '.'
+                return sentence + '.'
     #TODO how to deal with fails?
     return ''
 
