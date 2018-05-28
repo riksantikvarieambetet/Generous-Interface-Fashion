@@ -6,6 +6,7 @@ from itertools import islice
 import requests
 
 from europeana import Europeana
+import data_transformation as transformation
 
 class ItemStorage():
     def __init__(self, item_type, provider, item):
@@ -41,6 +42,15 @@ for item in unprocessed_items:
         output['dc_description'] = item.item['dcDescription'][0]
 
     output['application']['garment'] = item.type
+
+    application_description = transformation.get_shortified_description(output['dc_description'])
+    if application_description == '':
+        application_description = output['dc_title']
+    else:
+        application_description = transformation.enchant_description_with_title(application_description, output['dc_title'])
+
+
+    output['application']['description'] = application_description
 
     result.append(output)
 

@@ -1,9 +1,9 @@
 <template>
   <div>
-    <img v-bind:src="object.edm_preview" v-bind:alt="object.dc_title" v-on:click="toggle()" />
+    <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
     <div class="details" v-show="isShown">
-        <img v-bind:src="object.edm_preview" v-bind:alt="object.dc_title" />
-        <p>{{ object.dc_title }}</p>
+        <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
+        <p>{{ object.application.description }}</p>
         <a v-bind:href="object.edm_rights">License</a>
         <a v-bind:href="object.edm_is_shown_at">Source</a>
         <br>
