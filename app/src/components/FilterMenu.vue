@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="root">
       <div v-on:click="toggle()" v-bind:class="{open: isShown}" class="minified">
           <span v-if="isShown">close filter</span>
           <span v-if="!isShown">open filter</span>
@@ -61,6 +61,7 @@ export default {
     width: 100vw;
     background: #fff;
     height: 50px;
+    z-index: 2;
 }
 
 .minified.open {
@@ -73,6 +74,7 @@ export default {
     width: 100vw;
     background: #fff;
     height: 200px;
+    z-index: 2;
 }
 
 .toogle-garmet-btns div {
