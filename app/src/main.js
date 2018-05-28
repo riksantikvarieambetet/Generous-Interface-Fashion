@@ -15,7 +15,7 @@ export const store = new Vuex.Store({
   state: {
     allItems: null,
 
-    visibleLimit: 5, // #TODO low change this in the future
+    visibleLimit: 15, // #TODO low change this in the future
     garmentFilter: [],
 
     isLoadingImages: false,
