@@ -5,7 +5,10 @@
           <span v-if="!isShown">open filter</span>
       </div>
       <div v-show="isShown" class="expanded">
-          tons of stuff
+          <div class="toogle-garmet-btns">
+            <div v-on:click="toggleGarment($event, 'strumpor')" role="button" aria-pressed="false">Strumpor</div>
+            <div v-on:click="toggleGarment($event, 'byxor')" role="button" aria-pressed="false">Byxor</div>
+          </div>
       </div>
   </div>
 </template>
@@ -23,6 +26,17 @@ export default {
   methods: {
     toggle() {
       this.isShown = !this.isShown;
+    },
+    toggleGarment(e, garment) {
+      console.log(garment)
+      if (e.target.getAttribute('aria-pressed') === 'false') {
+        console.log(true)
+        e.target.setAttribute('aria-pressed', 'true');
+      } else {
+        console.log(false)
+        e.target.setAttribute('aria-pressed', 'false');
+      }
+      store.commit('toggleGarment', garment);
     }
   }
 }
@@ -47,5 +61,15 @@ export default {
     width: 100vw;
     background: #fff;
     height: 200px;
+}
+
+.toogle-garmet-btns div {
+  display: inline-block;
+  background-color: red;
+}
+
+.toogle-garmet-btns div[aria-pressed=true] {
+  display: inline-block;
+  background-color: green;
 }
 </style>

@@ -30,7 +30,7 @@ export const store = new Vuex.Store({
     },
 
     resetVisibleLimit(state) {
-      state.visibleLimit = 5; // #TODO low change this in the future
+      state.visibleLimit = 15; // #TODO low change this in the future
     },
 
     toggleGarment(state, garment) {

@@ -31,8 +31,9 @@ export default {
     imagesLoaded,
   },
   computed: {
-    list () {
+    list() {
       let finalList = store.state.allItems;
+      console.log('debug: executing filtering');
       if (finalList) {
         // garment filter
         if (store.state.garmentFilter.length > 0) {
