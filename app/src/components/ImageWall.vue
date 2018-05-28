@@ -40,6 +40,15 @@ export default {
           finalList = finalList.filter(item => store.state.garmentFilter.some(garment => item.application.garment.includes(garment)));
         }
 
+        // handle reseting of visibleLimit on filter change
+        if (store.state.visibleLimit === this.visibleLimit) {
+          console.log('debug: reseting visibleLimit');
+          store.commit('resetVisibleLimit');
+          window.scrollTo(0, 0);
+        } else {
+          this.visibleLimit = store.state.visibleLimit;
+        }
+
         return finalList.slice(0, store.state.visibleLimit);
       } else {
         return null;
@@ -56,7 +65,8 @@ export default {
           id: 'id'
         },
         sortBy: 'id'
-      }
+      },
+      latestVisibleLimit: 15,
     }
   },
   methods: {
