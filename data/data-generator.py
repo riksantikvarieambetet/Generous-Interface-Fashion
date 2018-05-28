@@ -20,7 +20,7 @@ unprocessed_items = list()
 for item in islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Byxor'), 10):
     unprocessed_items.append(ItemStorage('byxor', 'Stiftelsen Nordiska museet', item))
 
-for item in  islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Strumpor'), 10):
+for item in  islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Strumpor'), 20):
     unprocessed_items.append(ItemStorage('strumpor', 'Stiftelsen Nordiska museet',item))
 
 result = list()

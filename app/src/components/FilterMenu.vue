@@ -6,8 +6,8 @@
       </div>
       <div v-show="isShown" class="expanded">
           <div class="toogle-garmet-btns">
-            <div v-on:click="toggleGarment($event, 'strumpor')" role="button" aria-pressed="false">Strumpor</div>
-            <div v-on:click="toggleGarment($event, 'byxor')" role="button" aria-pressed="false">Byxor</div>
+            <div v-on:click="toggleGarment($event, 'strumpor')" v-bind:style="{ width: strumporBtnWidth + '%' }" role="button" aria-pressed="false">Strumpor</div>
+            <div v-on:click="toggleGarment($event, 'byxor')" v-bind:style="{ width: byxorBtnWidth + '%' }" role="button" aria-pressed="false">Byxor</div>
           </div>
       </div>
   </div>
@@ -20,11 +20,23 @@ export default {
   name: 'FilterMenu',
   data() {
     return {
-      isShown: false
+      isShown: false,
+      strumporBtnWidth: 40,
+      byxorBtnWidth: 40,
     }
   },
   methods: {
     toggle() {
+      // calculate btn widths
+      const whole = store.state.allItems.length;
+      const strumporCount = store.state.allItems.filter(item => item.application.garment.includes('strumpor')).length;
+      const byxorCount = store.state.allItems.filter(item => item.application.garment.includes('byxor')).length;
+      const strumporWidth = strumporCount / whole * 100;
+      const byxorWidth = byxorCount / whole * 100;
+      console.log(strumporWidth, byxorWidth);
+      this.strumporBtnWidth = strumporWidth;
+      this.byxorBtnWidth = byxorWidth;
+
       this.isShown = !this.isShown;
     },
     toggleGarment(e, garment) {
@@ -66,6 +78,8 @@ export default {
 .toogle-garmet-btns div {
   display: inline-block;
   background-color: red;
+  border: 2px solid blue;
+  box-sizing: border-box;
 }
 
 .toogle-garmet-btns div[aria-pressed=true] {
