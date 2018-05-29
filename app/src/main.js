@@ -18,6 +18,9 @@ export const store = new Vuex.Store({
     visibleLimit: 15, // #TODO low change this in the future
     garmentFilter: [],
 
+    colorFilterActive: false,
+    colorFilter: false,
+
     isLoadingImages: false,
   },
   mutations: {
@@ -44,6 +47,11 @@ export const store = new Vuex.Store({
 
     loadingImages: state => state.isLoadingImages = true,
     notLoadingImages: state => state.isLoadingImages = false,
+
+    activateColorFilter: state => state.colorFilterActive = true,
+    deactivateColorFilter: state => state.colorFilterActive = false,
+
+    setColorFilter: (state, color) => state.colorFilter = color,
   }
 });
 

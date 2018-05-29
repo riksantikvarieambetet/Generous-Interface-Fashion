@@ -9,6 +9,9 @@
             <div v-on:click="toggleGarment($event, 'strumpor')" v-bind:style="{ width: strumporBtnWidth + '%' }" role="button" aria-pressed="false">Strumpor</div>
             <div v-on:click="toggleGarment($event, 'byxor')" v-bind:style="{ width: byxorBtnWidth + '%' }" role="button" aria-pressed="false">Byxor</div>
           </div>
+          
+          <input v-on:change="updateColorFilter($event)" type="color" />
+          <button v-if="colorFilterStatus" v-on:click="resetColorFilter()">Reset color</button>
       </div>
   </div>
 </template>
@@ -25,6 +28,11 @@ export default {
       byxorBtnWidth: 40,
     }
   },
+  computed: {
+   colorFilterStatus() {
+      return store.state.colorFilterActive;
+    }
+  },
   methods: {
     toggle() {
       // calculate btn widths
@@ -33,12 +41,13 @@ export default {
       const byxorCount = store.state.allItems.filter(item => item.application.garment.includes('byxor')).length;
       const strumporWidth = strumporCount / whole * 100;
       const byxorWidth = byxorCount / whole * 100;
-      console.log(strumporWidth, byxorWidth);
+
       this.strumporBtnWidth = strumporWidth;
       this.byxorBtnWidth = byxorWidth;
 
       this.isShown = !this.isShown;
     },
+
     toggleGarment(e, garment) {
       console.log(garment)
       if (e.target.getAttribute('aria-pressed') === 'false') {
@@ -49,6 +58,15 @@ export default {
         e.target.setAttribute('aria-pressed', 'false');
       }
       store.commit('toggleGarment', garment);
+    },
+
+    updateColorFilter(e) {
+      store.commit('activateColorFilter');
+      store.commit('setColorFilter', e.target.value.substring(1));
+    },
+
+    resetColorFilter() {
+      store.commit('deactivateColorFilter');
     }
   }
 }
