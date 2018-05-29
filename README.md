@@ -21,7 +21,12 @@ npm run serve
 
 ### Fetching Data
 
-Note that you will be prompted for an Europeana API key.
+#### Prerequisites
+
+ - An Europeana API key
+ - An billing enabled Google service account with Google Vision access enabled.
+
+Note that you will be prompted for your Europeana API key and the path to your Google service account file.
 
 ```bash
 cd data
