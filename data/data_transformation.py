@@ -2,6 +2,9 @@ from typing import Union
 from itertools import filterfalse
 import re
 
+def rgb2hex(r: float, g: float, b: float) -> str:
+    return '{0:02x}{1:02x}{2:02x}'.format(int(r), int(g), int(b))
+
 def get_license_from_uri(uri: str) -> Union[object, bool]:
     raise NotImplementedError
 

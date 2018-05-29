@@ -4,3 +4,5 @@ verify_ssl = true
 
 [packages]
 requests = "*"
+google-auth = "*"
+google-cloud-vision = "*"

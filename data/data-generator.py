@@ -4,8 +4,11 @@ import re
 from itertools import islice
 
 import requests
+from google.oauth2 import service_account
+from google.cloud import vision
 
 from europeana import Europeana
+from google_vision import GoogleVision
 import data_transformation as transformation
 
 class ItemStorage():
@@ -16,6 +19,11 @@ class ItemStorage():
 
 print('What\'s your Europeana API key?')
 search = Europeana(input())
+
+print('What\'s the absolute path to your Google service account file?')
+vision = GoogleVision(input())
+
+print('This might take a while...')
 
 unprocessed_items = list()
 for item in islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Byxor'), 60):
@@ -42,6 +50,7 @@ for item in unprocessed_items:
         output['dc_description'] = item.item['dcDescription'][0]
 
     output['application']['garment'] = item.type
+    output['application']['colors'] = vision.get_colors(output['edm_preview'])
 
     application_description = transformation.get_shortified_description(output['dc_description'])
     if application_description == '':
