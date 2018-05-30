@@ -40,7 +40,7 @@ export default {
           finalList = finalList.filter(item => store.state.garmentFilter.some(garment => item.application.garment.includes(garment)));
         }
 
-        if (store.state.colorFilter) {
+        if (store.state.colorFilterActive) {
           finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, store.state.colorFilter) : false)));
         }
 
