@@ -1,17 +1,16 @@
 <template>
   <div>
     <spinner v-if="loading" class="spinner" size="big" />
-    <isotope ref="cpt" v-if="list" v-bind:list="list" id="root_isotope" v-bind:options="option" v-images-loaded:on.progress="imageChange">
+    <div v-if="list" v-bind:list="list" id="root_isotope" class="wall" v-images-loaded:on.progress="imageChange">
       <div v-for="item in list" v-bind:key="item.europeana_record" class="image">
         <ObjectView v-bind:object="item"/>
       </div>
-    </isotope>
+    </div>
     <FilterMenu />
   </div>
 </template>
 
 <script>
-import isotope from 'vueisotope';
 import imagesLoaded from 'vue-images-loaded';
 import Spinner from 'vue-simple-spinner';
 
@@ -22,7 +21,6 @@ import { store } from "../main.js";
 export default {
   name: 'ImageWall',
   components: {
-    isotope,
     ObjectView,
     FilterMenu,
     Spinner,
@@ -75,9 +73,6 @@ export default {
   },
   methods: {
     imageChange(instance) {
-      // redraw the layout
-      this.$refs.cpt.layout('masonry');
-
       // handle image loading state
       if (instance.isComplete) {
         store.commit('notLoadingImages');
@@ -117,4 +112,12 @@ export default {
   top: 7px;
   z-index: 100;
 }
+
+.wall {
+  column-count: 4;
+  column-gap: 0;
+}
+
+
+
 </style>

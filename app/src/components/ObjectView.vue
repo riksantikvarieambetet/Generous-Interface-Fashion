@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="object">
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
     <div class="details" v-show="isShown">
         <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
@@ -32,6 +32,16 @@ export default {
 </script>
 
 <style scoped>
+.object {
+    display: inline-block;
+    width: 100%;
+}
+
+.object > img {
+    max-width: 100%;
+    vertical-align: bottom;
+}
+
 .details {
     position: fixed;
     width: 100vw;
