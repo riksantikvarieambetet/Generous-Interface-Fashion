@@ -26,6 +26,33 @@ export default {
   methods: {
     toggle() {
       this.isShown = !this.isShown;
+
+      // disable scroll if object is open
+      const keys = {37: 1, 38: 1, 39: 1, 40: 1};
+
+      function preventDefault(e) {
+        e = e || window.event;
+        if (e.preventDefault)
+            e.preventDefault();
+        e.returnValue = false;  
+      }
+
+      function preventDefaultForScrollKeys(e) {
+          if (keys[e.keyCode]) {
+              preventDefault(e);
+              return false;
+          }
+      }
+
+      if (this.isShown) {
+        window.onwheel = preventDefault;
+        window.ontouchmove  = preventDefault;
+        document.onkeydown  = preventDefaultForScrollKeys;
+      } else {
+        window.onwheel = null;
+        window.ontouchmove = null;
+        document.onkeydown = null;
+      }
     }
   }
 }
