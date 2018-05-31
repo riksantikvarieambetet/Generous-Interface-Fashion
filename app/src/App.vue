@@ -22,7 +22,7 @@ export default {
     },
 
     handleScroll: function() {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight) - 50) {
         if (!store.state.isLoadingImages) {
           store.commit('increaseVisibleLimit', 5);
         }
