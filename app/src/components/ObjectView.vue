@@ -91,6 +91,10 @@ export default {
     justify-content: center;
 }
 
+.details img {
+  max-height: calc(100vh - 200px);
+}
+
 button {
     border: none;
     margin: 0;
