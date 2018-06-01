@@ -7,12 +7,19 @@
         <a v-bind:href="object.edm_rights">License</a>
         <a v-bind:href="object.edm_is_shown_at">Source</a>
         <br>
-        <button v-on:click="toggle()">toggle object</button>
+        <button v-on:click="toggle()"><i class="fas fa-times"></i></button>
     </div>
   </div>
 </template>
 
 <script>
+import fontawesome from '@fortawesome/fontawesome';
+import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
+
+import { store } from '../main.js';
+
+fontawesome.library.add(faTimes);
+
 export default {
   name: 'ObjectView',
   props: {
@@ -65,7 +72,7 @@ export default {
 }
 
 .object > img {
-    max-width: 100%;
+    width: 100%;
     vertical-align: bottom;
 }
 
@@ -78,4 +85,19 @@ export default {
     z-index: 1;
     background: #9d5f5f;
 }
+
+button {
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
 </style>
