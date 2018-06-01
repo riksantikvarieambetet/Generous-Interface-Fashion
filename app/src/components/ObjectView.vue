@@ -45,7 +45,7 @@ export default {
 }
 
 .object > img {
-    max-width: 100%;
+    width: 100%;
     vertical-align: bottom;
 }
 
