@@ -119,15 +119,19 @@ export default {
     box-sizing: border-box;
 }
 
+.toogle-garmet-btns {
+  margin-bottom: 7px;
+}
+
 .toogle-garmet-btns div {
   display: inline-block;
-  background-color: red;
-  border: 2px solid blue;
+  background-color: #daefff;
+  border: 2px solid #a8a8a8;
   box-sizing: border-box;
 }
 
 .toogle-garmet-btns div[aria-pressed=true] {
   display: inline-block;
-  background-color: green;
+  background-color: #62bbff;
 }
 </style>
