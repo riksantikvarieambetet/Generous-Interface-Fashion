@@ -74,6 +74,7 @@ export default {
 .object > img {
     width: 100%;
     vertical-align: bottom;
+    cursor: pointer;
 }
 
 .details {
