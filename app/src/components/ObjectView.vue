@@ -84,7 +84,7 @@ export default {
     top: 0;
     left: 0;
     z-index: 1;
-    background: #9d5f5f;
+    background: #c6c2c2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,7 +92,7 @@ export default {
 }
 
 .details img {
-  max-height: calc(100vh - 200px);
+    max-height: calc(100vh - 200px);
 }
 
 button {
