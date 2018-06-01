@@ -85,6 +85,10 @@ export default {
     left: 0;
     z-index: 1;
     background: #9d5f5f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 button {
