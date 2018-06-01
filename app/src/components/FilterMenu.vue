@@ -115,6 +115,8 @@ export default {
     background: #fff;
     height: 200px;
     z-index: 2;
+    padding: 0 20px 0 20px;
+    box-sizing: border-box;
 }
 
 .toogle-garmet-btns div {
