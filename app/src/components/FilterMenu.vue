@@ -91,6 +91,7 @@ export default {
     padding-right: 35px;
     box-sizing: border-box;
     line-height: 50px;
+    cursor: pointer;
 }
 
 .minified.open {
