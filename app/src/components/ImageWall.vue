@@ -117,7 +117,4 @@ export default {
   column-count: 4;
   column-gap: 0;
 }
-
-
-
 </style>
