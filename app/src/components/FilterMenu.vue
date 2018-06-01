@@ -9,9 +9,12 @@
             <div v-on:click="toggleGarment($event, 'strumpor')" v-bind:style="{ width: strumporBtnWidth + '%' }" role="button" aria-pressed="false">Strumpor</div>
             <div v-on:click="toggleGarment($event, 'byxor')" v-bind:style="{ width: byxorBtnWidth + '%' }" role="button" aria-pressed="false">Byxor</div>
           </div>
-          
-          <input v-on:change="updateColorFilter($event)" type="color" />
-          <button v-if="colorFilterStatus" v-on:click="resetColorFilter()">Reset color</button>
+
+          <div id="color-wraper" v-bind:style="{background: '#' + activeColor }">
+            <i class="fas fa-eye-dropper"></i>
+            <input v-on:change="updateColorFilter($event)" type="color"/>
+          </div>
+          <button id="color-reset" v-if="colorFilterStatus" v-on:click="resetColorFilter()">Reset color</button>
       </div>
   </div>
 </template>
@@ -20,11 +23,13 @@
 import fontawesome from '@fortawesome/fontawesome';
 import faSlidersH from '@fortawesome/fontawesome-free-solid/faSlidersH';
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
+import faEyeDropper from '@fortawesome/fontawesome-free-solid/faEyeDropper';
 
 import { store } from '../main.js';
 
 fontawesome.library.add(faSlidersH);
 fontawesome.library.add(faTimes);
+fontawesome.library.add(faEyeDropper);
 
 export default {
   name: 'FilterMenu',
@@ -38,6 +43,9 @@ export default {
   computed: {
    colorFilterStatus() {
       return store.state.colorFilterActive;
+    },
+    activeColor() {
+      return store.state.colorFilter;
     }
   },
   methods: {
@@ -134,5 +142,37 @@ export default {
 .toogle-garmet-btns div[aria-pressed=true] {
   display: inline-block;
   background-color: #62bbff;
+}
+
+#color-wraper {
+  position: relative;
+  width: 50%;
+  border: 2px solid #a8a8a8;
+  box-sizing: border-box;
+  float: left;
+}
+
+#color-wraper svg {
+  position: absolute;
+  left: calc(50% - 8px);
+  top: 5px;
+}
+
+input[type=color] {
+  opacity: 0;
+  cursor: pointer;
+  width: 100%
+}
+
+#color-reset {
+    position: relative;
+    border: 2px solid #a8a8a8;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    width: 50%;
+    cursor: pointer;
+    float: left;
+    height: 29px;
 }
 </style>
