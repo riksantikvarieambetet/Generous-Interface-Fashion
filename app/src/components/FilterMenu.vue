@@ -128,6 +128,7 @@ export default {
   background-color: #daefff;
   border: 2px solid #a8a8a8;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .toogle-garmet-btns div[aria-pressed=true] {
