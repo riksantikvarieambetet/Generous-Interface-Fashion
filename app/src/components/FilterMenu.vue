@@ -1,8 +1,8 @@
 <template>
   <div class="root">
       <div v-on:click="toggle()" v-bind:class="{open: isShown}" class="minified">
-          <span v-if="isShown">close filter</span>
-          <span v-if="!isShown">open filter</span>
+          <i class="fas fa-times"></i>
+          <i class="fas fa-sliders-h"></i>
       </div>
       <div v-show="isShown" class="expanded">
           <div class="toogle-garmet-btns">
@@ -17,7 +17,14 @@
 </template>
 
 <script>
-import { store } from "../main.js";
+import fontawesome from '@fortawesome/fontawesome';
+import faSlidersH from '@fortawesome/fontawesome-free-solid/faSlidersH';
+import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
+
+import { store } from '../main.js';
+
+fontawesome.library.add(faSlidersH);
+fontawesome.library.add(faTimes);
 
 export default {
   name: 'FilterMenu',
@@ -80,10 +87,24 @@ export default {
     background: #fff;
     height: 50px;
     z-index: 2;
+    text-align: right;
+    padding-right: 35px;
+    box-sizing: border-box;
+    line-height: 50px;
 }
 
 .minified.open {
     bottom: 200px;
+}
+
+.minified .fa-times,
+.minified.open .fa-sliders-h {
+  display: none;
+}
+
+.minified .fa-sliders-h,
+.minified.open .fa-times {
+  display: inline-block;
 }
 
 .expanded {
