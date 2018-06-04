@@ -26,10 +26,23 @@ vision = GoogleVision(input())
 print('This might take a while...')
 
 unprocessed_items = list()
-for item in islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Byxor'), 60):
+
+for item in search.provider_subject_generator('Etnografiska museet', 'tröja'):
+    unprocessed_items.append(ItemStorage('tröjor', 'Etnografiska museet', item))
+
+for item in search.provider_subject_generator('Etnografiska museet', 'byxa'):
+    unprocessed_items.append(ItemStorage('byxor', 'Etnografiska museet', item))
+
+for item in search.provider_subject_generator('Etnografiska museet', 'strumpa'):
+    unprocessed_items.append(ItemStorage('strumpor', 'Etnografiska museet', item))
+
+for item in islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Byxor'), 100):
     unprocessed_items.append(ItemStorage('byxor', 'Stiftelsen Nordiska museet', item))
 
-for item in  islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Strumpor'), 95):
+for item in islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Tröjor'), 150):
+    unprocessed_items.append(ItemStorage('tröjor', 'Stiftelsen Nordiska museet', item))
+
+for item in  islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Strumpor'), 200):
     unprocessed_items.append(ItemStorage('strumpor', 'Stiftelsen Nordiska museet',item))
 
 result = list()
