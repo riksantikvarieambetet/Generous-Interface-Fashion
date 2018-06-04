@@ -15,10 +15,18 @@ export default {
   },
   methods: {
     fetchIntoState: function() {
+      function shuffle(a) {
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
       this.$http
         .get('data.json')
         .then(response => response.body)
-        .then(data =>  store.commit('addAllItems', data));
+        .then(data => store.commit('addAllItems', shuffle(data)));
     },
 
     handleScroll: function() {
