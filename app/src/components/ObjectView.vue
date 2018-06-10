@@ -32,16 +32,17 @@ export default {
   },
   methods: {
     toggle() {
+      console.log('hej');
       this.isShown = !this.isShown;
 
       // disable scroll if object is open
-      const keys = {37: 1, 38: 1, 39: 1, 40: 1};
+      const keys = { 37: 1, 38: 1, 39: 1, 40: 1 };
 
       function preventDefault(e) {
         e = e || window.event;
         if (e.preventDefault)
             e.preventDefault();
-        e.returnValue = false;  
+        e.returnValue = false;
       }
 
       function preventDefaultForScrollKeys(e) {

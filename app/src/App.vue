@@ -30,9 +30,9 @@ export default {
     },
 
     handleScroll: function() {
-      if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight) - 50) {
+      if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight) - 2000) { // #TODO figure out why this value needs to be so high
         if (!store.state.isLoadingImages) {
-          store.commit('increaseVisibleLimit', 5);
+          store.commit('increaseVisibleLimit', 15);
         }
       }
     }

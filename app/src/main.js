@@ -4,10 +4,12 @@ import App from './App.vue';
 import AsyncComputed from 'vue-async-computed';
 import VueResource from 'vue-resource';
 import Vuex from 'vuex';
+import VueMasonry from 'vue-masonry-css';
 
 Vue.use(AsyncComputed);
 Vue.use(VueResource);
 Vue.use(Vuex);
+Vue.use(VueMasonry);
 
 Vue.config.productionTip = false;
 
@@ -15,7 +17,7 @@ export const store = new Vuex.Store({
   state: {
     allItems: null,
 
-    visibleLimit: 15, // #TODO low change this in the future
+    visibleLimit: 30,
     garmentFilter: [],
 
     colorFilterActive: false,
@@ -33,7 +35,7 @@ export const store = new Vuex.Store({
     },
 
     resetVisibleLimit(state) {
-      state.visibleLimit = 15; // #TODO low change this in the future
+      state.visibleLimit = 30;
     },
 
     toggleGarment(state, garment) {

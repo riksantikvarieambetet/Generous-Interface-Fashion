@@ -1,11 +1,11 @@
 <template>
   <div>
     <spinner v-if="loading" class="spinner" size="big" />
-    <div v-if="list" v-bind:list="list" id="root_isotope" class="wall" v-images-loaded:on.progress="imageChange">
-      <div v-for="item in list" v-bind:key="item.europeana_record" class="image">
-        <ObjectView v-bind:object="item"/>
-      </div>
-    </div>
+      <masonry v-bind:cols="3" v-bind:gutter="0" v-images-loaded:on.progress="imageChange">
+        <div v-for="item in list" v-bind:key="item.europeana_record" class="image" v-if="list">
+          <ObjectView v-bind:object="item"/>
+        </div>
+      </masonry>
     <FilterMenu />
   </div>
 </template>
@@ -68,7 +68,7 @@ export default {
         },
         sortBy: 'id'
       },
-      latestVisibleLimit: 15,
+      latestVisibleLimit: 30,
     }
   },
   methods: {
@@ -111,10 +111,5 @@ export default {
   right: 7px;
   top: 7px;
   z-index: 100;
-}
-
-.wall {
-  column-count: 4;
-  column-gap: 0;
 }
 </style>
