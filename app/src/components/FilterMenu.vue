@@ -52,19 +52,6 @@ export default {
   },
   methods: {
     toggle() {
-      // calculate btn widths
-      const whole = store.state.allItems.length;
-      const strumporCount = store.state.allItems.filter(item => item.application.garment.includes('strumpor')).length;
-      const byxorCount = store.state.allItems.filter(item => item.application.garment.includes('byxor')).length;
-      const trojorCount = store.state.allItems.filter(item => item.application.garment.includes('tröjor')).length;
-      const strumporWidth = strumporCount / whole * 100;
-      const byxorWidth = byxorCount / whole * 100;
-      const trojorWidth = trojorCount / whole * 100;
-
-      this.strumporBtnWidth = strumporWidth;
-      this.byxorBtnWidth = byxorWidth;
-      this.trojorBtnWidth = trojorWidth;
-
       this.isShown = !this.isShown;
     },
 
@@ -85,6 +72,20 @@ export default {
     resetColorFilter() {
       store.commit('deactivateColorFilter');
     }
+  },
+  created: function() {
+    // calculate btn widths
+    const whole = store.state.allItems.length;
+    const strumporCount = store.state.allItems.filter(item => item.application.garment.includes('strumpor')).length;
+    const byxorCount = store.state.allItems.filter(item => item.application.garment.includes('byxor')).length;
+    const trojorCount = store.state.allItems.filter(item => item.application.garment.includes('tröjor')).length;
+    const strumporWidth = strumporCount / whole * 100;
+    const byxorWidth = byxorCount / whole * 100;
+    const trojorWidth = trojorCount / whole * 100;
+
+    this.strumporBtnWidth = strumporWidth;
+    this.byxorBtnWidth = byxorWidth;
+    this.trojorBtnWidth = trojorWidth;
   }
 }
 </script>

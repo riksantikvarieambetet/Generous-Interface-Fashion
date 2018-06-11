@@ -6,7 +6,7 @@
           <ObjectView v-bind:object="item"/>
         </div>
       </masonry>
-    <FilterMenu />
+    <FilterMenu v-if="allItems.length > 0" />
   </div>
 </template>
 
@@ -56,7 +56,10 @@ export default {
     },
     loading() {
       return store.state.isLoadingImages;
-    }
+    },
+    allItems() {
+      return store.state.allItems;
+    },
   },
   data() {
     return {
