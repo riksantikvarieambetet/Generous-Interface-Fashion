@@ -8,6 +8,7 @@
           <div class="toogle-garmet-btns">
             <div v-on:click="toggleGarment($event, 'strumpor')" v-bind:style="{ width: strumporBtnWidth + '%' }" role="button" aria-pressed="false">Strumpor</div>
             <div v-on:click="toggleGarment($event, 'byxor')" v-bind:style="{ width: byxorBtnWidth + '%' }" role="button" aria-pressed="false">Byxor</div>
+            <div v-on:click="toggleGarment($event, 'tröjor')" v-bind:style="{ width: trojorBtnWidth + '%' }" role="button" aria-pressed="false">Tröjor</div>
           </div>
 
           <div id="color-wraper" v-bind:style="{background: '#' + activeColor }">
@@ -38,6 +39,7 @@ export default {
       isShown: false,
       strumporBtnWidth: 40,
       byxorBtnWidth: 40,
+      trojorBtnWidth: 40,
     }
   },
   computed: {
@@ -54,11 +56,14 @@ export default {
       const whole = store.state.allItems.length;
       const strumporCount = store.state.allItems.filter(item => item.application.garment.includes('strumpor')).length;
       const byxorCount = store.state.allItems.filter(item => item.application.garment.includes('byxor')).length;
+      const trojorCount = store.state.allItems.filter(item => item.application.garment.includes('tröjor')).length;
       const strumporWidth = strumporCount / whole * 100;
       const byxorWidth = byxorCount / whole * 100;
+      const trojorWidth = trojorCount / whole * 100;
 
       this.strumporBtnWidth = strumporWidth;
       this.byxorBtnWidth = byxorWidth;
+      this.trojorBtnWidth = trojorWidth;
 
       this.isShown = !this.isShown;
     },
