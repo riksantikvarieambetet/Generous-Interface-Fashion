@@ -11,7 +11,7 @@
             <div v-on:click="toggleGarment($event, 'tröjor')" v-bind:style="{ width: trojorBtnWidth + '%' }" role="button" aria-pressed="false">Tröjor</div>
           </div>
 
-          <div id="color-wraper" v-bind:style="{background: '#' + activeColor }">
+          <div id="color-wrapper" v-bind:style="{background: '#' + activeColor }">
             <i class="fas fa-eye-dropper"></i>
             <input v-on:change="updateColorFilter($event)" type="color"/>
           </div>
@@ -149,7 +149,7 @@ export default {
   background-color: #62bbff;
 }
 
-#color-wraper {
+#color-wrapper {
   position: relative;
   width: 50%;
   border: 2px solid #a8a8a8;
@@ -157,7 +157,7 @@ export default {
   float: left;
 }
 
-#color-wraper svg {
+#color-wrapper svg {
   position: absolute;
   left: calc(50% - 8px);
   top: 5px;
