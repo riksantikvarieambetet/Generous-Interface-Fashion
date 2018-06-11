@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import App from './App.vue';
+import App from './App';
 
 import AsyncComputed from 'vue-async-computed';
 import VueResource from 'vue-resource';

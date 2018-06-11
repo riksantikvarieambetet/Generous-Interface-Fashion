@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import ImageWall from './components/ImageWall.vue';
+import ImageWall from './components/ImageWall';
 import { store } from './main.js';
 
 export default {
@@ -51,14 +51,14 @@ export default {
 
 <style>
 body {
-  margin: 0;
+    margin: 0;
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
 }
 </style>

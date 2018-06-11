@@ -31,7 +31,6 @@ export default {
   computed: {
     list() {
       let finalList = store.state.allItems;
-      console.log('debug: executing filtering');
       if (finalList) {
         // garment filter
         if (store.state.garmentFilter.length > 0) {
@@ -44,7 +43,6 @@ export default {
 
         // handle reseting of visibleLimit on filter change
         if (store.state.visibleLimit === this.visibleLimit) {
-          console.log('debug: reseting visibleLimit');
           store.commit('resetVisibleLimit');
           window.scrollTo(0, 0);
         } else {
@@ -107,9 +105,9 @@ export default {
 
 <style scoped>
 .spinner {
-  position: fixed;
-  right: 7px;
-  top: 7px;
-  z-index: 100;
+    position: fixed;
+    right: 7px;
+    top: 7px;
+    z-index: 100;
 }
 </style>

@@ -1,21 +1,21 @@
 <template>
   <div class="root">
-      <div v-on:click="toggle()" v-bind:class="{open: isShown}" class="minified">
-          <i class="fas fa-times"></i>
-          <i class="fas fa-sliders-h"></i>
+    <div v-on:click="toggle()" v-bind:class="{open: isShown}" class="minified">
+      <i class="fas fa-times"></i>
+      <i class="fas fa-sliders-h"></i>
+    </div>
+    <div v-show="isShown" class="expanded">
+      <div class="toogle-garmet-btns">
+        <div v-on:click="toggleGarment($event, 'strumpor')" v-bind:style="{ width: strumporBtnWidth + '%' }" role="button" aria-pressed="false">Strumpor</div>
+        <div v-on:click="toggleGarment($event, 'byxor')" v-bind:style="{ width: byxorBtnWidth + '%' }" role="button" aria-pressed="false">Byxor</div>
       </div>
-      <div v-show="isShown" class="expanded">
-          <div class="toogle-garmet-btns">
-            <div v-on:click="toggleGarment($event, 'strumpor')" v-bind:style="{ width: strumporBtnWidth + '%' }" role="button" aria-pressed="false">Strumpor</div>
-            <div v-on:click="toggleGarment($event, 'byxor')" v-bind:style="{ width: byxorBtnWidth + '%' }" role="button" aria-pressed="false">Byxor</div>
-          </div>
 
-          <div id="color-wraper" v-bind:style="{background: '#' + activeColor }">
-            <i class="fas fa-eye-dropper"></i>
-            <input v-on:change="updateColorFilter($event)" type="color"/>
-          </div>
-          <button id="color-reset" v-if="colorFilterStatus" v-on:click="resetColorFilter()">Reset color</button>
+      <div id="color-wraper" v-bind:style="{background: '#' + activeColor }">
+        <i class="fas fa-eye-dropper"></i>
+        <input v-on:change="updateColorFilter($event)" type="color"/>
       </div>
+      <button id="color-reset" v-if="colorFilterStatus" v-on:click="resetColorFilter()">Reset color</button>
+    </div>
   </div>
 </template>
 
@@ -64,12 +64,9 @@ export default {
     },
 
     toggleGarment(e, garment) {
-      console.log(garment)
       if (e.target.getAttribute('aria-pressed') === 'false') {
-        console.log(true)
         e.target.setAttribute('aria-pressed', 'true');
       } else {
-        console.log(false)
         e.target.setAttribute('aria-pressed', 'false');
       }
       store.commit('toggleGarment', garment);
@@ -108,12 +105,12 @@ export default {
 
 .minified .fa-times,
 .minified.open .fa-sliders-h {
-  display: none;
+     display: none;
 }
 
 .minified .fa-sliders-h,
 .minified.open .fa-times {
-  display: inline-block;
+    display: inline-block;
 }
 
 .expanded {
@@ -128,40 +125,40 @@ export default {
 }
 
 .toogle-garmet-btns {
-  margin-bottom: 7px;
+    margin-bottom: 7px;
 }
 
 .toogle-garmet-btns div {
-  display: inline-block;
-  background-color: #daefff;
-  border: 2px solid #a8a8a8;
-  box-sizing: border-box;
-  cursor: pointer;
+    display: inline-block;
+    background-color: #daefff;
+    border: 2px solid #a8a8a8;
+    box-sizing: border-box;
+    cursor: pointer;
 }
 
 .toogle-garmet-btns div[aria-pressed=true] {
-  display: inline-block;
-  background-color: #62bbff;
+    display: inline-block;
+    background-color: #62bbff;
 }
 
 #color-wraper {
-  position: relative;
-  width: 50%;
-  border: 2px solid #a8a8a8;
-  box-sizing: border-box;
-  float: left;
+    position: relative;
+    width: 50%;
+    border: 2px solid #a8a8a8;
+    box-sizing: border-box;
+    float: left;
 }
 
 #color-wraper svg {
-  position: absolute;
-  left: calc(50% - 8px);
-  top: 5px;
+    position: absolute;
+    left: calc(50% - 8px);
+    top: 5px;
 }
 
 input[type=color] {
-  opacity: 0;
-  cursor: pointer;
-  width: 100%
+    opacity: 0;
+    cursor: pointer;
+    width: 100%
 }
 
 #color-reset {

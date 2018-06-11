@@ -2,12 +2,12 @@
   <div class="object">
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
     <div class="details" v-show="isShown">
-        <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
-        <p>{{ object.application.description }}</p>
-        <a v-bind:href="object.edm_rights">License</a>
-        <a v-bind:href="object.edm_is_shown_at">Source</a>
-        <br>
-        <button v-on:click="toggle()"><i class="fas fa-times"></i></button>
+      <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
+      <p>{{ object.application.description }}</p>
+      <a v-bind:href="object.edm_rights">License</a>
+      <a v-bind:href="object.edm_is_shown_at">Source</a>
+      <br>
+      <button v-on:click="toggle()"><i class="fas fa-times"></i></button>
     </div>
   </div>
 </template>
@@ -32,7 +32,6 @@ export default {
   },
   methods: {
     toggle() {
-      console.log('hej');
       this.isShown = !this.isShown;
 
       // disable scroll if object is open
@@ -41,15 +40,15 @@ export default {
       function preventDefault(e) {
         e = e || window.event;
         if (e.preventDefault)
-            e.preventDefault();
+          e.preventDefault();
         e.returnValue = false;
       }
 
       function preventDefaultForScrollKeys(e) {
-          if (keys[e.keyCode]) {
-              preventDefault(e);
-              return false;
-          }
+        if (keys[e.keyCode]) {
+          preventDefault(e);
+          return false;
+        }
       }
 
       if (this.isShown) {
