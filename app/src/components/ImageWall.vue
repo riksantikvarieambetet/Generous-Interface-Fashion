@@ -51,6 +51,7 @@ export default {
           this.visibleLimit = store.state.visibleLimit;
         }
 
+        store.commit('addActiveItems', finalList);
         return finalList.slice(0, store.state.visibleLimit);
       } else {
         return null;

@@ -13,7 +13,8 @@ Vue.config.productionTip = false;
 
 export const store = new Vuex.Store({
   state: {
-    allItems: null,
+    allItems: [],
+    activeItems: [],
 
     visibleLimit: 15, // #TODO low change this in the future
     garmentFilter: [],
@@ -26,6 +27,10 @@ export const store = new Vuex.Store({
   mutations: {
     addAllItems(state, items) {
       state.allItems = items;
+    },
+
+    addActiveItems(state, items) {
+      state.activeItems = items;
     },
 
     increaseVisibleLimit(state, increase) {

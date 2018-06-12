@@ -1,6 +1,7 @@
 <template>
   <div class="root">
-      <div v-on:click="toggle()" v-bind:class="{open: isShown}" class="minified">
+      <div v-on:click="toggle()" v-bind:class="{ open: isShown }" class="minified">
+          <span>{{ nActiveitems }}</span>
           <i class="fas fa-times"></i>
           <i class="fas fa-sliders-h"></i>
       </div>
@@ -48,6 +49,9 @@ export default {
     },
     activeColor() {
       return store.state.colorFilter;
+    },
+    nActiveitems() {
+      return store.state.activeItems.length;
     }
   },
   methods: {
@@ -119,6 +123,11 @@ export default {
 .minified .fa-sliders-h,
 .minified.open .fa-times {
   display: inline-block;
+}
+
+.minified span {
+  float: left;
+  padding-left: 10px;
 }
 
 .expanded {
