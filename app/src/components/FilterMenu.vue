@@ -98,8 +98,6 @@ export default {
 
 <style scoped>
 .minified {
-    position: fixed;
-    bottom: 0;
     width: 100vw;
     background: #fff;
     height: 50px;
@@ -109,6 +107,8 @@ export default {
     box-sizing: border-box;
     line-height: 50px;
     cursor: pointer;
+    position: fixed;
+    top: 0;
 }
 
 .minified.open {

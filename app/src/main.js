@@ -16,7 +16,7 @@ export const store = new Vuex.Store({
     allItems: [],
     activeItems: [],
 
-    visibleLimit: 15, // #TODO low change this in the future
+    visibleLimit: 30, // #TODO low change this in the future
     garmentFilter: [],
 
     colorFilterActive: false,
@@ -38,7 +38,7 @@ export const store = new Vuex.Store({
     },
 
     resetVisibleLimit(state) {
-      state.visibleLimit = 15; // #TODO low change this in the future
+      state.visibleLimit = 30; // #TODO low change this in the future
     },
 
     toggleGarment(state, garment) {

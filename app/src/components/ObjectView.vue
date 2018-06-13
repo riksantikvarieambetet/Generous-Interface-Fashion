@@ -67,14 +67,15 @@ export default {
 
 <style scoped>
 .object {
-    display: inline-block;
-    width: 100%;
+    float: left;
 }
 
 .object > img {
-    width: 100%;
     vertical-align: bottom;
     cursor: pointer;
+    object-fit: cover;
+    width: 20vw;
+    height: 20vw;
 }
 
 .details {

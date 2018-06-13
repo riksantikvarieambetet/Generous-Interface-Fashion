@@ -1,12 +1,12 @@
 <template>
   <div>
     <spinner v-if="loading" class="spinner" size="big" />
+    <FilterMenu />
     <div v-if="list" v-bind:list="list" id="root_isotope" class="wall" v-images-loaded:on.progress="imageChange">
       <div v-for="item in list" v-bind:key="item.europeana_record" class="image">
         <ObjectView v-bind:object="item"/>
       </div>
     </div>
-    <FilterMenu />
   </div>
 </template>
 
@@ -108,14 +108,13 @@ export default {
 
 <style scoped>
 .spinner {
-  position: fixed;
-  right: 7px;
-  top: 7px;
-  z-index: 100;
+    position: fixed;
+    right: 7px;
+    top: 7px;
+    z-index: 100;
 }
 
 .wall {
-  column-count: 4;
-  column-gap: 0;
+    margin-top: 50px;
 }
 </style>

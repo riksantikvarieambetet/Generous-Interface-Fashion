@@ -30,9 +30,9 @@ export default {
     },
 
     handleScroll: function() {
-      if ((window.innerHeight + window.scrollY) >= (document.body.offsetHeight) - 50) {
+      if ((window.innerHeight + window.scrollY) >= (document.querySelector('html').offsetHeight) - 50) {
         if (!store.state.isLoadingImages) {
-          store.commit('increaseVisibleLimit', 5);
+          store.commit('increaseVisibleLimit', 10);
         }
       }
     }
@@ -50,6 +50,10 @@ export default {
 </script>
 
 <style>
+html {
+  position: relative;
+}
+
 body {
   margin: 0;
 }
