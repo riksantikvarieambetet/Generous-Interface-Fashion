@@ -20,7 +20,7 @@ class GoogleVision:
 
             c = {}
             c['score'] = rank.score
-            color = Color(rank.color.red, rank.color.green, rank.color.blue)
+            color = Color(rgb=((rank.color.red / 255), (rank.color.green / 255), (rank.color.blue / 255)))
             c['hsl'] = color.hsl
 
             colors.append(c)
