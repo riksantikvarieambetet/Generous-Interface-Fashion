@@ -5,7 +5,7 @@
         <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
         <p>{{ object.application.description }}</p>
         <LicenseBtn v-bind:uri="object.edm_rights" />
-        <a v-bind:href="object.edm_is_shown_at">Source</a>
+        <a v-bind:href="object.edm_is_shown_at">{{ object.edm_data_provider }}</a>
         <br>
         <button v-on:click="toggle()"><i class="fas fa-times"></i></button>
     </div>
