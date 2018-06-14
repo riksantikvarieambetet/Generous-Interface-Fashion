@@ -2,10 +2,10 @@
   <div>
     <div class="menu">
       <span>{{ nActiveitems }}</span>
-      <div v-on:click="toggleColorFilter" v-bind:style="{ background: '#' + activeColor }" class="color-btn"></div>
+      <div v-on:click="toggleColorFilter" v-bind:style="{ background: activeColor }" class="color-btn"></div>
     </div>
     <FilterContainer v-show="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
-      <div id="color-wrapper" v-bind:style="{ background: '#' + activeColor }">
+      <div id="color-wrapper" v-bind:style="{ background: activeColor }">
         <input v-on:change="updateColorFilter($event)" type="color"/>
       </div>
       <button id="color-reset" v-if="colorFilterStatus" v-on:click="resetColorFilter()">Reset color</button>
@@ -46,7 +46,7 @@ export default {
 
     updateColorFilter(e) {
       store.commit('activateColorFilter');
-      store.commit('setColorFilter', e.target.value.substring(1));
+      store.commit('setColorFilter', e.target.value);
     },
 
     resetColorFilter() {
