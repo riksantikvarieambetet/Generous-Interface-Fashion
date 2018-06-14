@@ -1,7 +1,7 @@
 from google.oauth2 import service_account
 from google.cloud import vision
 
-from data_transformation import rgb2hex
+from colour import Color
 
 class GoogleVision:
     def __init__(self, service_account_file):
@@ -20,7 +20,8 @@ class GoogleVision:
 
             c = {}
             c['score'] = rank.score
-            c['hex'] = rgb2hex(rank.color.red, rank.color.green, rank.color.blue)
+            color = Color(rank.color.red, rank.color.green, rank.color.blue)
+            c['hsl'] = color.hsl
 
             colors.append(c)
 
