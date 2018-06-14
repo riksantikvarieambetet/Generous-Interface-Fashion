@@ -104,7 +104,7 @@ button {
     overflow: visible;
     background: transparent;
     position: fixed;
-    top: 10px;
+    top: 60px;
     left: 10px;
     cursor: pointer;
     font-size: 20px;
