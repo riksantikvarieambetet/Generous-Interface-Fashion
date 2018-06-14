@@ -33,10 +33,6 @@ export default {
       let finalList = store.state.allItems;
       console.log('debug: executing filtering');
       if (finalList) {
-        // garment filter
-        if (store.state.garmentFilter.length > 0) {
-          finalList = finalList.filter(item => store.state.garmentFilter.some(garment => item.application.garment.includes(garment)));
-        }
 
         if (store.state.colorFilterActive) {
           finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, store.state.colorFilter) : false)));
