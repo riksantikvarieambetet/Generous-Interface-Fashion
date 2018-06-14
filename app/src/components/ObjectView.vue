@@ -4,7 +4,7 @@
     <div class="details" v-show="isShown">
         <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
         <p>{{ object.application.description }}</p>
-        <a v-bind:href="object.edm_rights">License</a>
+        <LicenseBtn v-bind:uri="object.edm_rights" />
         <a v-bind:href="object.edm_is_shown_at">Source</a>
         <br>
         <button v-on:click="toggle()"><i class="fas fa-times"></i></button>
@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import LicenseBtn from './LicenseBtn';
 import fontawesome from '@fortawesome/fontawesome';
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 
@@ -22,6 +23,9 @@ fontawesome.library.add(faTimes);
 
 export default {
   name: 'ObjectView',
+  components: {
+    LicenseBtn,
+  },
   props: {
     object: false
   },
