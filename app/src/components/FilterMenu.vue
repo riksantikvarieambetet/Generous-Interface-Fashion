@@ -4,7 +4,7 @@
       <span>{{ nActiveitems }}</span>
       <div v-on:click="toggleColorFilter" v-bind:style="{ background: '#' + activeColor }" class="color-btn"></div>
     </div>
-    <FilterContainer v-show="colorFilterOpen">
+    <FilterContainer v-show="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
       <div id="color-wrapper" v-bind:style="{ background: '#' + activeColor }">
         <input v-on:change="updateColorFilter($event)" type="color"/>
       </div>

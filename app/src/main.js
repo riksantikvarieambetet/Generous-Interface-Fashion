@@ -4,7 +4,9 @@ import App from './App.vue';
 import AsyncComputed from 'vue-async-computed';
 import VueResource from 'vue-resource';
 import Vuex from 'vuex';
+import { VueHammer } from 'vue2-hammer';
 
+Vue.use(VueHammer);
 Vue.use(AsyncComputed);
 Vue.use(VueResource);
 Vue.use(Vuex);
