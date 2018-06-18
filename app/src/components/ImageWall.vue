@@ -59,12 +59,6 @@ export default {
   },
   data() {
     return {
-      option: {
-        getSortData: {
-          id: 'id'
-        },
-        sortBy: 'id'
-      },
       latestVisibleLimit: 15,
     }
   },
