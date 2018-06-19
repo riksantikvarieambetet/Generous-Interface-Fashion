@@ -59,7 +59,7 @@ export default {
   },
   data() {
     return {
-      latestVisibleLimit: 15,
+      latestVisibleLimit: 30,
     }
   },
   methods: {
