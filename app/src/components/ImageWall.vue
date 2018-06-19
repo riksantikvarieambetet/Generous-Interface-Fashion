@@ -38,10 +38,12 @@ export default {
           finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hsl, store.state.colorFilterDynamic) : false)));
           // #TODO dynamic color count would go here
           // #TODO how would calculation be done here?
-          console.log(store.state.colorFilter.value)
-          if (store.state.colorFilter.value) {
-            finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? store.state.colorFilter.some(stateColor => this.isSimilarColor(color.hsl, stateColor)) : false)));
-          }
+
+            let extendedList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? store.state.colorFilter.some(stateColor => this.isSimilarColor(color.hsl, stateColor)) : false)));
+
+            if (extendedList.length) {
+              finalList = extendedList;
+            }
         }
 
         // handle reseting of visibleLimit on filter change
