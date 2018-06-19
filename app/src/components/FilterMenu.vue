@@ -6,7 +6,7 @@
     </div>
     <FilterContainer v-show="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
       <Chrome v-bind:value="currentColor" v-on:input="updateColorFilterDynamic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
-      <button>Lock color</button>
+      <button v-on:click="lockColor">Lock color</button>
       <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
     </FilterContainer>
   </div>
@@ -44,6 +44,10 @@ export default {
       store.commit('activateColorFilter');
       store.commit('updateDynamicColor', value.hex);
       this.currentColor = value.hex;
+    },
+
+    lockColor(value) {
+      store.commit('addColorFilter', this.currentColor);
     },
 
     resetColorFilter() {
