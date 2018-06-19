@@ -102,14 +102,21 @@ export default {
       const itemHue = itemHSL[0];
       const filterHue = filterHSL[0];
 
-      const itemLight = itemHSL[2];
-      const filterLight = filterHSL[2];
+      const itemLight = itemHSL[1];
+      const filterLight = filterHSL[1];
+
+      const itemSaturation = itemHSL[2];
+      const filterSaturation = filterHSL[2];
 
       if (Math.abs(itemHue - filterHue) > 0.1) {
         return false;
       }
 
       if (Math.abs(itemLight - filterLight) > 0.1) {
+        return false;
+      }
+
+      if (Math.abs(itemSaturation - filterSaturation) > 0.8) {
         return false;
       }
 
