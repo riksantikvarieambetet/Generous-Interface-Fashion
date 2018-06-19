@@ -8,7 +8,7 @@
       <Chrome v-bind:value="currentColor" v-on:input="updateColorFilterDynamic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
       <button v-on:click="lockColor">Lock color</button>
       <div v-for="color in staticColors" v-bind:key="color">
-        <div v-bind:style="{ background: color }" class="color"></div>
+        <div v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
       </div>
       <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
     </FilterContainer>
@@ -61,6 +61,10 @@ export default {
       store.commit('deactivateColorFilter');
       this.colorFilterOpen = false;
       this.currentColor = '#000000';
+    },
+
+    removeColor(value) {
+      store.commit('removeColorFilter', [value]);
     },
   }
 }
@@ -126,5 +130,19 @@ button {
     float: left;
     margin-left: 5px;
     margin-bottom: 5px;
+    position: relative;
+}
+
+.color span {
+    height: 20px;
+    width: 20px;
+    background: #000;
+    color: #fff;
+    position: absolute;
+    left: -6px;
+    top: -6px;
+    border-radius: 100%;
+    line-height: 19px;
+    cursor: pointer;
 }
 </style>
