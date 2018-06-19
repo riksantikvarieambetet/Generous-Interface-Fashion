@@ -7,6 +7,9 @@
     <FilterContainer v-show="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
       <Chrome v-bind:value="currentColor" v-on:input="updateColorFilterDynamic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
       <button v-on:click="lockColor">Lock color</button>
+      <div v-for="color in staticColors" v-bind:key="color">
+        <div v-bind:style="{ background: color }" class="color"></div>
+      </div>
       <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
     </FilterContainer>
   </div>
@@ -33,6 +36,10 @@ export default {
   computed: {
     nActiveitems() {
       return store.state.activeItems.length;
+    },
+
+    staticColors() {
+      return store.state.colorFilter;
     },
   },
   methods: {
@@ -110,5 +117,14 @@ button {
 
 .red-btn {
     background-color: #f44336;
+}
+
+.color {
+    width: calc(33% - 6px);
+    height: 70px;
+    margin-top: 5px;
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
 }
 </style>
