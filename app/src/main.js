@@ -63,7 +63,7 @@ export const store = new Vuex.Store({
     },
 
     updateDynamicColor: (state, color) => state.colorFilterDynamic = color,
-    addColorFilter: (state, color) => state.colorFilter.push(color),
+    addColorFilter: (state, color) => !state.colorFilter.includes(color) && state.colorFilter.push(color),
     removeColorFilter: (state, colors) => state.colorFilter = state.colorFilter.filter(item => !colors.includes(item)),
   }
 });
