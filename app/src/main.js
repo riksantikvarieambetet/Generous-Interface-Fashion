@@ -18,11 +18,12 @@ export const store = new Vuex.Store({
     allItems: [],
     activeItems: [],
 
-    visibleLimit: 30, // #TODO low change this in the future
+    visibleLimit: 30,
     garmentFilter: [],
 
     colorFilterActive: false,
-    colorFilter: false,
+    colorFilter: [],
+    colorFilterDynamic: '#000000',
 
     isLoadingImages: false,
   },
@@ -40,7 +41,7 @@ export const store = new Vuex.Store({
     },
 
     resetVisibleLimit(state) {
-      state.visibleLimit = 30; // #TODO low change this in the future
+      state.visibleLimit = 30;
     },
 
     toggleGarment(state, garment) {
@@ -56,9 +57,14 @@ export const store = new Vuex.Store({
     notLoadingImages: state => state.isLoadingImages = false,
 
     activateColorFilter: state => state.colorFilterActive = true,
-    deactivateColorFilter: state => state.colorFilterActive = false,
+    deactivateColorFilter: state => {
+      state.colorFilterActive = false;
+      state.colorFilter = [];
+    },
 
-    setColorFilter: (state, color) => state.colorFilter = color,
+    updateDynamicColor: (state, color) => state.colorFilterDynamic = color,
+    addColorFilter: (state, color) => state.colorFilter.push(color),
+    removeColorFilter: (state, colors) => state.colorFilter = state.colorFilter.filter(item => !colors.includes(item)),
   }
 });
 

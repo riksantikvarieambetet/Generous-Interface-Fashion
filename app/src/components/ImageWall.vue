@@ -35,7 +35,7 @@ export default {
       if (finalList) {
 
         if (store.state.colorFilterActive) {
-          finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hsl, store.state.colorFilter) : false)));
+          finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hsl, store.state.colorFilterDynamic) : false)));
         }
 
         // handle reseting of visibleLimit on filter change
