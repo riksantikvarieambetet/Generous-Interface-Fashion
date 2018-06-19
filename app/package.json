@@ -12,6 +12,7 @@
     "@fortawesome/fontawesome-free-solid": "^5.0.13",
     "vue": "^2.5.16",
     "vue-async-computed": "^3.3.1",
+    "vue-color": "^2.4.6",
     "vue-images-loaded": "^1.1.2",
     "vue-resource": "^1.5.0",
     "vue-simple-spinner": "^1.2.8",

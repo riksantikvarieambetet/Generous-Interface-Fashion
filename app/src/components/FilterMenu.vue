@@ -2,19 +2,19 @@
   <div>
     <div class="menu">
       <span>{{ nActiveitems }}</span>
-      <div v-on:click="toggleColorFilter" v-bind:style="{ background: activeColor }" class="color-btn"></div>
+      <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn"></div>
     </div>
     <FilterContainer v-show="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
-      <div id="color-wrapper" v-bind:style="{ background: activeColor }">
-        <input v-on:change="updateColorFilter($event)" type="color"/>
-      </div>
-      <button id="color-reset" v-if="colorFilterStatus" v-on:click="resetColorFilter()">Reset color</button>
+      <Chrome v-bind:value="currentColor" v-on:input="updateColorFilter" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
+      <button>Lock color</button>
+      <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
     </FilterContainer>
   </div>
 </template>
 
 <script>
 import FilterContainer from './FilterContainer';
+import { Chrome } from 'vue-color';
 
 import { store } from '../main.js';
 
@@ -23,35 +23,37 @@ export default {
   data() {
     return {
       colorFilterOpen: false,
+      currentColor: '#000000',
     };
   },
   components: {
     FilterContainer,
+    Chrome,
   },
   computed: {
    colorFilterStatus() {
       return store.state.colorFilterActive;
     },
-    activeColor() {
-      return store.state.colorFilter;
-    },
     nActiveitems() {
       return store.state.activeItems.length;
-    }
+    },
   },
   methods: {
     toggleColorFilter() {
       this.colorFilterOpen = !this.colorFilterOpen;
     },
 
-    updateColorFilter(e) {
+    updateColorFilter(value) {
       store.commit('activateColorFilter');
-      store.commit('setColorFilter', e.target.value);
+      store.commit('setColorFilter', value.hex);
+      this.currentColor = value.hex;
     },
 
     resetColorFilter() {
       store.commit('deactivateColorFilter');
-    }
+      this.colorFilterOpen = false;
+      this.currentColor = '#000000';
+    },
   }
 }
 </script>
@@ -71,8 +73,8 @@ export default {
 }
 
 .menu span {
-  float: left;
-  padding-left: 7px;
+    float: left;
+    padding-left: 7px;
 }
 
 .color-btn {
@@ -83,5 +85,29 @@ export default {
     background: #333;
     cursor: pointer;
     border-radius: 100%;
+}
+
+.color-picker {
+  width: 100%;
+  box-shadow: unset;
+}
+
+button {
+    border-radius: 4px;
+    background-color: #008cff;
+    border: none;
+    padding: 15px;
+    transition: all 0.5s;
+    text-align: center;
+    cursor: pointer;
+    font-size: 17px;
+    margin-top: 5px;
+    display: block;
+    width: 100%;
+    color: #fff;
+}
+
+.red-btn {
+    background-color: #f44336;
 }
 </style>
