@@ -24,6 +24,7 @@ export const store = new Vuex.Store({
     colorFilterActive: false,
     colorFilter: [],
     colorFilterDynamic: '#000000',
+    colorCount: [],
 
     isLoadingImages: false,
   },
@@ -65,7 +66,21 @@ export const store = new Vuex.Store({
     updateDynamicColor: (state, color) => state.colorFilterDynamic = color,
     addColorFilter: (state, color) => !state.colorFilter.includes(color) && state.colorFilter.push(color),
     removeColorFilter: (state, colors) => state.colorFilter = state.colorFilter.filter(item => !colors.includes(item)),
-  }
+
+    colorCountClear: (state) => state.colorCount = [],
+    colorCountAdd: (state, values) => state.colorCount.push(values),
+  },
+  getters: {
+    getColorDegrees: state => {
+      let whole = 0;
+      state.colorCount.forEach(color => whole += color[0]);
+
+      return state.colorCount.map(color => {
+        color[0] = color[0] / whole * 360;
+        return color;
+      });
+    }
+  },
 });
 
 new Vue({

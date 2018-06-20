@@ -33,14 +33,18 @@ export default {
       let finalList = store.state.allItems;
       console.log('debug: executing filtering');
       if (finalList) {
+        store.commit('colorCountClear');
 
         if (store.state.colorFilterActive) {
           finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hsl, store.state.colorFilterDynamic) : false)));
-          // #TODO dynamic color count would go here
-          // #TODO how would calculation be done here?
+
+          store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
 
           store.state.colorFilter.forEach(stateColor => {
-            finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ?  this.isSimilarColor(color.hsl, stateColor) : false)));
+            if (stateColor !== store.state.colorFilterDynamic) {
+              finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ?  this.isSimilarColor(color.hsl, stateColor) : false)));
+              store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => (color.score > 0.1 ?  this.isSimilarColor(color.hsl, stateColor) : false))).length, stateColor]);
+            }
           });
         }
 
@@ -54,6 +58,7 @@ export default {
         }
 
         store.commit('addActiveItems', finalList);
+        console.log(store.getters.getColorDegrees)
         return finalList.slice(0, store.state.visibleLimit);
       } else {
         return null;
