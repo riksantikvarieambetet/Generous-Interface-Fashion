@@ -98,6 +98,7 @@ export default {
 
 .details img {
     max-height: calc(100vh - 200px);
+    min-width: 60%;
 }
 
 button {
