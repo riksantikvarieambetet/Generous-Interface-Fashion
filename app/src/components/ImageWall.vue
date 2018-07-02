@@ -2,7 +2,7 @@
   <div>
     <spinner v-if="loading" class="spinner" size="big" />
     <FilterMenu />
-    <div v-if="list" v-bind:list="list" id="root_isotope" class="wall" v-images-loaded:on.progress="imageChange">
+    <div v-if="list" v-bind:list="list" class="wall" v-images-loaded:on.progress="imageChange">
       <div v-for="item in list" v-bind:key="item.europeana_record" class="image">
         <ObjectView v-bind:object="item"/>
       </div>
