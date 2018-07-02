@@ -147,5 +147,6 @@ export default {
 
 .wall {
     margin-top: 50px;
+    width: 100wv;
 }
 </style>
