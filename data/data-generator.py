@@ -46,9 +46,11 @@ for item in  islice(search.provider_subject_generator('Stiftelsen Nordiska musee
     unprocessed_items.append(ItemStorage('strumpor', 'Stiftelsen Nordiska museet',item))
 
 result = list()
+indexed_ids = list() # to avoid duplicates
 for item in unprocessed_items:
-    #TODO update data model
-    #TODO clean and create application description
+    if item.item['id'] in indexed_ids:
+        continue
+
     output = {}
     output['application'] = {}
 
@@ -75,6 +77,7 @@ for item in unprocessed_items:
     output['application']['description'] = application_description
 
     result.append(output)
+    indexed_ids.append(item.item['id'])
 
 with open('data.json', 'w') as outfile:
     json.dump(result, outfile)
