@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="menu">
-      <span>{{ nActiveitems }}</span>
+      <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber>
       <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn"></div>
     </div>
     <FilterContainer v-show="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
@@ -17,6 +17,7 @@
 
 <script>
 import FilterContainer from './FilterContainer';
+import AnimatedNumber from './AnimatedNumber'
 import { Chrome } from 'vue-color';
 
 import { store } from '../main.js';
@@ -32,6 +33,7 @@ export default {
   components: {
     FilterContainer,
     Chrome,
+    AnimatedNumber,
   },
   computed: {
     nActiveitems() {
