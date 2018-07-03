@@ -78,8 +78,8 @@ export default {
     vertical-align: bottom;
     cursor: pointer;
     object-fit: cover;
-    width: 20vw;
-    height: 20vw;
+    width: 50vw;
+    height: 50vw;
 }
 
 .details {
@@ -114,5 +114,4 @@ button {
     cursor: pointer;
     font-size: 20px;
 }
-
 </style>
