@@ -4,16 +4,18 @@
       <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber>
       <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn"></div>
     </div>
-    <FilterContainer v-show="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
-      <div class="desktop-break">
-        <Chrome v-bind:value="currentColor" v-on:input="updateColorFilterDynamic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
-        <button v-on:click="lockColor">Lock color</button>
-      </div>
-      <div class="desktop-break">
-        <div v-for="color in staticColors" v-bind:key="color" v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
-        <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
-      </div>
-    </FilterContainer>
+    <transition name="slide-north">
+      <FilterContainer v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
+        <div class="desktop-break">
+          <Chrome v-bind:value="currentColor" v-on:input="updateColorFilterDynamic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
+          <button v-on:click="lockColor">Lock color</button>
+        </div>
+        <div class="desktop-break">
+          <div v-for="color in staticColors" v-bind:key="color" v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
+          <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
+        </div>
+      </FilterContainer>
+    </transition>
   </div>
 </template>
 

@@ -1,14 +1,16 @@
 <template>
   <div class="object">
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
-    <div class="details" v-show="isShown" v-hammer:swipe.up="toggle">
+    <transition name="slide-north">
+      <div class="details" v-show="isShown" v-hammer:swipe.up="toggle">
         <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
         <p>{{ object.application.description }}</p>
         <LicenseBtn v-bind:uri="object.edm_rights" />
         <a v-bind:href="object.edm_is_shown_at">{{ object.edm_data_provider }}</a>
         <br>
         <button v-on:click="toggle()"><i class="fas fa-times"></i></button>
-    </div>
+      </div>
+    </transition>
   </div>
 </template>
 

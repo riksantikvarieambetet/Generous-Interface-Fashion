@@ -66,4 +66,17 @@ body {
   color: #2c3e50;
   overflow-x: hidden;
 }
+
+/* GLOBAL CSS ANIMATIONS */
+
+.slide-north-leave-active,
+.slide-north-enter-active {
+  transition: .5s;
+}
+.slide-north-enter {
+  transform: translate(0, -100%);
+}
+.slide-north-leave-to {
+  transform: translate(0, -100%);
+}
 </style>
