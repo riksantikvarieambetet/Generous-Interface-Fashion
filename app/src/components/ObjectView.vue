@@ -114,4 +114,18 @@ button {
     cursor: pointer;
     font-size: 20px;
 }
+
+@media only screen and (min-width: 600px) {
+    .object > img {
+        width: 25vw;
+        height: 25vw;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .object > img {
+        width: 20vw;
+        height: 20vw;
+    }
+}
 </style>
