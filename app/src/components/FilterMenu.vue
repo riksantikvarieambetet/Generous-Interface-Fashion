@@ -7,9 +7,7 @@
     <FilterContainer v-show="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
       <Chrome v-bind:value="currentColor" v-on:input="updateColorFilterDynamic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
       <button v-on:click="lockColor">Lock color</button>
-      <div v-for="color in staticColors" v-bind:key="color">
-        <div v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
-      </div>
+      <div v-for="color in staticColors" v-bind:key="color" v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
       <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
     </FilterContainer>
   </div>
