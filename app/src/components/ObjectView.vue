@@ -19,8 +19,6 @@ import LicenseBtn from './LicenseBtn';
 import fontawesome from '@fortawesome/fontawesome';
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 
-import { store } from '../main.js';
-
 fontawesome.library.add(faTimes);
 
 export default {
