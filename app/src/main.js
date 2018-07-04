@@ -71,12 +71,12 @@ export const store = new Vuex.Store({
     colorCountAdd: (state, values) => state.colorCount.push(values),
   },
   getters: {
-    getColorDegrees: state => {
+    getColorPercentages: state => {
       let whole = 0;
       state.colorCount.forEach(color => whole += color[0]);
 
       return state.colorCount.map(color => {
-        color[0] = color[0] / whole * 360;
+        color[0] = color[0] / whole * 100;
         return color;
       });
     }

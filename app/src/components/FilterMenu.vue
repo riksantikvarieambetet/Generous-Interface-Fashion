@@ -2,7 +2,9 @@
   <div>
     <div class="menu">
       <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber>
-      <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn"></div>
+      <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn">
+        <div v-if="colorCount.length > 1" v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
+      </div>
     </div>
     <transition name="slide-north">
       <FilterContainer v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
@@ -47,6 +49,10 @@ export default {
     staticColors() {
       return store.state.colorFilter;
     },
+
+    colorCount() {
+      return store.getters.getColorPercentages;
+    }
   },
   methods: {
     toggleColorFilter() {
@@ -102,6 +108,11 @@ export default {
     margin-top: 9px;
     background: url('/assets/transparent.png');
     cursor: pointer;
+}
+
+.color-btn div {
+  height: 32px;
+  float: left;
 }
 
 .color-picker {
