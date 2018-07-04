@@ -66,7 +66,7 @@ export default {
       this.executeFiltering();
     },
 
-    lockColor(value) {
+    lockColor() {
       store.commit('addColorFilter', this.currentColor);
     },
 
