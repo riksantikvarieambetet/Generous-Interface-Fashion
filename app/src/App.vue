@@ -26,7 +26,10 @@ export default {
       this.$http
         .get('data.json')
         .then(response => response.body)
-        .then(data => store.commit('addAllItems', shuffle(data)));
+        .then(data => {
+          store.commit('addAllItems', shuffle(data))
+          store.commit('addActiveItems', store.state.allItems);
+        });
     },
 
     handleScroll: function() {
