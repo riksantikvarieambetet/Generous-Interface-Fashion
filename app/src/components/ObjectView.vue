@@ -1,14 +1,18 @@
 <template>
   <div class="object">
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
-    <div class="details" v-show="isShown" v-hammer:swipe.up="toggle">
+    <transition name="slide-north">
+      <div class="details" v-show="isShown" v-hammer:swipe.up="toggle">
         <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
+        <div class="image-colors">
+          <div v-for="color in object.application.colors" v-bind:key="color.score" v-bind:style="{ background: `hsl(${color.hsl[0] * 360}, ${color.hsl[2] * 100}%, ${color.hsl[1] * 100}%)`, width: color.score * 100 + '%' }"></div>
+        </div>
         <p>{{ object.application.description }}</p>
         <LicenseBtn v-bind:uri="object.edm_rights" />
         <a v-bind:href="object.edm_is_shown_at">{{ object.edm_data_provider }}</a>
-        <br>
         <button v-on:click="toggle()"><i class="fas fa-times"></i></button>
-    </div>
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -16,8 +20,6 @@
 import LicenseBtn from './LicenseBtn';
 import fontawesome from '@fortawesome/fontawesome';
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
-
-import { store } from '../main.js';
 
 fontawesome.library.add(faTimes);
 
@@ -78,8 +80,8 @@ export default {
     vertical-align: bottom;
     cursor: pointer;
     object-fit: cover;
-    width: 20vw;
-    height: 20vw;
+    width: 50vw;
+    height: 50vw;
 }
 
 .details {
@@ -98,6 +100,7 @@ export default {
 
 .details img {
     max-height: calc(100vh - 200px);
+    min-width: 60%;
 }
 
 button {
@@ -114,4 +117,28 @@ button {
     font-size: 20px;
 }
 
+.image-colors {
+    width: 50%;
+    text-align: center;
+    display: inherit;
+}
+
+.image-colors div {
+    height: 50px;
+    float: left;
+}
+
+@media only screen and (min-width: 600px) {
+    .object > img {
+        width: 25vw;
+        height: 25vw;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .object > img {
+        width: 20vw;
+        height: 20vw;
+    }
+}
 </style>

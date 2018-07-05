@@ -1,22 +1,29 @@
 <template>
   <div>
     <div class="menu">
-      <span>{{ nActiveitems }}</span>
-      <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn"></div>
-    </div>
-    <FilterContainer v-show="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
-      <Chrome v-bind:value="currentColor" v-on:input="updateColorFilterDynamic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
-      <button v-on:click="lockColor">Lock color</button>
-      <div v-for="color in staticColors" v-bind:key="color">
-        <div v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
+      <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber>
+      <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn">
+        <div v-if="colorCount.length > 1" v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
       </div>
-      <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
-    </FilterContainer>
+    </div>
+    <transition name="slide-north">
+      <FilterContainer v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
+        <div class="desktop-break">
+          <Chrome v-bind:value="currentColor" v-on:input="updateColorFilterDynamic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
+          <button v-on:click="lockColor">Lock color</button>
+        </div>
+        <div class="desktop-break">
+          <div v-for="color in staticColors" v-bind:key="color" v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
+          <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
+        </div>
+      </FilterContainer>
+    </transition>
   </div>
 </template>
 
 <script>
 import FilterContainer from './FilterContainer';
+import AnimatedNumber from './AnimatedNumber'
 import { Chrome } from 'vue-color';
 
 import { store } from '../main.js';
@@ -26,12 +33,13 @@ export default {
   data() {
     return {
       colorFilterOpen: false,
-      currentColor: '#000000',
+      currentColor: `url('transparent.png')`,
     };
   },
   components: {
     FilterContainer,
     Chrome,
+    AnimatedNumber,
   },
   computed: {
     nActiveitems() {
@@ -41,6 +49,15 @@ export default {
     staticColors() {
       return store.state.colorFilter;
     },
+
+    colorCount() {
+      return store.getters.getColorPercentages;
+    }
+  },
+  mounted() {
+    this.$root.$on('triggerFiltering', () => {
+      this.executeFiltering();
+    });
   },
   methods: {
     toggleColorFilter() {
@@ -51,21 +68,103 @@ export default {
       store.commit('activateColorFilter');
       store.commit('updateDynamicColor', value.hex);
       this.currentColor = value.hex;
+      this.executeFiltering();
     },
 
-    lockColor(value) {
+    lockColor() {
       store.commit('addColorFilter', this.currentColor);
     },
 
     resetColorFilter() {
       store.commit('deactivateColorFilter');
       this.colorFilterOpen = false;
-      this.currentColor = '#000000';
+      this.currentColor = `url('transparent.png')`;
+      this.executeFiltering();
     },
 
     removeColor(value) {
       store.commit('removeColorFilter', [value]);
+      this.executeFiltering();
     },
+
+    executeFiltering() {
+      let finalList = store.state.allItems;
+      console.log('debug: executing filtering');
+      store.commit('colorCountClear');
+
+      if (store.state.colorFilterActive) {
+        finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hsl, store.state.colorFilterDynamic) : false)));
+
+          store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
+
+        store.state.colorFilter.forEach(stateColor => {
+          if (stateColor !== store.state.colorFilterDynamic) {
+            finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ?  this.isSimilarColor(color.hsl, stateColor) : false)));
+            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => (color.score > 0.1 ?  this.isSimilarColor(color.hsl, stateColor) : false))).length, stateColor]);
+          }
+        });
+      }
+
+      store.commit('addActiveItems', finalList);
+
+      // handle reseting of visibleLimit on filter change
+      console.log('debug: reseting visibleLimit');
+      store.commit('resetVisibleLimit');
+      window.scrollTo(0, 0);
+    },
+
+    hexToHsl(color) {
+      let r = parseInt(color.substr(1,2), 16);
+      let g = parseInt(color.substr(3,2), 16);
+      let b = parseInt(color.substr(5,2), 16);
+
+      r /= 255, g /= 255, b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+
+      if (max == min) {
+          h = s = 0; // achromatic
+      } else {
+          const d = max - min;
+          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+          switch(max) {
+              case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+              case g: h = (b - r) / d + 2; break;
+              case b: h = (r - g) / d + 4; break;
+          }
+          h /= 6;
+      }
+        return [h, s, l];
+    },
+
+    isSimilarColor(itemHSL, filterHEX) {
+      const filterHSL = this.hexToHsl(filterHEX);
+
+      const itemHue = itemHSL[0];
+      const filterHue = filterHSL[0];
+
+      const itemLight = itemHSL[1];
+      const filterLight = filterHSL[1];
+
+      const itemSaturation = itemHSL[2];
+      const filterSaturation = filterHSL[2];
+
+    if (filterLight > 0.01 && filterLight < 0.99) {
+      if (Math.abs(itemHue - filterHue) > 0.1) {
+        return false;
+      }
+
+      if (Math.abs(itemSaturation - filterSaturation) > 0.8) {
+        return false;
+      }
+    }
+
+      if (Math.abs(itemLight - filterLight) > 0.1) {
+        return false;
+      }
+
+      return true;
+    }
   }
 }
 </script>
@@ -91,12 +190,15 @@ export default {
 
 .color-btn {
     height: 32px;
-    width: 32px;
+    width: 48px;
     float: right;
     margin-top: 9px;
-    background: #333;
     cursor: pointer;
-    border-radius: 100%;
+}
+
+.color-btn div {
+  height: 32px;
+  float: left;
 }
 
 .color-picker {
@@ -144,5 +246,13 @@ button {
     border-radius: 100%;
     line-height: 19px;
     cursor: pointer;
+}
+
+@media only screen and (min-width: 1000px) {
+    .desktop-break {
+      float: left;
+      padding: 5px;
+      width: calc(50% - 10px);
+    }
 }
 </style>
