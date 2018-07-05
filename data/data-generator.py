@@ -1,6 +1,7 @@
 import json
 import math
 import re
+import shelve
 from itertools import islice
 
 import requests
@@ -17,33 +18,40 @@ class ItemStorage():
         self.provider = provider
         self.type = item_type
 
-print('What\'s your Europeana API key?')
-search = Europeana(input())
+cache = shelve.open('credentials_cache')
 
-print('What\'s the absolute path to your Google service account file?')
-vision = GoogleVision(input())
+if 'europeana_public_key' in cache:
+    search = cache['europeana_public_key']
+else:
+    print('What\'s your Europeana API key?')
+    search = Europeana(input())
+    cache['europeana_public_key'] = search
+
+if 'gsa_file' in cache:
+    vision = cache['gsa_file']
+else:
+    print('What\'s the absolute path to your Google service account file?')
+    vision = input()
+    cache['gsa_file'] = vision
+
+vision = GoogleVision(vision)
+cache.close()
 
 print('This might take a while...')
 
 unprocessed_items = list()
 
-for item in search.provider_subject_generator('Etnografiska museet', 'tröja'):
-    unprocessed_items.append(ItemStorage('tröjor', 'Etnografiska museet', item))
+for item in search.generic_query_generator('qf=DATA_PROVIDER%3A"Malmö+museer"&query=modeplansch'):
+    unprocessed_items.append(ItemStorage('none', 'none', item))
 
-for item in search.provider_subject_generator('Etnografiska museet', 'byxa'):
-    unprocessed_items.append(ItemStorage('byxor', 'Etnografiska museet', item))
+for item in search.generic_query_generator('qf=DATA_PROVIDER%3A"Etnografiska museet"&query=who%3A(Harlin%2C+Alf+%3F)'):
+    unprocessed_items.append(ItemStorage('none', 'none', item))
 
-for item in search.provider_subject_generator('Etnografiska museet', 'strumpa'):
-    unprocessed_items.append(ItemStorage('strumpor', 'Etnografiska museet', item))
+for item in search.generic_query_generator('query=f%C3%B6rpackning%20NOT%20photographs%20NOT%20524%20NOT%20metall%20NOT%20m%C3%A4ssing&qf=DATA_PROVIDER%3A%22Stiftelsen%20Nordiska%20museet%22&qf=DATA_PROVIDER%3A%22Nationalmuseum%2C%20Sweden%22&qf=DATA_PROVIDER%3A%22Etnografiska%20museet%22&qf=DATA_PROVIDER%3A%22Malm%C3%B6%20museer%22&thumbnail=true&media=true'):
+    unprocessed_items.append(ItemStorage('none', 'none', item))
 
-for item in islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Byxor'), 100):
-    unprocessed_items.append(ItemStorage('byxor', 'Stiftelsen Nordiska museet', item))
-
-for item in islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Tröjor'), 150):
-    unprocessed_items.append(ItemStorage('tröjor', 'Stiftelsen Nordiska museet', item))
-
-for item in  islice(search.provider_subject_generator('Stiftelsen Nordiska museet', 'Dräkt : Strumpor'), 200):
-    unprocessed_items.append(ItemStorage('strumpor', 'Stiftelsen Nordiska museet',item))
+for item in search.generic_query_generator('query=291%20NOT%20photographs%20NOT%20oddner&qf=DATA_PROVIDER%3A%22Malm%C3%B6%20museer%22&reusability=open&thumbnail=true&media=true'):
+    unprocessed_items.append(ItemStorage('none', 'none', item))
 
 result = list()
 indexed_ids = list() # to avoid duplicates
@@ -56,7 +64,7 @@ for item in unprocessed_items:
 
     output['europeana_record'] = item.item['id']
     output['dc_title'] = item.item['title'][0]
-    output['edm_data_provider'] = item.provider
+    output['edm_data_provider'] = item.item['dataProvider'][0]
     output['edm_rights'] = item.item['rights'][0]
     output['edm_is_shown_at'] = item.item['edmIsShownAt'][0]
     output['dc_description'] = ''
