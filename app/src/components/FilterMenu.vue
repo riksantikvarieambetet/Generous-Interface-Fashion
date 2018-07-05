@@ -144,15 +144,17 @@ export default {
       const itemSaturation = itemHSL[2];
       const filterSaturation = filterHSL[2];
 
+    if (filterLight > 0.01 && filterLight < 0.99) {
       if (Math.abs(itemHue - filterHue) > 0.1) {
         return false;
       }
 
-      if (Math.abs(itemLight - filterLight) > 0.1) {
+      if (Math.abs(itemSaturation - filterSaturation) > 0.8) {
         return false;
       }
+    }
 
-      if (Math.abs(itemSaturation - filterSaturation) > 0.8) {
+      if (Math.abs(itemLight - filterLight) > 0.1) {
         return false;
       }
 
