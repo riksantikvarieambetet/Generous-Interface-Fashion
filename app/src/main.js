@@ -5,7 +5,9 @@ import AsyncComputed from 'vue-async-computed';
 import VueResource from 'vue-resource';
 import Vuex from 'vuex';
 import { VueHammer } from 'vue2-hammer';
+import vmodal from 'vue-js-modal';
 
+Vue.use(vmodal)
 Vue.use(VueHammer);
 Vue.use(AsyncComputed);
 Vue.use(VueResource);

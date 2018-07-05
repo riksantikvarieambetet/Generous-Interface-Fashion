@@ -1,6 +1,11 @@
 <template>
   <div id="app">
     <ImageWall />
+    <modal name="welcome" v-bind:classes="['v--modal', 'welcome']">
+      <h1>A Title</h1>
+      <p>Some introduction explaining the meaning of life.</p>
+      <div class="btn-container"><button v-on:click="closeWelcome">Let's Go!</button></div>
+    </modal>
   </div>
 </template>
 
@@ -38,6 +43,10 @@ export default {
           store.commit('increaseVisibleLimit', 10);
         }
       }
+    },
+
+    closeWelcome: function() {
+      this.$modal.hide('welcome');
     }
   },
   beforeMount() {
@@ -45,6 +54,11 @@ export default {
   },
   created: function () {
     window.addEventListener('scroll', this.handleScroll);
+    
+    // some rendering hack...
+    setTimeout(() => {
+      this.$modal.show('welcome');
+    }, 100);
   },
   destroyed: function () {
     window.removeEventListener('scroll', this.handleScroll);
@@ -81,5 +95,44 @@ body {
 }
 .slide-north-leave-to {
   transform: translate(0, -100%);
+}
+
+/* MODAL */
+
+.welcome {
+    padding: 8px;
+    max-width: 100%;
+}
+
+.welcome h1 {
+    margin: 0;
+}
+
+.welcome p {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.welcome .btn-container {
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  width: 80%;
+}
+
+.welcome button {
+    border-radius: 4px;
+    background-color: #008cff;
+    border: none;
+    padding: 15px;
+    transition: all 0.5s;
+    text-align: center;
+    cursor: pointer;
+    font-size: 17px;
+    display: block;
+    color: #fff;
+    position: relative;
+    left: -50%;
+    margin: auto;
 }
 </style>
