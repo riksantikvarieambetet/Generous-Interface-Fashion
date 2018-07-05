@@ -54,6 +54,11 @@ export default {
       return store.getters.getColorPercentages;
     }
   },
+  mounted() {
+    this.$root.$on('triggerFiltering', () => {
+      this.executeFiltering();
+    });
+  },
   methods: {
     toggleColorFilter() {
       this.colorFilterOpen = !this.colorFilterOpen;

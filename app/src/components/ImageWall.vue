@@ -7,6 +7,7 @@
         <ObjectView v-bind:object="item"/>
       </div>
     </div>
+    <Palette v-if="isAtEndOfFeed"></Palette>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ import Spinner from 'vue-simple-spinner';
 
 import ObjectView from './ObjectView.vue';
 import FilterMenu from './FilterMenu.vue';
+import Palette from './Palette.vue';
 import { store } from "../main.js";
 
 export default {
@@ -24,6 +26,7 @@ export default {
     ObjectView,
     FilterMenu,
     Spinner,
+    Palette,
   },
   directives: {
     imagesLoaded,
@@ -34,7 +37,11 @@ export default {
     },
     loading() {
       return store.state.isLoadingImages;
-    }
+    },
+    isAtEndOfFeed() {
+      return (store.state.activeItems.length <= store.state.visibleLimit);
+    },
+
   },
   methods: {
     imageChange(instance) {

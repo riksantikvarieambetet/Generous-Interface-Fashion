@@ -1,0 +1,59 @@
+<template>
+  <div class="root">
+    <h2>Explore with the palette below?</h2>
+    <div class="palette" v-on:click="filterWithPalette">
+        <div v-if="palette" v-for="color in palette" v-bind:key="color" v-bind:style="{ background: color }"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { store } from '../main.js';
+
+export default {
+  name: 'Palette',
+  data() {
+    return {};
+  },
+  created() {
+    const palettes = [
+      ['#3541b5', '#2a95b9', '#04131a'],
+      ['#6b4f4a', '88813b', '#734443'],
+    ];
+
+    this.palette = palettes[Math.floor(Math.random() * palettes.length)];
+  },
+  methods: {
+    filterWithPalette: function() {
+      store.commit('deactivateColorFilter');
+      this.palette.forEach(color => store.commit('addColorFilter', color));
+      store.commit('updateDynamicColor', this.palette[this.palette.length - 1]);
+      store.commit('activateColorFilter');
+      this.$root.$emit('triggerFiltering');
+    }
+  }
+}
+</script>
+
+<style scoped>
+
+.root h2 {
+    width: 100vw;
+    margin: 0;
+    display: inline-block;
+    margin: 10px;
+}
+
+.palette {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+    height: 100px;
+    cursor: pointer;
+}
+
+.palette div {
+    display: table-cell;
+    height:100px;
+}
+</style>
