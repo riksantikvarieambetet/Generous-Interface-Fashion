@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       colorFilterOpen: false,
-      currentColor: `url('/transparent.png')`,
+      currentColor: `url('transparent.png')`,
     };
   },
   components: {
@@ -73,7 +73,7 @@ export default {
     resetColorFilter() {
       store.commit('deactivateColorFilter');
       this.colorFilterOpen = false;
-      this.currentColor = `url('/transparent.png')`;
+      this.currentColor = `url('transparent.png')`;
       this.executeFiltering();
     },
 
@@ -186,7 +186,6 @@ export default {
     width: 48px;
     float: right;
     margin-top: 9px;
-    background: url('/assets/transparent.png');
     cursor: pointer;
 }
 
