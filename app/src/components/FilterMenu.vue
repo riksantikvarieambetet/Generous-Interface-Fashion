@@ -198,13 +198,13 @@ export default {
 }
 
 .color-btn div {
-  height: 32px;
-  float: left;
+    height: 32px;
+    float: left;
 }
 
 .color-picker {
-  width: 100%;
-  box-shadow: unset;
+    width: 100%;
+    box-shadow: unset;
 }
 
 button {
