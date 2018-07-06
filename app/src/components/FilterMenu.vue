@@ -194,6 +194,7 @@ export default {
     float: right;
     margin-top: 9px;
     cursor: pointer;
+    border-radius: 4px;
 }
 
 .color-btn div {
