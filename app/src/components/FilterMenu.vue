@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="menu">
-      <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber>
+      <span class="left">Antal: <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber></span>
       <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn">
         <div v-if="colorCount.length > 1" v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
       </div>
@@ -183,7 +183,7 @@ export default {
     top: 0;
 }
 
-.menu span {
+.left {
     float: left;
     padding-left: 7px;
 }
