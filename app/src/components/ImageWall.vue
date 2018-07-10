@@ -60,7 +60,7 @@ export default {
 .spinner {
     position: fixed;
     right: 7px;
-    top: 7px;
+    bottom: 7px;
     z-index: 100;
 }
 
