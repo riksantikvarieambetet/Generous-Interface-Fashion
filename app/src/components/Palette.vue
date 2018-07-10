@@ -13,15 +13,12 @@ import { store } from '../main.js';
 export default {
   name: 'Palette',
   data() {
-    return {};
+    return {
+      palette: false,
+    };
   },
   created() {
-    const palettes = [
-      ['#3541b5', '#2a95b9', '#04131a'],
-      ['#6b4f4a', '88813b', '#734443'],
-    ];
-
-    this.palette = palettes[Math.floor(Math.random() * palettes.length)];
+    this.randomPalette();
   },
   methods: {
     filterWithPalette: function() {
@@ -30,6 +27,16 @@ export default {
       store.commit('updateDynamicColor', this.palette[this.palette.length - 1]);
       store.commit('activateColorFilter');
       this.$root.$emit('triggerFiltering');
+      this.randomPalette();
+    },
+
+    randomPalette: function() {
+      const palettes = [
+        ['#3541b5', '#2a95b9', '#04131a'],
+        ['#6b4f4a', '88813b', '#734443'],
+      ];
+
+      this.palette = palettes[Math.floor(Math.random() * palettes.length)];
     }
   }
 }
