@@ -98,14 +98,14 @@ export default {
       store.commit('colorCountClear');
 
       if (store.state.colorFilterActive) {
-        finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hsl, store.state.colorFilterDynamic)));
+        finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hex, store.state.colorFilterDynamic)));
 
           store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
 
         store.state.colorFilter.forEach(stateColor => {
           if (stateColor !== store.state.colorFilterDynamic) {
-            finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hsl, stateColor)));
-            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hsl, stateColor))).length, stateColor]);
+            finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hex, stateColor)));
+            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hex, stateColor))).length, stateColor]);
           }
         });
       }
@@ -118,57 +118,29 @@ export default {
       window.scrollTo(0, 0);
     },
 
-    hexToHsl(color) {
-      let r = parseInt(color.substr(1,2), 16);
-      let g = parseInt(color.substr(3,2), 16);
-      let b = parseInt(color.substr(5,2), 16);
+    isSimilarColor(hex1, hex2) {
+      console.log(hex1, hex2)
+      if (hex1.startsWith('#')) hex1 = hex1.substring(1);
+      if (hex2.startsWith('#')) hex2 = hex2.substring(1);
+      const r1 = parseInt(hex1.substring(0, 2), 16);
+      const g1 = parseInt(hex1.substring(2, 4), 16);
+      const b1 = parseInt(hex1.substring(4, 6), 16);
 
-      r /= 255, g /= 255, b /= 255;
-      const max = Math.max(r, g, b), min = Math.min(r, g, b);
-      let h, s, l = (max + min) / 2;
+      const r2 = parseInt(hex2.substring(0, 2), 16);
+      const g2 = parseInt(hex2.substring(2, 4), 16);
+      const b2 = parseInt(hex2.substring(4, 6), 16);
 
-      if (max == min) {
-          h = s = 0; // achromatic
-      } else {
-          const d = max - min;
-          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-          switch(max) {
-              case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-              case g: h = (b - r) / d + 2; break;
-              case b: h = (r - g) / d + 4; break;
-          }
-          h /= 6;
-      }
-        return [h, s, l];
-    },
+      let r = 255 - Math.abs(r1 - r2);
+      let g = 255 - Math.abs(g1 - g2);
+      let b = 255 - Math.abs(b1 - b2);
 
-    isSimilarColor(itemHSL, filterHEX) {
-      const filterHSL = this.hexToHsl(filterHEX);
+      r /= 255;
+      g /= 255;
+      b /= 255;
 
-      const itemHue = itemHSL[0];
-      const filterHue = filterHSL[0];
+      const score = (r + g + b) / 3;
 
-      const itemLight = itemHSL[1];
-      const filterLight = filterHSL[1];
-
-      const itemSaturation = itemHSL[2];
-      const filterSaturation = filterHSL[2];
-
-    if (filterLight > 0.01 && filterLight < 0.99) {
-      if (Math.abs(itemHue - filterHue) > 0.1) {
-        return false;
-      }
-
-      if (Math.abs(itemSaturation - filterSaturation) > 0.8) {
-        return false;
-      }
-    }
-
-      if (Math.abs(itemLight - filterLight) > 0.1) {
-        return false;
-      }
-
-      return true;
+      return (score >= 0.9 ? true : false);
     }
   }
 }

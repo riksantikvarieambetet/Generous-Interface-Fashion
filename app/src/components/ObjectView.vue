@@ -5,7 +5,7 @@
       <div class="details" v-show="isShown" v-hammer:swipe.up="toggle">
         <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
         <div class="image-colors">
-          <div v-for="color in object.application.colors" v-bind:key="color.score" v-bind:style="{ background: `hsl(${color.hsl[0] * 360}, ${color.hsl[2] * 100}%, ${color.hsl[1] * 100}%)`, width: color.score * 100 + 'vw' }"></div>
+          <div v-for="color in object.application.colors" v-bind:key="color.score" v-bind:style="{ background: `#${color.hex}`, width: color.score * 100 + 'vw' }"></div>
         </div>
         <p>{{ object.application.description }}</p>
         <LicenseBtn v-bind:uri="object.edm_rights" />

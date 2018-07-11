@@ -3,7 +3,7 @@ import shelve
 from google.oauth2 import service_account
 from google.cloud import vision
 
-from colour import Color
+from data_transformation import rgb2hex
 
 class GoogleVision:
     def __init__(self, service_account_file, cache=True):
@@ -34,8 +34,7 @@ class GoogleVision:
 
             c = {}
             c['score'] = rank.score
-            color = Color(rgb=((rank.color.red / 255), (rank.color.green / 255), (rank.color.blue / 255)))
-            c['hsl'] = color.hsl
+            c['hex'] = rgb2hex(rank.color.red, rank.color.green, rank.color.blue)
 
             colors.append(c)
 
