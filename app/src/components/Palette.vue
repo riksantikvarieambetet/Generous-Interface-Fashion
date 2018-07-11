@@ -34,6 +34,10 @@ export default {
       const palettes = [
         ['#3541b5', '#2a95b9', '#04131a'],
         ['#6b4f4a', '88813b', '#734443'],
+        ['#239e51', '#23929e', '#000000'],
+        ['#2b8fad', '#d5392f', '#d5d103'],
+        ['#451313', '#a77da9', '#834240'],
+        ['#13451e', '#799a20'],
       ];
 
       this.palette = palettes[Math.floor(Math.random() * palettes.length)];
