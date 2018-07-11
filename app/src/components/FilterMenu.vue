@@ -235,6 +235,7 @@ button {
     margin-left: 5px;
     margin-bottom: 5px;
     position: relative;
+    border-radius: 4px;
 }
 
 .color span {
