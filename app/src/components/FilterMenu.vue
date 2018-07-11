@@ -24,7 +24,7 @@
 
 <script>
 import FilterContainer from './FilterContainer';
-import AnimatedNumber from './AnimatedNumber'
+import AnimatedNumber from './AnimatedNumber';
 import { Chrome } from 'vue-color';
 
 import { store } from '../main.js';
@@ -119,9 +119,9 @@ export default {
     },
 
     isSimilarColor(hex1, hex2) {
-      console.log(hex1, hex2)
       if (hex1.startsWith('#')) hex1 = hex1.substring(1);
       if (hex2.startsWith('#')) hex2 = hex2.substring(1);
+
       const r1 = parseInt(hex1.substring(0, 2), 16);
       const g1 = parseInt(hex1.substring(2, 4), 16);
       const b1 = parseInt(hex1.substring(4, 6), 16);
