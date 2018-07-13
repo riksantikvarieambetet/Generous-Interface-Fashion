@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <ImageWall />
-    <modal name="welcome" v-bind:classes="['v--modal', 'welcome']">
+    <modal name="welcome" v-bind:classes="['v--modal', 'welcome']" v-hammer:swipe.up="closeWelcome" transition="slide-north">
       <h1>A Title</h1>
       <p>Some introduction explaining the meaning of life.</p>
       <div class="btn-container"><button v-on:click="closeWelcome">Let's Go!</button></div>
