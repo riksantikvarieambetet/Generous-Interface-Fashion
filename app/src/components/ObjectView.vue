@@ -81,6 +81,7 @@ export default {
 <style scoped>
 .object {
     float: left;
+    overflow: hidden;
 }
 
 .object > img {
@@ -89,6 +90,12 @@ export default {
     object-fit: cover;
     width: 50vw;
     height: 50vw;
+    transform: scale(1);
+    transition: .3s ease-in-out;
+}
+
+.object > img:hover {
+    transform: scale(1.3);
 }
 
 .details {

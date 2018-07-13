@@ -18,7 +18,7 @@ import Spinner from 'vue-simple-spinner';
 import ObjectView from './ObjectView.vue';
 import FilterMenu from './FilterMenu.vue';
 import Palette from './Palette.vue';
-import { store } from "../main.js";
+import { store } from '../main.js';
 
 export default {
   name: 'ImageWall',
