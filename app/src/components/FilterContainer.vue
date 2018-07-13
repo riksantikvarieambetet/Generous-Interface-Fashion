@@ -21,5 +21,6 @@ export default {
     background: #FFF;
     padding: 7px;
     box-sizing: border-box;
+    z-index: 1;
 }
 </style>
