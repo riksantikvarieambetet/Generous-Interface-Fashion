@@ -1,18 +1,16 @@
 <template>
   <div class="object">
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
-    <transition name="slide-north">
-      <div class="details" v-show="isShown" v-hammer:swipe.up="toggle">
-        <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
-        <div class="image-colors">
-          <div v-for="color in object.application.colors" v-bind:key="color.score" v-bind:style="{ background: `#${color.hex}`, width: color.score * 100 + 'vw' }" v-on:click="filterByColor(color.hex)"></div>
-        </div>
-        <p>{{ object.application.description }}</p>
-        <LicenseBtn v-bind:uri="object.edm_rights" />
-        <a v-bind:href="object.edm_is_shown_at">{{ object.edm_data_provider }}</a>
-        <button v-on:click="toggle()"><i class="fas fa-times"></i></button>
+
+    <modal v-bind:name="object.europeana_record" v-bind:classes="['v--modal details']" height="auto" v-hammer:swipe.up="toggle" transition="slide-north">
+      <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
+      <div class="image-colors">
+        <div v-for="color in object.application.colors" v-bind:key="color.score" v-bind:style="{ background: `#${color.hex}`, width: color.score * 100 + '%' }" v-on:click="filterByColor(color.hex)"></div>
       </div>
-    </transition>
+      <p>{{ object.application.description }}</p>
+      <LicenseBtn v-bind:uri="object.edm_rights" /><br />
+      <a v-bind:href="object.edm_is_shown_at">{{ object.edm_data_provider }}</a>
+    </modal>
   </div>
 </template>
 
@@ -39,34 +37,9 @@ export default {
   },
   methods: {
     toggle() {
+      if (!this.isShown) this.$modal.show(this.object.europeana_record);
+      if (this.isShown) this.$modal.hide(this.object.europeana_record);
       this.isShown = !this.isShown;
-
-      // disable scroll if object is open
-      const keys = {37: 1, 38: 1, 39: 1, 40: 1};
-
-      function preventDefault(e) {
-        e = e || window.event;
-        if (e.preventDefault)
-            e.preventDefault();
-        e.returnValue = false;  
-      }
-
-      function preventDefaultForScrollKeys(e) {
-        if (keys[e.keyCode]) {
-          preventDefault(e);
-          return false;
-        }
-      }
-
-      if (this.isShown) {
-        window.onwheel = preventDefault;
-        window.ontouchmove  = preventDefault;
-        document.onkeydown  = preventDefaultForScrollKeys;
-      } else {
-        window.onwheel = null;
-        window.ontouchmove = null;
-        document.onkeydown = null;
-      }
     },
 
     filterByColor(color) {
@@ -77,6 +50,15 @@ export default {
   }
 }
 </script>
+
+<style>
+.details {
+    text-align: center;
+    padding: 7px;
+    max-width: 100vw;
+    max-height: 100vh;
+}
+</style>
 
 <style scoped>
 .object {
@@ -98,22 +80,11 @@ export default {
     transform: scale(1.3);
 }
 
-.details {
-    position: fixed;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    background: #c6c2c2;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
 .details img {
     max-height: calc(100vh - 200px);
+    margin: auto;
+    display: block;
+    max-width: 100vw;
 }
 
 button {
@@ -128,6 +99,12 @@ button {
     left: 10px;
     cursor: pointer;
     font-size: 20px;
+}
+
+.image-colors {
+    width: 100%;
+    display: block;
+    height: 50px;
 }
 
 .image-colors div {
