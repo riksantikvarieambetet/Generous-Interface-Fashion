@@ -37,7 +37,7 @@ export default {
         .get('data.json')
         .then(response => response.body)
         .then(data => {
-          store.commit('addAllItems', shuffle(data))
+          store.commit('addAllItems', shuffle(data));
           store.commit('addActiveItems', store.state.allItems);
         });
     },
@@ -52,23 +52,23 @@ export default {
 
     closeWelcome: function() {
       this.$modal.hide('welcome');
-    }
+    },
   },
   beforeMount() {
     this.fetchIntoState();
   },
-  created: function () {
+  created: function() {
     window.addEventListener('scroll', this.handleScroll);
-    
+
     // some rendering hack...
     setTimeout(() => {
       this.$modal.show('welcome');
     }, 100);
   },
-  destroyed: function () {
+  destroyed: function() {
     window.removeEventListener('scroll', this.handleScroll);
-  }
-}
+  },
+};
 </script>
 
 <style>

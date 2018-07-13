@@ -68,7 +68,7 @@ export default {
     this.$root.$on('updateColorFilterDynamic', color => {
       const value = { hex: color };
       this.updateColorFilterDynamic(value);
-    })
+    });
   },
   methods: {
     openModal() {
@@ -150,10 +150,10 @@ export default {
 
       const score = (r + g + b) / 3;
 
-      return (score >= 0.9 ? true : false);
-    }
-  }
-}
+      return (score >= 0.9);
+    },
+  },
+};
 </script>
 
 <style scoped>

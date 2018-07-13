@@ -28,12 +28,12 @@ export default {
     LicenseBtn,
   },
   props: {
-    object: false
+    object: false,
   },
   data() {
     return {
-      isShown: false
-    }
+      isShown: false,
+    };
   },
   methods: {
     toggle() {
@@ -46,9 +46,9 @@ export default {
       store.commit('deactivateColorFilter');
       this.$root.$emit('updateColorFilterDynamic', '#' + color);
       this.toggle();
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>

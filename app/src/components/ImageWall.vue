@@ -52,8 +52,8 @@ export default {
         store.commit('loadingImages');
       }
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

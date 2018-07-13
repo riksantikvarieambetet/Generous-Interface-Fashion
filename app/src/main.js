@@ -7,7 +7,7 @@ import Vuex from 'vuex';
 import { VueHammer } from 'vue2-hammer';
 import vmodal from 'vue-js-modal';
 
-Vue.use(vmodal)
+Vue.use(vmodal);
 Vue.use(VueHammer);
 Vue.use(AsyncComputed);
 Vue.use(VueResource);
@@ -56,35 +56,35 @@ export const store = new Vuex.Store({
       }
     },
 
-    loadingImages: state => state.isLoadingImages = true,
-    notLoadingImages: state => state.isLoadingImages = false,
+    loadingImages: state => (state.isLoadingImages = true),
+    notLoadingImages: state => (state.isLoadingImages = false),
 
-    activateColorFilter: state => state.colorFilterActive = true,
+    activateColorFilter: state => (state.colorFilterActive = true),
     deactivateColorFilter: state => {
       state.colorFilterActive = false;
       state.colorFilter = [];
     },
 
-    updateDynamicColor: (state, color) => state.colorFilterDynamic = color,
-    addColorFilter: (state, color) => !state.colorFilter.includes(color) && state.colorFilter.push(color),
-    removeColorFilter: (state, colors) => state.colorFilter = state.colorFilter.filter(item => !colors.includes(item)),
+    updateDynamicColor: (state, color) => (state.colorFilterDynamic = color),
+    addColorFilter: (state, color) => (!state.colorFilter.includes(color) && state.colorFilter.push(color)),
+    removeColorFilter: (state, colors) => (state.colorFilter = state.colorFilter.filter(item => !colors.includes(item))),
 
-    colorCountClear: (state) => state.colorCount = [],
-    colorCountAdd: (state, values) => state.colorCount.push(values),
+    colorCountClear: (state) => (state.colorCount = []),
+    colorCountAdd: (state, values) => (state.colorCount.push(values)),
   },
   getters: {
     getColorPercentages: state => {
       let whole = 0;
-      state.colorCount.forEach(color => whole += color[0]);
+      state.colorCount.forEach(color => (whole += color[0]));
 
       return state.colorCount.map(color => {
         color[0] = color[0] / whole * 100;
         return color;
       });
-    }
+    },
   },
 });
 
 new Vue({
-  render: h => h(App)
+  render: h => h(App),
 }).$mount('#app');

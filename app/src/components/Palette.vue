@@ -41,9 +41,9 @@ export default {
       ];
 
       this.palette = palettes[Math.floor(Math.random() * palettes.length)];
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>
