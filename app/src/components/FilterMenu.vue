@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="menu">
+      <img src="http://via.placeholder.com/250x90?text=logo" alt="logo and infomrtaion" class="logo" v-on:click="openModal" />
       <span class="left">Antal: <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber></span>
       <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn">
         <div v-if="colorCount.length > 1" v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
@@ -70,6 +71,10 @@ export default {
     })
   },
   methods: {
+    openModal() {
+      this.$root.$emit('openInfo');
+    },
+
     toggleColorFilter() {
       this.colorFilterOpen = !this.colorFilterOpen;
     },
@@ -168,6 +173,13 @@ export default {
 .left {
     float: left;
     padding-left: 7px;
+}
+
+.logo {
+    display: block;
+    float: left;
+    max-height: 100%;
+    cursor: pointer;
 }
 
 .color-btn {

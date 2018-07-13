@@ -18,6 +18,11 @@ export default {
   components: {
     ImageWall,
   },
+  mounted() {
+    this.$root.$on('openInfo', () => {
+      this.$modal.show('welcome');
+    });
+  },
   methods: {
     fetchIntoState: function() {
       function shuffle(a) {
