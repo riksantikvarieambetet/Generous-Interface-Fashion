@@ -63,6 +63,11 @@ export default {
     this.$root.$on('triggerFiltering', () => {
       this.executeFiltering();
     });
+
+    this.$root.$on('updateColorFilterDynamic', color => {
+      const value = { hex: color };
+      this.updateColorFilterDynamic(value);
+    })
   },
   methods: {
     toggleColorFilter() {
@@ -100,7 +105,7 @@ export default {
       if (store.state.colorFilterActive) {
         finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hex, store.state.colorFilterDynamic)));
 
-          store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
+        store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
 
         store.state.colorFilter.forEach(stateColor => {
           if (stateColor !== store.state.colorFilterDynamic) {

@@ -5,7 +5,7 @@
       <div class="details" v-show="isShown" v-hammer:swipe.up="toggle">
         <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
         <div class="image-colors">
-          <div v-for="color in object.application.colors" v-bind:key="color.score" v-bind:style="{ background: `#${color.hex}`, width: color.score * 100 + 'vw' }"></div>
+          <div v-for="color in object.application.colors" v-bind:key="color.score" v-bind:style="{ background: `#${color.hex}`, width: color.score * 100 + 'vw' }" v-on:click="filterByColor(color.hex)"></div>
         </div>
         <p>{{ object.application.description }}</p>
         <LicenseBtn v-bind:uri="object.edm_rights" />
@@ -20,6 +20,7 @@
 import LicenseBtn from './LicenseBtn';
 import fontawesome from '@fortawesome/fontawesome';
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
+import { store } from '../main.js';
 
 fontawesome.library.add(faTimes);
 
@@ -51,10 +52,10 @@ export default {
       }
 
       function preventDefaultForScrollKeys(e) {
-          if (keys[e.keyCode]) {
-              preventDefault(e);
-              return false;
-          }
+        if (keys[e.keyCode]) {
+          preventDefault(e);
+          return false;
+        }
       }
 
       if (this.isShown) {
@@ -66,6 +67,12 @@ export default {
         window.ontouchmove = null;
         document.onkeydown = null;
       }
+    },
+
+    filterByColor(color) {
+      store.commit('deactivateColorFilter');
+      this.$root.$emit('updateColorFilterDynamic', '#' + color);
+      this.toggle();
     }
   }
 }
@@ -119,6 +126,7 @@ button {
 .image-colors div {
     height: 50px;
     float: left;
+    cursor: pointer;
 }
 
 @media only screen and (min-width: 600px) {
