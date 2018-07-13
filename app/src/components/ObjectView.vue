@@ -53,8 +53,8 @@ export default {
 
 <style>
 .details {
-    text-align: center;
-    padding: 7px;
+    text-align: center !important;
+    padding: 7px !important;
     max-width: 100vw;
     max-height: 100vh;
 }
