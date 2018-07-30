@@ -2,7 +2,7 @@
   <div>
     <div class="menu">
       <img src="http://via.placeholder.com/250x90?text=logo" alt="logo and infomrtaion" class="logo" v-on:click="openModal" />
-      <span class="left">Antal: <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber></span>
+      <span class="left">{{ $t('nItems') }}: <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber></span>
       <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn">
         <div v-if="colorCount.length > 1" v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
       </div>
@@ -15,8 +15,8 @@
         <div class="desktop-break">
           <div v-if="currentColor != `url('transparent.png')` && (!staticColors.includes(currentDynamicColorState) || currentColor == currentDynamicColorState)" v-bind:style="{ background: currentColor }" class="color"></div>
           <div v-for="color in staticColors" v-bind:key="color" v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
-          <button v-if="currentColor != `url('transparent.png')`" v-on:click="lockColor">Add color</button>
-          <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
+          <button v-if="currentColor != `url('transparent.png')`" v-on:click="lockColor">{{ $t('filterClear') }}</button>
+          <button v-on:click="resetColorFilter" class="red-btn">{{ $t('filterAddColor') }}</button>
         </div>
       </FilterContainer>
     </transition>
