@@ -6,7 +6,7 @@ const messages = {
     appBegin: 'Start Exploring!',
     appTitle: 'Generous Interfaces',
     appDescription: 'What is this project/prototype about?',
-    'moreDetails': 'More details at'
+    'moreDetails': 'More details at',
   },
   sv: {
     nItems: 'Antal',
@@ -15,7 +15,7 @@ const messages = {
     appBegin: 'Börja utforska!',
     appTitle: 'Generösa användargränssnitt',
     appDescription: 'Vad handlar det här projektet/prototypen om?',
-    moreDetails: 'Mer information hos'
+    moreDetails: 'Mer information hos',
   },
 };
 
