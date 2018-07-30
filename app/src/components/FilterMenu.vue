@@ -27,6 +27,7 @@
 import FilterContainer from './FilterContainer';
 import AnimatedNumber from './AnimatedNumber';
 import { Chrome } from 'vue-color';
+import ColorConvert from 'color-convert'
 
 import { store } from '../main.js';
 
@@ -35,7 +36,7 @@ export default {
   data() {
     return {
       colorFilterOpen: false,
-      currentColor: `url('transparent.png')`,
+      currentColor: ''
     };
   },
   components: {
@@ -69,6 +70,9 @@ export default {
       const value = { hex: color };
       this.updateColorFilterDynamic(value);
     });
+
+    this.resetColorFilter();
+
   },
   methods: {
     openModal() {
@@ -108,14 +112,19 @@ export default {
       store.commit('colorCountClear');
 
       if (store.state.colorFilterActive) {
-        finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hex, store.state.colorFilterDynamic)));
+
+        finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, store.state.colorFilterDynamic)));
 
         store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
 
         store.state.colorFilter.forEach(stateColor => {
+
           if (stateColor !== store.state.colorFilterDynamic) {
-            finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hex, stateColor)));
-            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hex, stateColor))).length, stateColor]);
+
+            finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
+
+            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color =>
+            this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
           }
         });
       }
@@ -152,6 +161,27 @@ export default {
 
       return (score >= 0.9);
     },
+
+    isSimilarHSV(hex1, hex2, hueWeight, windows) {
+
+      const hsl1 = ColorConvert.hex.hsv(hex1);
+      const hsl2 = ColorConvert.hex.hsv(hex2);
+
+      const hDiff = Math.abs(hsl1[0] - hsl2[0]);
+      const sDiff = Math.abs(hsl1[1] - hsl2[1]);
+      const vDiff = Math.abs(hsl1[2] - hsl2[2]);
+
+      //Colored images
+      let hueTest = hsl1[1] != 0 && hDiff < 10 && sDiff < 30 && vDiff < 30;
+
+      //BW images
+      let sTest = hsl1[1] == 0 && (sDiff < 10 && vDiff < 5);
+      let vTest = hsl1[1] == 0 && hsl1[2] < 20 && vDiff < 5;
+
+      return hueTest || sTest || vTest;
+
+    },
+
   },
 };
 </script>
@@ -189,6 +219,7 @@ export default {
     margin-top: 9px;
     cursor: pointer;
     border-radius: 4px;
+    border: 1px solid gray;
 }
 
 .color-btn div {
