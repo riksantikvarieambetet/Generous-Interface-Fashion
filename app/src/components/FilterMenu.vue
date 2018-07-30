@@ -108,14 +108,14 @@ export default {
       store.commit('colorCountClear');
 
       if (store.state.colorFilterActive) {
-        finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hex, store.state.colorFilterDynamic)));
+        finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, store.state.colorFilterDynamic) : false)));
 
         store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
 
         store.state.colorFilter.forEach(stateColor => {
           if (stateColor !== store.state.colorFilterDynamic) {
-            finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hex, stateColor)));
-            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarColor(color.hex, stateColor))).length, stateColor]);
+            finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, stateColor) : false)));
+            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, stateColor) : false))).length, stateColor]);
           }
         });
       }
