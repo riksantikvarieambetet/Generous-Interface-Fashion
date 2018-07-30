@@ -2,8 +2,9 @@
   <div>
     <div class="menu">
       <img src="http://via.placeholder.com/250x90?text=logo" alt="logo and infomrtaion" class="logo" v-on:click="openModal" />
-      <span class="left">Antal: <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber></span>
+      <span class="left">{{ $t('nItems') }}: <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber></span>
       <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn">
+        <i class="fas fa-palette"></i>
         <div v-if="colorCount.length > 1" v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
       </div>
     </div>
@@ -15,8 +16,8 @@
         <div class="desktop-break">
           <div v-if="currentColor != `url('transparent.png')` && (!staticColors.includes(currentDynamicColorState) || currentColor == currentDynamicColorState)" v-bind:style="{ background: currentColor }" class="color"></div>
           <div v-for="color in staticColors" v-bind:key="color" v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
-          <button v-if="currentColor != `url('transparent.png')`" v-on:click="lockColor">Add color</button>
-          <button v-on:click="resetColorFilter" class="red-btn">Clear and disable this filter</button>
+          <button v-if="currentColor != `url('transparent.png')`" v-on:click="lockColor">{{ $t('filterAddColor') }}</button>
+          <button v-on:click="resetColorFilter" class="red-btn">{{ $t('filterClear') }}</button>
         </div>
       </FilterContainer>
     </transition>
@@ -27,16 +28,18 @@
 import FilterContainer from './FilterContainer';
 import AnimatedNumber from './AnimatedNumber';
 import { Chrome } from 'vue-color';
-import ColorConvert from 'color-convert'
-
+import fontawesome from '@fortawesome/fontawesome';
+import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
 import { store } from '../main.js';
+
+fontawesome.library.add(faPalette);
 
 export default {
   name: 'FilterMenu',
   data() {
     return {
       colorFilterOpen: false,
-      currentColor: ''
+      currentColor: `url('transparent.png')`,
     };
   },
   components: {
@@ -70,9 +73,6 @@ export default {
       const value = { hex: color };
       this.updateColorFilterDynamic(value);
     });
-
-    this.resetColorFilter();
-
   },
   methods: {
     openModal() {
@@ -112,19 +112,14 @@ export default {
       store.commit('colorCountClear');
 
       if (store.state.colorFilterActive) {
-
-        finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, store.state.colorFilterDynamic)));
+        finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, store.state.colorFilterDynamic) : false)));
 
         store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
 
         store.state.colorFilter.forEach(stateColor => {
-
           if (stateColor !== store.state.colorFilterDynamic) {
-
-            finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
-
-            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color =>
-            this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
+            finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, stateColor) : false)));
+            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, stateColor) : false))).length, stateColor]);
           }
         });
       }
@@ -161,27 +156,6 @@ export default {
 
       return (score >= 0.9);
     },
-
-    isSimilarHSV(hex1, hex2, hueWeight, windows) {
-
-      const hsl1 = ColorConvert.hex.hsv(hex1);
-      const hsl2 = ColorConvert.hex.hsv(hex2);
-
-      const hDiff = Math.abs(hsl1[0] - hsl2[0]);
-      const sDiff = Math.abs(hsl1[1] - hsl2[1]);
-      const vDiff = Math.abs(hsl1[2] - hsl2[2]);
-
-      //Colored images
-      let hueTest = hsl1[1] != 0 && hDiff < 10 && sDiff < 30 && vDiff < 30;
-
-      //BW images
-      let sTest = hsl1[1] == 0 && (sDiff < 10 && vDiff < 5);
-      let vTest = hsl1[1] == 0 && hsl1[2] < 20 && vDiff < 5;
-
-      return hueTest || sTest || vTest;
-
-    },
-
   },
 };
 </script>
@@ -219,7 +193,7 @@ export default {
     margin-top: 9px;
     cursor: pointer;
     border-radius: 4px;
-    border: 1px solid gray;
+    position: relative;
 }
 
 .color-btn div {
@@ -275,11 +249,39 @@ button {
     cursor: pointer;
 }
 
+.svg-inline--fa.fa-palette.fa-w-16 {
+    height: unset;
+    width: 21px;
+    position: absolute;
+    left: 15px;
+    top: 6px;
+}
+
 @media only screen and (min-width: 1000px) {
     .desktop-break {
-      float: left;
-      padding: 5px;
-      width: calc(50% - 10px);
+        float: left;
+        padding: 5px;
+        width: calc(50% - 10px);
     }
 }
 </style>
+
+<style>
+/* hack for color picker styling */
+.vc-chrome-hue-wrap {
+    height: 27px !important;
+}
+
+.vc-chrome-hue-wrap .vc-hue-picker{
+    width: 23px !important;
+    height: 28px !important;
+}
+
+.vc-chrome-active-color {
+    left: -8px !important;
+    top: -1px !important;
+    height: 30px !important;
+    width: 30px !important;
+}
+</style>
+

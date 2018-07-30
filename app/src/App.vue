@@ -2,9 +2,9 @@
   <div id="app">
     <ImageWall />
     <modal name="welcome" v-bind:classes="['v--modal', 'welcome']" v-hammer:swipe.up="closeWelcome" transition="slide-north">
-      <h1>A Title</h1>
-      <p>Some introduction explaining the meaning of life.</p>
-      <div class="btn-container"><button v-on:click="closeWelcome">Let's Go!</button></div>
+      <h1>{{ $t('appTitle') }}</h1>
+      <p>{{ $t('appDescription') }}</p>
+      <div class="btn-container"><button v-on:click="closeWelcome">{{ $t('appBegin') }}</button></div>
     </modal>
   </div>
 </template>

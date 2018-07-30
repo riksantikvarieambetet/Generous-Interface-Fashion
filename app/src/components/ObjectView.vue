@@ -9,18 +9,14 @@
       </div>
       <p>{{ object.application.description }}</p>
       <LicenseBtn v-bind:uri="object.edm_rights" /><br />
-      <a v-bind:href="object.edm_is_shown_at">{{ object.edm_data_provider }}</a>
+      <a v-bind:href="object.edm_is_shown_at">{{ $t('moreDetails') }} {{ object.edm_data_provider }}</a>
     </modal>
   </div>
 </template>
 
 <script>
 import LicenseBtn from './LicenseBtn';
-import fontawesome from '@fortawesome/fontawesome';
-import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
 import { store } from '../main.js';
-
-fontawesome.library.add(faTimes);
 
 export default {
   name: 'ObjectView',
