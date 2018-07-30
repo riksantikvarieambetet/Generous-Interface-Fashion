@@ -4,6 +4,7 @@
       <img src="http://via.placeholder.com/250x90?text=logo" alt="logo and infomrtaion" class="logo" v-on:click="openModal" />
       <span class="left">{{ $t('nItems') }}: <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber></span>
       <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn">
+        <i class="fas fa-palette"></i>
         <div v-if="colorCount.length > 1" v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
       </div>
     </div>
@@ -27,8 +28,11 @@
 import FilterContainer from './FilterContainer';
 import AnimatedNumber from './AnimatedNumber';
 import { Chrome } from 'vue-color';
-
+import fontawesome from '@fortawesome/fontawesome';
+import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
 import { store } from '../main.js';
+
+fontawesome.library.add(faPalette);
 
 export default {
   name: 'FilterMenu',
@@ -189,6 +193,7 @@ export default {
     margin-top: 9px;
     cursor: pointer;
     border-radius: 4px;
+    position: relative;
 }
 
 .color-btn div {
@@ -244,11 +249,19 @@ button {
     cursor: pointer;
 }
 
+.svg-inline--fa.fa-palette.fa-w-16 {
+    height: unset;
+    width: 21px;
+    position: absolute;
+    left: 15px;
+    top: 6px;
+}
+
 @media only screen and (min-width: 1000px) {
     .desktop-break {
-      float: left;
-      padding: 5px;
-      width: calc(50% - 10px);
+        float: left;
+        padding: 5px;
+        width: calc(50% - 10px);
     }
 }
 </style>
