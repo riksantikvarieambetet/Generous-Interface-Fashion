@@ -1,15 +1,15 @@
 const messages = {
   en: {
     nItems: 'Items',
-    filterAddColor: 'Add Color',
-    filterClear: 'Clear and disable this filter',
+    filterAddColor: 'Add Another Color',
+    filterClear: 'Clear this filter',
     appTitle: 'Generous Interfaces',
     appDescription: 'What is this project/prototype about?'
   },
   sv: {
     nItems: 'Antal',
-    filterAddColor: 'Lägg till färg',
-    filterClear: 'Rensa dessa filter',
+    filterAddColor: 'Lägg till ytterligare en färg',
+    filterClear: 'Rensa detta filter',
     appTitle: 'Generösa användargränssnitt',
     appDescription: 'Vad handlar det här projektet/prototypen om?'
   },
