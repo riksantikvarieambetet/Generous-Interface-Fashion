@@ -265,3 +265,23 @@ button {
     }
 }
 </style>
+
+<style>
+/* hack for color picker styling */
+.vc-chrome-hue-wrap {
+    height: 27px !important;
+}
+
+.vc-chrome-hue-wrap .vc-hue-picker{
+    width: 23px !important;
+    height: 28px !important;
+}
+
+.vc-chrome-active-color {
+    left: -8px !important;
+    top: -1px !important;
+    height: 30px !important;
+    width: 30px !important;
+}
+</style>
+
