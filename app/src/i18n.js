@@ -5,7 +5,8 @@ const messages = {
     filterClear: 'Clear this filter',
     appBegin: 'Start Exploring!',
     appTitle: 'Generous Interfaces',
-    appDescription: 'What is this project/prototype about?'
+    appDescription: 'What is this project/prototype about?',
+    'moreDetails': 'More details at'
   },
   sv: {
     nItems: 'Antal',
@@ -13,7 +14,8 @@ const messages = {
     filterClear: 'Rensa detta filter',
     appBegin: 'Börja utforska!',
     appTitle: 'Generösa användargränssnitt',
-    appDescription: 'Vad handlar det här projektet/prototypen om?'
+    appDescription: 'Vad handlar det här projektet/prototypen om?',
+    moreDetails: 'Mer information hos'
   },
 };
 
