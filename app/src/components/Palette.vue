@@ -1,6 +1,6 @@
 <template>
   <div class="root">
-    <h2>Explore with the palette below?</h2>
+    <h2>{{ $t('explorePalette') }}</h2>
     <div class="palette" v-on:click="filterWithPalette">
         <div v-if="palette" v-for="color in palette" v-bind:key="color" v-bind:style="{ background: color }"></div>
     </div>
