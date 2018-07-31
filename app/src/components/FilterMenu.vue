@@ -110,20 +110,11 @@ export default {
       console.log('debug: executing filtering');
       store.commit('colorCountClear');
 
-      if (store.state.colorFilterActive) {
-        // finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, store.state.colorFilterDynamic) : false))); //Compare colors in RGB space
-
-        //finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, store.state.colorFilterDynamic)));
-
-        //store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
+      if (this.staticColors.length > 0) {
 
         this.staticColors.forEach(stateColor => {
-          //if (stateColor !== store.state.colorFilterDynamic) {
-
-            finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
-
-            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
-          //}
+          finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
+          store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
         });
       }
 
