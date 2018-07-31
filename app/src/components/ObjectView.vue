@@ -69,11 +69,17 @@ export default {
     width: 50vw;
     height: 50vw;
     transform: scale(1);
-    transition: .3s ease-in-out;
+    transition: 0.1s ease-in-out;
+    border: 1px solid white;
+    box-sizing: border-box;
 }
 
 .object > img:hover {
-    transform: scale(1.3);
+    transform: scale(1);
+    border: 4px solid white;
+    box-sizing: border-box;
+    position: static;
+    filter: saturate(1);
 }
 
 .details img {
