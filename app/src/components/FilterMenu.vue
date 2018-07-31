@@ -2,22 +2,29 @@
   <div>
     <div class="menu">
       <img src="http://via.placeholder.com/250x90?text=logo" alt="logo and infomrtaion" class="logo" v-on:click="openModal" />
-      <span class="left">{{ $t('nItems') }}: <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber></span>
-      <div v-on:click="toggleColorFilter" v-bind:style="{ background: currentColor }" class="color-btn">
+      <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber>{{ $t('nItemsMidfix') }} många {{ $t('nItemsSuffix') }}</span>
+      <div v-on:click="toggleColorFilter" class="color-btn">
         <i class="fas fa-palette"></i>
-        <div v-if="colorCount.length > 1" v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
+        <div v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
       </div>
     </div>
     <transition name="slide-north">
       <FilterContainer v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
+
         <div class="desktop-break">
-          <Chrome v-bind:value="currentColor" v-on:input="updateColorFilterDynamic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
+          <Chrome v-bind:value="staticColors[selectedColorId]" v-on:input="updateColorFilterStatic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
         </div>
+
         <div class="desktop-break">
-          <div v-if="currentColor != `url('transparent.png')` && (!staticColors.includes(currentDynamicColorState) || currentColor == currentDynamicColorState)" v-bind:style="{ background: currentColor }" class="color"></div>
-          <div v-for="color in staticColors" v-bind:key="color" v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
-          <button v-if="currentColor != `url('transparent.png')`" v-on:click="lockColor">{{ $t('filterAddColor') }}</button>
-          <button v-on:click="resetColorFilter" class="red-btn">{{ $t('filterClear') }}</button>
+
+          <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setselectedColorIdId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
+            <span role="button" v-on:click="removeColorById(index)" v-if="index == selectedColorId">x</span>
+          </div>
+
+          <div class="colorNew" @click="lockColor" v-if="staticColors[selectedColorId] != ''">
+            <h1>+</h1>
+          </div>
+
         </div>
       </FilterContainer>
     </transition>
@@ -40,7 +47,7 @@ export default {
   data() {
     return {
       colorFilterOpen: false,
-      currentColor: `url('transparent.png')`,
+      selectedColorId: 0
     };
   },
   components: {
@@ -69,11 +76,6 @@ export default {
     this.$root.$on('triggerFiltering', () => {
       this.executeFiltering();
     });
-
-    this.$root.$on('updateColorFilterDynamic', color => {
-      const value = { hex: color };
-      this.updateColorFilterDynamic(value);
-    });
   },
   methods: {
     openModal() {
@@ -84,27 +86,23 @@ export default {
       this.colorFilterOpen = !this.colorFilterOpen;
     },
 
-    updateColorFilterDynamic(value) {
-      store.commit('activateColorFilter');
-      store.commit('updateDynamicColor', value.hex);
-      this.currentColor = value.hex;
+    updateColorFilterStatic(value) {
+      store.commit('updateStaticColor', {id: this.selectedColorId, color: value.hex});
       this.executeFiltering();
     },
 
     lockColor() {
-      store.commit('addColorFilter', this.currentColor);
+      store.commit('addColorFilter', '');
+      this.selectedColorId = this.staticColors.length-1;
     },
 
-    resetColorFilter() {
-      store.commit('deactivateColorFilter');
-      this.colorFilterOpen = false;
-      this.currentColor = `url('transparent.png')`;
+    removeColorById(id) {
+      store.commit('removeColorFilterById', id);
       this.executeFiltering();
     },
 
-    removeColor(value) {
-      store.commit('removeColorFilter', [value]);
-      this.executeFiltering();
+    setselectedColorIdId(id){
+      this.selectedColorId = id;
     },
 
     executeFiltering() {
@@ -112,20 +110,20 @@ export default {
       console.log('debug: executing filtering');
       store.commit('colorCountClear');
 
-      if (store.state.colorFilterActive) {
+      if (this.staticColors.length > 0) {
         //finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, store.state.colorFilterDynamic) : false))); //Compare colors in RGB space
 
-        finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, store.state.colorFilterDynamic)));
+        //finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, store.state.colorFilterDynamic)));
 
-        store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
+        //store.commit('colorCountAdd', [finalList.length, store.state.colorFilterDynamic]);
 
-        store.state.colorFilter.forEach(stateColor => {
-          if (stateColor !== store.state.colorFilterDynamic) {
+        this.staticColors.forEach(stateColor => {
+          //if (stateColor !== store.state.colorFilterDynamic) {
 
             finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
 
             store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
-          }
+          //}
         });
       }
 
@@ -252,7 +250,8 @@ button {
 }
 
 .color {
-    width: calc(33% - 6px);
+    /*width: calc(33% - 6px);*/
+    width: 70px;
     height: 70px;
     margin-top: 5px;
     float: left;
@@ -260,6 +259,16 @@ button {
     margin-bottom: 5px;
     position: relative;
     border-radius: 4px;
+}
+
+.color.selectedColorId{
+  box-sizing: border-box;
+  border: 2px solid black;
+  box-shadow:inset 0px 0px 0px 2px white;
+}
+
+.color.unsetColor{
+  background: url('/transparent.png');
 }
 
 .color span {
@@ -273,6 +282,28 @@ button {
     border-radius: 100%;
     line-height: 19px;
     cursor: pointer;
+}
+
+.colorNew {
+    width: calc(70px);
+    height: 70px;
+    margin-top: 5px;
+    float: left;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    position: relative;
+    border-radius: 4px;
+    border: 2px dashed gray;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    size: larger;
+    cursor: pointer;
+}
+
+.colorNew span{
+  vertical-align: middle;
 }
 
 .svg-inline--fa.fa-palette.fa-w-16 {

@@ -26,9 +26,7 @@ export const store = new Vuex.Store({
     visibleLimit: 30,
     garmentFilter: [],
 
-    colorFilterActive: false,
-    colorFilter: [],
-    colorFilterDynamic: '#000000',
+    colorFilter: [''],
     colorCount: [],
 
     isLoadingImages: false,
@@ -62,15 +60,19 @@ export const store = new Vuex.Store({
     loadingImages: state => (state.isLoadingImages = true),
     notLoadingImages: state => (state.isLoadingImages = false),
 
-    activateColorFilter: state => (state.colorFilterActive = true),
-    deactivateColorFilter: state => {
-      state.colorFilterActive = false;
-      state.colorFilter = [];
+    updateStaticColor: (state, params) => {
+      Vue.set(state.colorFilter,params.id,params.color);
     },
 
-    updateDynamicColor: (state, color) => (state.colorFilterDynamic = color),
-    addColorFilter: (state, color) => (!state.colorFilter.includes(color) && state.colorFilter.push(color)),
-    removeColorFilter: (state, colors) => (state.colorFilter = state.colorFilter.filter(item => !colors.includes(item))),
+    addColorFilter: (state, color) => {
+      if(!state.colorFilter.includes(color)){
+        state.colorFilter.push(color);
+      }
+    },
+
+    removeColorFilterById: (state, id) => {
+      state.colorFilter.splice(id,1);
+    },
 
     colorCountClear: (state) => (state.colorCount = []),
     colorCountAdd: (state, values) => (state.colorCount.push(values)),
