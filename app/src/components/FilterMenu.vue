@@ -2,7 +2,7 @@
   <div>
     <div class="menu">
       <img src="http://via.placeholder.com/250x90?text=logo" alt="logo and infomrtaion" class="logo" v-on:click="openModal" />
-      <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber>{{ $t('nItemsMidfix') }} många {{ $t('nItemsSuffix') }}</span>
+      <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="nActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ nAllItems }} {{ $t('nItemsSuffix') }}</span>
       <div v-on:click="toggleColorFilter" class="color-btn">
         <i class="fas fa-palette"></i>
         <div v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
@@ -54,8 +54,12 @@ export default {
     AnimatedNumber,
   },
   computed: {
-    nActiveitems() {
+    nActiveItems() {
       return store.state.activeItems.length;
+    },
+
+    nAllItems() {
+      return store.state.allItems.length;
     },
 
     staticColors() {
