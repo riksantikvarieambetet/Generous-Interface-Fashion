@@ -121,8 +121,10 @@ export default {
 
         store.state.colorFilter.forEach(stateColor => {
           if (stateColor !== store.state.colorFilterDynamic) {
-            finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, store.state.colorFilterDynamic)));
-            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, store.state.colorFilterDynamic))).length, stateColor]);
+
+            finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
+
+            store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
           }
         });
       }
