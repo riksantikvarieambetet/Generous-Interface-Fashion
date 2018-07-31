@@ -299,8 +299,9 @@ button {
 }
 
 .vc-chrome-hue-wrap .vc-hue-picker{
-    width: 23px !important;
-    height: 28px !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 15px !important;
 }
 
 .vc-chrome-active-color {
