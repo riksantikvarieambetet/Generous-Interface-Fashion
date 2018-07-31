@@ -58,9 +58,10 @@ export default {
 .palette {
     display: table;
     table-layout: fixed;
-    width: 100%;
+    width: 98%;
     height: 100px;
     cursor: pointer;
+    margin: 0 auto;
 }
 
 .palette div {
