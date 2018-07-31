@@ -39,8 +39,8 @@ export default {
     },
 
     filterByColor(color) {
-      store.commit('deactivateColorFilter');
-      this.$root.$emit('updateColorFilterDynamic', '#' + color);
+      store.commit('replaceColorFilter', ['#' + color]);
+      this.$root.$emit('triggerFiltering');
       this.toggle();
     },
   },

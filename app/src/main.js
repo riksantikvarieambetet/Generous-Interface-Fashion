@@ -74,6 +74,10 @@ export const store = new Vuex.Store({
       state.colorFilter.splice(id, 1);
     },
 
+    replaceColorFilter: (state, colors) => {
+      state.colorFilter = colors;
+    },
+
     colorCountClear: (state) => (state.colorCount = []),
     colorCountAdd: (state, values) => (state.colorCount.push(values)),
   },
