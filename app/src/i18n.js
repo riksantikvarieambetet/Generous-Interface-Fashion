@@ -2,10 +2,10 @@ const messages = {
   en: {
     nItems: 'Items',
     filterAddColor: 'Add Another Color',
-    filterClear: 'Clear this filter',
+    filterClear: 'Clear This Filter',
     appBegin: 'Start Exploring!',
     appTitle: 'Generous Interfaces',
-    appDescription: 'What is this project/prototype about?',
+    appDescription: 'A prototype by the Swedish National Heritage Board, Malmö Museer, Nationalmuseum, National Museums of World Culture and the Nordic Museum.',
     'moreDetails': 'More details at',
   },
   sv: {
@@ -14,7 +14,7 @@ const messages = {
     filterClear: 'Rensa detta filter',
     appBegin: 'Börja utforska!',
     appTitle: 'Generösa användargränssnitt',
-    appDescription: 'Vad handlar det här projektet/prototypen om?',
+    appDescription: 'En prototyp från Riksantikvarieämbetet, Malmö museer, Nationalmuseum, Nordiska museet och Världskulturmuseerna.',
     moreDetails: 'Mer information hos',
   },
 };
