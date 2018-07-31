@@ -31,7 +31,7 @@ import { Chrome } from 'vue-color';
 import fontawesome from '@fortawesome/fontawesome';
 import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
 import { store } from '../main.js';
-import ColorConvert from 'color-convert'
+import ColorConvert from 'color-convert';
 
 fontawesome.library.add(faPalette);
 
@@ -113,7 +113,7 @@ export default {
       store.commit('colorCountClear');
 
       if (store.state.colorFilterActive) {
-        //finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, store.state.colorFilterDynamic) : false))); //Compare colors in RGB space
+        // finalList = finalList.filter(item => item.application.colors.some(color => (color.score > 0.1 ? this.isSimilarColor(color.hex, store.state.colorFilterDynamic) : false))); //Compare colors in RGB space
 
         finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, store.state.colorFilterDynamic)));
 
@@ -121,7 +121,6 @@ export default {
 
         store.state.colorFilter.forEach(stateColor => {
           if (stateColor !== store.state.colorFilterDynamic) {
-
             finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
 
             store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
@@ -163,7 +162,6 @@ export default {
     },
 
     isSimilarHSV(hex1, hex2) {
-
       const hsl1 = ColorConvert.hex.hsv(hex1);
       const hsl2 = ColorConvert.hex.hsv(hex2);
 
@@ -171,16 +169,15 @@ export default {
       const sDiff = Math.abs(hsl1[1] - hsl2[1]);
       const vDiff = Math.abs(hsl1[2] - hsl2[2]);
 
-      //Colored images
-      let hueTest = hsl1[1] != 0 && hDiff < 10 && sDiff < 30 && vDiff < 30;
+      // Colored images
+      let hueTest = hsl1[1] !== 0 && hDiff < 10 && sDiff < 30 && vDiff < 30;
 
-      //BW images
-      let sTest = hsl1[1] == 0 && (sDiff < 10 && vDiff < 5);
-      let vTest = hsl1[1] == 0 && hsl1[2] < 20 && vDiff < 5;
+      // BW images
+      let sTest = hsl1[1] === 0 && (sDiff < 10 && vDiff < 5);
+      let vTest = hsl1[1] === 0 && hsl1[2] < 20 && vDiff < 5;
 
       return hueTest || sTest || vTest;
-
-    }
+    },
 
   },
 };
