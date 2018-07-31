@@ -14,9 +14,9 @@
           <Chrome v-bind:value="currentColor" v-on:input="updateColorFilterDynamic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
         </div>
         <div class="desktop-break">
-          <div v-if="currentColor != `url('transparent.png')` && (!staticColors.includes(currentDynamicColorState) || currentColor == currentDynamicColorState)" v-bind:style="{ background: currentColor }" class="color"></div>
+          <div v-if="currentColor != '#cccccc' && (!staticColors.includes(currentDynamicColorState) || currentColor == currentDynamicColorState)" v-bind:style="{ background: currentColor }" class="color"></div>
           <div v-for="color in staticColors" v-bind:key="color" v-bind:style="{ background: color }" class="color"><span role="button" v-on:click="removeColor(color)">x</span></div>
-          <button v-if="currentColor != `url('transparent.png')`" v-on:click="lockColor">{{ $t('filterAddColor') }}</button>
+          <button v-if="currentColor != '#cccccc'" v-on:click="lockColor">{{ $t('filterAddColor') }}</button>
           <button v-on:click="resetColorFilter" class="red-btn">{{ $t('filterClear') }}</button>
         </div>
       </FilterContainer>
@@ -40,7 +40,7 @@ export default {
   data() {
     return {
       colorFilterOpen: false,
-      currentColor: `url('transparent.png')`,
+      currentColor: '#cccccc',
     };
   },
   components: {
@@ -98,7 +98,7 @@ export default {
     resetColorFilter() {
       store.commit('deactivateColorFilter');
       this.colorFilterOpen = false;
-      this.currentColor = `url('transparent.png')`;
+      this.currentColor = '#cccccc';
       this.executeFiltering();
     },
 
@@ -217,6 +217,7 @@ export default {
     cursor: pointer;
     border-radius: 4px;
     position: relative;
+    overflow: hidden;
 }
 
 .color-btn div {
@@ -278,6 +279,7 @@ button {
     position: absolute;
     left: 15px;
     top: 6px;
+    color: white;
 }
 
 @media only screen and (min-width: 1000px) {
