@@ -8,9 +8,9 @@ import requests
 from google.oauth2 import service_account
 from google.cloud import vision
 
-from europeana import Europeana
-from google_vision import GoogleVision
-import data_transformation as transformation
+from dataskakare import Europeana
+from dataskakare import GoogleVision
+import dataskakare.data_transformation as transformation
 
 class ItemStorage():
     def __init__(self, item_type, provider, item):
