@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="menu">
-      <img src="http://via.placeholder.com/250x90?text=logo" alt="logo and infomrtaion" class="logo" v-on:click="openModal" />
+      <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" v-on:click="openModal" />
       <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="nActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ nAllItems }} {{ $t('nItemsSuffix') }}</span>
       <div v-on:click="toggleColorFilter" class="color-btn">
         <i class="fas fa-palette"></i>
