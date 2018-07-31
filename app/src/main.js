@@ -61,17 +61,17 @@ export const store = new Vuex.Store({
     notLoadingImages: state => (state.isLoadingImages = false),
 
     updateStaticColor: (state, params) => {
-      Vue.set(state.colorFilter,params.id,params.color);
+      Vue.set(state.colorFilter, params.id, params.color);
     },
 
     addColorFilter: (state, color) => {
-      if(!state.colorFilter.includes(color)){
+      if (!state.colorFilter.includes(color)) {
         state.colorFilter.push(color);
       }
     },
 
     removeColorFilterById: (state, id) => {
-      state.colorFilter.splice(id,1);
+      state.colorFilter.splice(id, 1);
     },
 
     colorCountClear: (state) => (state.colorCount = []),

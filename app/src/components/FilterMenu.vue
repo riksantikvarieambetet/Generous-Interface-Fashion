@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       colorFilterOpen: false,
-      selectedColorId: 0
+      selectedColorId: 0,
     };
   },
   components: {
@@ -91,7 +91,7 @@ export default {
 
     lockColor() {
       store.commit('addColorFilter', '');
-      this.selectedColorId = this.staticColors.length-1;
+      this.selectedColorId = this.staticColors.length - 1;
     },
 
     removeColorById(id) {
@@ -99,7 +99,7 @@ export default {
       this.executeFiltering();
     },
 
-    setselectedColorIdId(id){
+    setselectedColorIdId(id) {
       this.selectedColorId = id;
     },
 
@@ -109,7 +109,6 @@ export default {
       store.commit('colorCountClear');
 
       if (this.staticColors.length > 0) {
-
         this.staticColors.forEach(stateColor => {
           finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
           store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
