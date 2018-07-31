@@ -16,15 +16,13 @@
         </div>
 
         <div class="desktop-break">
-
-          <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setselectedColorIdId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
+        <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setselectedColorIdId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
             <span role="button" v-on:click="removeColorById(index)" v-if="index == selectedColorId">x</span>
           </div>
 
           <div class="colorNew" @click="lockColor" v-if="staticColors[selectedColorId] != ''">
             <h1>+</h1>
           </div>
-
         </div>
       </FilterContainer>
     </transition>
@@ -207,6 +205,7 @@ export default {
     cursor: pointer;
     border-radius: 4px;
     position: relative;
+    overflow: hidden;
 }
 
 .color-btn div {
@@ -301,6 +300,7 @@ button {
     position: absolute;
     left: 15px;
     top: 6px;
+    color: white;
 }
 
 @media only screen and (min-width: 1000px) {
