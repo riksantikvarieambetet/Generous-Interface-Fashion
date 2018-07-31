@@ -1,6 +1,8 @@
 const messages = {
   en: {
-    nItems: 'Items',
+    nItemsPrefix: 'Showing',
+    nItemsMidfix: 'of',
+    nItemsPrefix: 'images',
     filterAddColor: 'Add Another Color',
     filterClear: 'Clear This Filter',
     appBegin: 'Start Exploring!',
@@ -10,7 +12,9 @@ const messages = {
     explorePalette: 'Explore With the Palette Below?',
   },
   sv: {
-    nItems: 'Antal',
+    nItemsPrefix: 'Visar',
+    nItemsMidfix: 'av',
+    nItemsSuffix: 'bilder',
     filterAddColor: 'Lägg till ytterligare en färg',
     filterClear: 'Rensa detta filter',
     appBegin: 'Börja utforska!',
