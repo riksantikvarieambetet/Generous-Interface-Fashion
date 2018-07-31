@@ -205,6 +205,7 @@ export default {
     border-radius: 4px;
     position: relative;
     overflow: hidden;
+    background: #aaaaaa;
 }
 
 .color-btn div {
