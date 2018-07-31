@@ -2,7 +2,7 @@ const messages = {
   en: {
     nItemsPrefix: 'Showing',
     nItemsMidfix: 'of',
-    nItemsPrefix: 'images',
+    nItemsSuffix: 'images',
     filterAddColor: 'Add Another Color',
     filterClear: 'Clear This Filter',
     appBegin: 'Start Exploring!',

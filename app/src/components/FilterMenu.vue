@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="menu">
-      <img src="http://via.placeholder.com/250x90?text=logo" alt="logo and infomrtaion" class="logo" v-on:click="openModal" />
-      <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="nActiveitems"></AnimatedNumber>{{ $t('nItemsMidfix') }} många {{ $t('nItemsSuffix') }}</span>
+      <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" v-on:click="openModal" />
+      <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="nActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ nAllItems }} {{ $t('nItemsSuffix') }}</span>
       <div v-on:click="toggleColorFilter" class="color-btn">
         <i class="fas fa-palette"></i>
         <div v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
@@ -16,15 +16,13 @@
         </div>
 
         <div class="desktop-break">
-
-          <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setselectedColorIdId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
+        <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setselectedColorIdId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
             <span role="button" v-on:click="removeColorById(index)" v-if="index == selectedColorId">x</span>
           </div>
 
           <div class="colorNew" @click="lockColor" v-if="staticColors[selectedColorId] != ''">
             <h1>+</h1>
           </div>
-
         </div>
       </FilterContainer>
     </transition>
@@ -47,7 +45,7 @@ export default {
   data() {
     return {
       colorFilterOpen: false,
-      selectedColorId: 0
+      selectedColorId: 0,
     };
   },
   components: {
@@ -56,8 +54,12 @@ export default {
     AnimatedNumber,
   },
   computed: {
-    nActiveitems() {
+    nActiveItems() {
       return store.state.activeItems.length;
+    },
+
+    nAllItems() {
+      return store.state.allItems.length;
     },
 
     staticColors() {
@@ -93,7 +95,7 @@ export default {
 
     lockColor() {
       store.commit('addColorFilter', '');
-      this.selectedColorId = this.staticColors.length-1;
+      this.selectedColorId = this.staticColors.length - 1;
     },
 
     removeColorById(id) {
@@ -101,7 +103,7 @@ export default {
       this.executeFiltering();
     },
 
-    setselectedColorIdId(id){
+    setselectedColorIdId(id) {
       this.selectedColorId = id;
     },
 
@@ -111,7 +113,6 @@ export default {
       store.commit('colorCountClear');
 
       if (this.staticColors.length > 0) {
-
         this.staticColors.forEach(stateColor => {
           finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
           store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
@@ -207,6 +208,8 @@ export default {
     cursor: pointer;
     border-radius: 4px;
     position: relative;
+    overflow: hidden;
+    background: #aaaaaa;
 }
 
 .color-btn div {
@@ -301,6 +304,7 @@ button {
     position: absolute;
     left: 15px;
     top: 6px;
+    color: white;
 }
 
 @media only screen and (min-width: 1000px) {
