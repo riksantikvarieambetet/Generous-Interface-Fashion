@@ -104,7 +104,7 @@ body {
 
 /* MODAL */
 
-.welcome {
+.v--modal .welcome {
     padding: 8px;
     max-width: 100%;
 }
