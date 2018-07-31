@@ -4,11 +4,12 @@ const messages = {
     nItemsMidfix: 'of',
     nItemsPrefix: 'images',
     filterAddColor: 'Add Another Color',
-    filterClear: 'Clear this filter',
+    filterClear: 'Clear This Filter',
     appBegin: 'Start Exploring!',
     appTitle: 'Generous Interfaces',
-    appDescription: 'What is this project/prototype about?',
-    'moreDetails': 'More details at',
+    appDescription: 'A prototype by the Swedish National Heritage Board, Malmö Museer, Nationalmuseum, National Museums of World Culture and the Nordic Museum.',
+    moreDetails: 'More details at',
+    explorePalette: 'Explore With the Palette Below?',
   },
   sv: {
     nItemsPrefix: 'Visar',
@@ -18,8 +19,9 @@ const messages = {
     filterClear: 'Rensa detta filter',
     appBegin: 'Börja utforska!',
     appTitle: 'Generösa användargränssnitt',
-    appDescription: 'Vad handlar det här projektet/prototypen om?',
+    appDescription: 'En prototyp från Riksantikvarieämbetet, Malmö museer, Nationalmuseum, Nordiska museet och Världskulturmuseerna.',
     moreDetails: 'Mer information hos',
+    explorePalette: 'Utforska med paletten nedan?',
   },
 };
 

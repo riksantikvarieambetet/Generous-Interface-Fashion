@@ -105,7 +105,7 @@ body {
 /* MODAL */
 
 .welcome {
-    padding: 8px;
+    padding: 8px !important;
     max-width: 100%;
 }
 
