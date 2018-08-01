@@ -76,7 +76,7 @@ export default {
   },
   mounted() {
     this.$root.$on('triggerFiltering', () => {
-      this.executeFiltering();
+      this.executeFilteringAndSorting();
     });
   },
   methods: {
@@ -90,7 +90,7 @@ export default {
 
     updateColorFilterStatic(value) {
       store.commit('updateStaticColor', {id: this.selectedColorId, color: value.hex});
-      this.executeFiltering();
+      this.executeFilteringAndSorting();
     },
 
     lockColor() {
@@ -100,11 +100,8 @@ export default {
 
     removeColorById(id) {
       store.commit('removeColorFilterById', id);
-      this.executeFiltering();
+      this.executeFilteringAndSorting();
       this.setselectedColorId(Math.min(this.selectedColorId,this.staticColors.length - 1));
-      /*if(this.selectedColorId == this.staticColors.length - 1 && this.selectedColorId != 0){
-        this.selectedColorId--;
-      }*/
     },
 
     setselectedColorId(id) {
@@ -131,48 +128,123 @@ export default {
       window.scrollTo(0, 0);
     },
 
-    isSimilarColor(hex1, hex2) {
-      if (hex1.startsWith('#')) hex1 = hex1.substring(1);
-      if (hex2.startsWith('#')) hex2 = hex2.substring(1);
+    executeFilteringAndSorting() {
+      let finalList = store.state.allItems;
 
-      const r1 = parseInt(hex1.substring(0, 2), 16);
-      const g1 = parseInt(hex1.substring(2, 4), 16);
-      const b1 = parseInt(hex1.substring(4, 6), 16);
+      store.commit('colorCountClear');
 
-      const r2 = parseInt(hex2.substring(0, 2), 16);
-      const g2 = parseInt(hex2.substring(2, 4), 16);
-      const b2 = parseInt(hex2.substring(4, 6), 16);
+      finalList.forEach(item => {
 
-      let r = 255 - Math.abs(r1 - r2);
-      let g = 255 - Math.abs(g1 - g2);
-      let b = 255 - Math.abs(b1 - b2);
+        let score = 0.0;
 
-      r /= 255;
-      g /= 255;
-      b /= 255;
+        if (this.staticColors.length > 0) {
+          this.staticColors.forEach(stateColor => {
 
-      const score = (r + g + b) / 3;
+            const hsvState = ColorConvert.hex.hsv(stateColor);
 
-      return (score >= 0.9);
+            let scoreStateColor = this.calcScoreItemColor(item,hsvState);
+            if(scoreStateColor > 0){
+              score += scoreStateColor;
+            }
+
+          });
+        };
+
+        score /= this.staticColors.length;
+        item.application.score = score;
+
+      });
+
+
+      finalList = finalList.filter(item => item.application.score > 0.5);
+
+      finalList = finalList.sort((item1, item2) => {return item2.application.score - item1.application.score });
+
+      store.commit('addActiveItems', finalList);
+
+      // handle reseting of visibleLimit on filter change
+
+      store.commit('resetVisibleLimit');
+      window.scrollTo(0, 0);
     },
 
-    isSimilarHSV(hex1, hex2) {
-      const hsl1 = ColorConvert.hex.hsv(hex1);
-      const hsl2 = ColorConvert.hex.hsv(hex2);
+    calcScoreItemColor(item,hsvState){
 
-      const hDiff = Math.abs(hsl1[0] - hsl2[0]);
-      const sDiff = Math.abs(hsl1[1] - hsl2[1]);
-      const vDiff = Math.abs(hsl1[2] - hsl2[2]);
+      let score = 0;
+      let colorScoreAccum = 0;
+      let hasSimilar = false;
+
+      //Iterate over all identified item colors
+      item.application.colors.forEach(itemColor => {
+
+        //Convert color to HSV
+        const hsvItem = ColorConvert.hex.hsv(itemColor.hex);
+
+        //If state color matches any of the image's color, add 1.0 to score
+        if(!hasSimilar){
+          if(this.isSimilarHSVScore(hsvItem,hsvState)){
+            hasSimilar = true;
+            score += 1.0;
+          }
+        }
+
+        //Add score based on hue and distance in saturation and value
+        score += this.calcScoreHSV(hsvItem, hsvState) * itemColor.score;
+
+        //Accumlate Google's color score for normalizing
+        colorScoreAccum += itemColor.score;
+
+      });
+
+      //Normalize Google's color score
+      score /= colorScoreAccum;
+
+      return score;
+    },
+
+    calcScoreHSV(hsvItem, hsvState) {
+
+      const hDiff = Math.abs(hsvItem[0] - hsvState[0]); //Does not wrap around 360 degrees, should be fixed!
+      const sDiff = Math.abs(hsvItem[1] - hsvState[1]);
+      const vDiff = Math.abs(hsvItem[2] - hsvState[2]);
+
+      let score = 0;
 
       // Colored images
-      let hueTest = hsl1[1] !== 0 && hDiff < 10 && sDiff < 30 && vDiff < 30;
-
+      if(hsvItem[1] !== 0){
+        //If close enough in hue, base score on square distance in saturation and value
+        score += hDiff < 30 ? 1 - (Math.pow(sDiff/100.0,2) + Math.pow(vDiff/100.0,2)) : 0.0;
+      }
       // BW images
-      let sTest = hsl1[1] === 0 && (sDiff < 10 && vDiff < 5);
-      let vTest = hsl1[1] === 0 && hsl1[2] < 20 && vDiff < 5;
+      else{
+        score += hsvState[1] < 20 && hsvState[2] < 20 ? 1 - (Math.pow(sDiff/100.0,2) + Math.pow(vDiff/100.0,2)) : 0.0;
+      }
+
+      return score;
+    },
+
+    isSimilarHSVScore(hsvItem, hsvState) {
+      const hDiff = Math.abs(hsvItem[0] - hsvState[0]); //Does not wrap around 360 degrees, should be fixed!
+      const sDiff = Math.abs(hsvItem[1] - hsvState[1]);
+      const vDiff = Math.abs(hsvItem[2] - hsvState[2]);
+
+      let hueTest = false;
+      let sTest = false;
+      let vTest = false;
+
+      // Colored images
+      if(hsvItem[1] !== 0){
+        //True if close enough in hue, saturation and value
+        hueTest = hDiff < 30 && sDiff < 40 && vDiff < 40;
+      }
+      // BW images
+      else {
+        sTest = sDiff < 10 && vDiff < 5;
+        vTest = hsvItem[2] < 20 && vDiff < 5;
+      }
 
       return hueTest || sTest || vTest;
-    },
+    }
 
   },
 };

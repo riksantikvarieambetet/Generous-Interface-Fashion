@@ -2,6 +2,10 @@
   <div class="object">
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
 
+    <!--span class="score">
+      {{object.application.score}}
+    </span-->
+
     <modal v-bind:name="object.europeana_record" v-bind:classes="['v--modal details']" height="auto" v-hammer:swipe.up="toggle" transition="slide-north">
       <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
       <div class="image-colors">
@@ -58,6 +62,7 @@ export default {
 
 <style scoped>
 .object {
+    position: relative;
     float: left;
     overflow: hidden;
 }
@@ -110,6 +115,14 @@ button {
     height: 50px;
     float: left;
     cursor: pointer;
+}
+
+.score{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background: rgba(255,255,255,0.5);
 }
 
 @media only screen and (min-width: 600px) {
