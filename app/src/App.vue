@@ -40,6 +40,13 @@ export default {
           store.commit('addAllItems', shuffle(data));
           store.commit('addActiveItems', store.state.allItems);
         });
+
+      this.$http
+        .get('labels.json')
+        .then(response => response.body)
+        .then(data => {
+          store.commit('addLabels', data);
+        });
     },
 
     handleScroll: function() {
