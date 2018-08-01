@@ -44,6 +44,7 @@ export default {
 
     filterByColor(color) {
       store.commit('replaceColorFilter', ['#' + color]);
+      this.$root.$emit('resetSelectedColor');
       this.$root.$emit('triggerFiltering');
       this.toggle();
     },

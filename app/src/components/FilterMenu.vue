@@ -78,6 +78,11 @@ export default {
     this.$root.$on('triggerFiltering', () => {
       this.executeFilteringAndSorting();
     });
+
+    this.$root.$on('resetSelectedColor', () => {
+      this.setselectedColorId(0);
+    });
+
   },
   methods: {
     openModal() {
