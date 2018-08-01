@@ -30,6 +30,7 @@ Note that you will be prompted for your Europeana API key and the path to your G
 
 ```bash
 cd data
+pipenv --python 3.7
 pipenv install
 pipenv run python data-generator.py
 ```

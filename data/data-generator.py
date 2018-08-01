@@ -8,9 +8,9 @@ import requests
 from google.oauth2 import service_account
 from google.cloud import vision
 
-from europeana import Europeana
-from google_vision import GoogleVision
-import data_transformation as transformation
+from dataskakare import Europeana
+from dataskakare import GoogleVision
+import dataskakare.data_transformation as transformation
 
 class ItemStorage():
     def __init__(self, item_type, provider, item):
@@ -74,6 +74,12 @@ for item in unprocessed_items:
 
     output['application']['garment'] = item.type
     output['application']['colors'] = vision.get_colors(output['edm_preview'])
+
+    output['application']['labels'] = list()
+    labels = vision.get_labels(output['edm_preview'])
+    for label in labels:
+        if label['score'] > 0.5:
+            output['application']['labels'].append(label['value'])
 
     application_description = transformation.get_shortified_description(output['dc_description'])
     if application_description == '':
