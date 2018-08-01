@@ -75,6 +75,12 @@ for item in unprocessed_items:
     output['application']['garment'] = item.type
     output['application']['colors'] = vision.get_colors(output['edm_preview'])
 
+    output['application']['labels'] = list()
+    labels = vision.get_labels(output['edm_preview'])
+    for label in labels:
+        if label['score'] > 0.5:
+            output['application']['labels'].append(label['value'])
+
     application_description = transformation.get_shortified_description(output['dc_description'])
     if application_description == '':
         application_description = output['dc_title']
