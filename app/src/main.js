@@ -23,6 +23,8 @@ export const store = new Vuex.Store({
     allItems: [],
     activeItems: [],
 
+    labels: [],
+
     visibleLimit: 30,
     garmentFilter: [],
 
@@ -34,6 +36,10 @@ export const store = new Vuex.Store({
   mutations: {
     addAllItems(state, items) {
       state.allItems = items;
+    },
+
+    addLabels(state, labels) {
+      state.labels = labels;
     },
 
     addActiveItems(state, items) {
