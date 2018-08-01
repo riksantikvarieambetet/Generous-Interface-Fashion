@@ -3,6 +3,9 @@
     <div class="menu">
       <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" v-on:click="openModal" />
       <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="nActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ nAllItems }} {{ $t('nItemsSuffix') }}</span>
+      <div v-on:click="toggleLabelFilter" class="label-btn">
+        <i class="fas fa-tag"></i>
+      </div>
       <div v-on:click="toggleColorFilter" class="color-btn">
         <i class="fas fa-palette"></i>
         <div v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
@@ -26,6 +29,11 @@
         </div>
       </FilterContainer>
     </transition>
+    <transition name="slide-north">
+      <FilterContainer v-if="labelFilterOpen">
+        <span v-for="label in labels" v-bind:key="label[0]" v-bind:style="{ fontSize: label[1] / 10 + 'px' }">{{ label[0] }}, </span>
+      </FilterContainer>
+    </transition>
   </div>
 </template>
 
@@ -34,17 +42,20 @@ import FilterContainer from './FilterContainer';
 import AnimatedNumber from './AnimatedNumber';
 import { Chrome } from 'vue-color';
 import fontawesome from '@fortawesome/fontawesome';
+import faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
 import { store } from '../main.js';
 import ColorConvert from 'color-convert';
 
 fontawesome.library.add(faPalette);
+fontawesome.library.add(faTag);
 
 export default {
   name: 'FilterMenu',
   data() {
     return {
       colorFilterOpen: false,
+      labelFilterOpen: false,
       selectedColorId: 0,
     };
   },
@@ -73,6 +84,10 @@ export default {
     currentDynamicColorState() {
       return store.state.colorFilterDynamic;
     },
+
+    labels() {
+      return store.state.labels;
+    },
   },
   mounted() {
     this.$root.$on('triggerFiltering', () => {
@@ -85,7 +100,15 @@ export default {
     },
 
     toggleColorFilter() {
+      if (this.labelFilterOpen) this.labelFilterOpen = false;
+
       this.colorFilterOpen = !this.colorFilterOpen;
+    },
+
+    toggleLabelFilter() {
+      if (this.colorFilterOpen) this.colorFilterOpen = false;
+
+      this.labelFilterOpen = !this.labelFilterOpen;
     },
 
     updateColorFilterStatic(value) {
@@ -201,6 +224,11 @@ export default {
     display: block;
     float: left;
     max-height: 100%;
+    cursor: pointer;
+}
+
+.label-btn {
+    display: inline;
     cursor: pointer;
 }
 
