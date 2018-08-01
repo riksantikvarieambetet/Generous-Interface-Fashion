@@ -230,5 +230,6 @@ $RECYCLE.BIN/
 # Project specific
 
 *_cache
+*_cache.db
 settings.json
 data/data.json
