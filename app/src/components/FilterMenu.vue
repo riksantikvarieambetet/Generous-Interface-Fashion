@@ -16,8 +16,8 @@
         </div>
 
         <div class="desktop-break">
-        <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setselectedColorIdId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
-            <span role="button" v-on:click="removeColorById(index)" v-if="index == selectedColorId">x</span>
+          <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setselectedColorId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
+            <span role="button" v-on:click.stop="removeColorById(index)" v-if="index == selectedColorId">x</span>
           </div>
 
           <div class="colorNew" @click="lockColor" v-if="staticColors[selectedColorId] != ''">
@@ -95,15 +95,19 @@ export default {
 
     lockColor() {
       store.commit('addColorFilter', '');
-      this.selectedColorId = this.staticColors.length - 1;
+      this.setselectedColorId(this.staticColors.length - 1);
     },
 
     removeColorById(id) {
       store.commit('removeColorFilterById', id);
       this.executeFiltering();
+      this.setselectedColorId(Math.min(this.selectedColorId,this.staticColors.length - 1));
+      /*if(this.selectedColorId == this.staticColors.length - 1 && this.selectedColorId != 0){
+        this.selectedColorId--;
+      }*/
     },
 
-    setselectedColorIdId(id) {
+    setselectedColorId(id) {
       this.selectedColorId = id;
     },
 
