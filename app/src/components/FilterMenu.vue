@@ -156,14 +156,12 @@ export default {
       console.log('debug: executing filtering');
       store.commit('colorCountClear');
 
-      if (this.staticColors.length > 0 && this.staticColors[0] !== '') {
-        this.staticColors.forEach(stateColor => {
-          if (stateColor === '') return;
+      this.staticColors.forEach(stateColor => {
+        if (stateColor === '') return;
 
-          finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
-          store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
-        });
-      }
+        finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
+        store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
+      });
 
       this.selectedLabelIds.forEach(label => {
         finalList = finalList.filter(item => item.application.labels.includes(label));
