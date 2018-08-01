@@ -100,11 +100,15 @@ export default {
 
     removeColorById(id) {
       store.commit('removeColorFilterById', id);
+      if (this.staticColors.length === 0) {
+        store.commit('addColorFilter', '');
+      }
+
       this.executeFiltering();
-      this.setselectedColorId(Math.min(this.selectedColorId,this.staticColors.length - 1));
-      /*if(this.selectedColorId == this.staticColors.length - 1 && this.selectedColorId != 0){
+      this.setselectedColorId(Math.min(this.selectedColorId, this.staticColors.length - 1));
+      /* if(this.selectedColorId == this.staticColors.length - 1 && this.selectedColorId != 0){
         this.selectedColorId--;
-      }*/
+      } */
     },
 
     setselectedColorId(id) {
@@ -116,7 +120,7 @@ export default {
       console.log('debug: executing filtering');
       store.commit('colorCountClear');
 
-      if (this.staticColors.length > 0) {
+      if (this.staticColors.length > 0 && this.staticColors[0] !== '') {
         this.staticColors.forEach(stateColor => {
           finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
           store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
