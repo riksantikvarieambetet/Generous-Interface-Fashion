@@ -185,12 +185,9 @@ export default {
         //Convert color to HSV
         const hsvItem = ColorConvert.hex.hsv(itemColor.hex);
 
-        //If state color matches any of the image's color, add 1.0 to score
+        //Set flag if state color matches any of the image's color, later add 1.0 to score if true
         if(!hasSimilar){
-          if(this.isSimilarHSVScore(hsvItem,hsvState)){
-            hasSimilar = true;
-            score += 1.0;
-          }
+          hasSimilar = this.isSimilarHSVScore(hsvItem,hsvState);
         }
 
         //Add score based on hue and distance in saturation and value
@@ -203,6 +200,10 @@ export default {
 
       //Normalize Google's color score
       score /= colorScoreAccum;
+
+      if(hasSimilar){
+        score += 1.0;
+      }
 
       return score;
     },
