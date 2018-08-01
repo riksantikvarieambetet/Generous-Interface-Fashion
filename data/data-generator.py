@@ -95,3 +95,20 @@ for item in unprocessed_items:
 
 with open('data.json', 'w') as outfile:
     json.dump(result, outfile)
+
+print('computing label facets')
+
+with open('data.json', 'r') as f:
+    data = json.load(f)
+    total_labels = list()
+    for item in data:
+        total_labels += item['application']['labels']
+
+    new_list = list()
+    for l in total_labels:
+        la = (l, total_labels.count(l))
+        new_list.append(la)
+
+    final = sorted(set(new_list), key=lambda tup: tup[1], reverse=True)
+    with open('labels.json', 'w') as labels_file:
+        json.dump(final, labels_file)

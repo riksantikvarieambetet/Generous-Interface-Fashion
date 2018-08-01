@@ -232,4 +232,5 @@ $RECYCLE.BIN/
 *_cache
 *_cache.db
 settings.json
+data/labels.json
 data/data.json
