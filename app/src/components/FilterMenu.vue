@@ -29,9 +29,10 @@
         </div>
       </FilterContainer>
     </transition>
+
     <transition name="slide-north">
       <FilterContainer v-if="labelFilterOpen">
-        <span v-for="label in labels" v-bind:key="label[0]" v-bind:style="{ fontSize: label[1] / 10 + 'px' }">{{ label[0] }}, </span>
+        <span v-for="(label, index) in labels" v-bind:key="label[0]" v-bind:style="{ fontSize: label[1] / 10 + 'px' }" @click="setSelectedLabelId(index)" :class="{ selectedLabel: selectedLabelIds.includes(index) }">{{ label[0] }}, </span>
       </FilterContainer>
     </transition>
   </div>
@@ -57,6 +58,7 @@ export default {
       colorFilterOpen: false,
       labelFilterOpen: false,
       selectedColorId: 0,
+      selectedLabelIds: [],
     };
   },
   components: {
@@ -124,14 +126,23 @@ export default {
     removeColorById(id) {
       store.commit('removeColorFilterById', id);
       this.executeFiltering();
-      this.setselectedColorId(Math.min(this.selectedColorId,this.staticColors.length - 1));
-      /*if(this.selectedColorId == this.staticColors.length - 1 && this.selectedColorId != 0){
+      this.setselectedColorId(Math.min(this.selectedColorId, this.staticColors.length - 1));
+      /* if(this.selectedColorId == this.staticColors.length - 1 && this.selectedColorId != 0){
         this.selectedColorId--;
-      }*/
+      } */
     },
 
     setselectedColorId(id) {
       this.selectedColorId = id;
+    },
+
+    setSelectedLabelId(id) {
+      if (this.selectedLabelIds.includes(id)) {
+        let index = this.selectedLabelIds.indexOf(id);
+        if (index !== -1) this.selectedLabelIds.splice(index, 1);
+      } else {
+        this.selectedLabelIds.push(id);
+      }
     },
 
     executeFiltering() {
@@ -328,6 +339,10 @@ button {
 
 .colorNew span{
   vertical-align: middle;
+}
+
+.selectedLabel {
+  background: cyan;
 }
 
 .svg-inline--fa.fa-palette.fa-w-16 {
