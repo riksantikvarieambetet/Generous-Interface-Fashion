@@ -32,7 +32,7 @@
 
     <transition name="slide-north">
       <FilterContainer v-if="labelFilterOpen">
-        <span v-for="(label, index) in labels" v-bind:key="label[0]" v-bind:style="{ fontSize: label[1] / 10 + 'px' }" @click="setSelectedLabelId(index)" :class="{ selectedLabel: selectedLabelIds.includes(index) }">{{ label[0] }}, </span>
+        <span v-for="label in labels" v-bind:key="label[0]" v-bind:style="{ fontSize: label[1] / 10 + 'px' }" @click="setSelectedLabelId(label[0])" :class="{ selectedLabel: selectedLabelIds.includes(label[0]) }">{{ label[0] }}, </span>
       </FilterContainer>
     </transition>
   </div>
@@ -143,6 +143,8 @@ export default {
       } else {
         this.selectedLabelIds.push(id);
       }
+
+      this.executeFiltering();
     },
 
     executeFiltering() {
@@ -152,10 +154,16 @@ export default {
 
       if (this.staticColors.length > 0) {
         this.staticColors.forEach(stateColor => {
+          if (stateColor === '') return;
+
           finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
           store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
         });
       }
+
+      this.selectedLabelIds.forEach(label => {
+        finalList = finalList.filter(item => item.application.labels.includes(label));
+      });
 
       store.commit('addActiveItems', finalList);
 
