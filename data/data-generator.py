@@ -12,6 +12,9 @@ from dataskakare import Europeana
 from dataskakare import GoogleVision
 import dataskakare.data_transformation as transformation
 
+from colorsnap.palettes import CSS_3
+from colorsnap import snap_color
+
 class ItemStorage():
     def __init__(self, item_type, provider, item):
         self.item = item
@@ -75,6 +78,12 @@ for item in unprocessed_items:
     output['application']['garment'] = item.type
     output['application']['colors'] = vision.get_colors(output['edm_preview'])
 
+    output['application']['css_colors'] = list()
+    for color in output['application']['colors']:
+        css_color = snap_color(CSS_3, color['hex'])[1]
+        if css_color not in output['application']['css_colors']:
+            output['application']['css_colors'].append(css_color)
+
     output['application']['labels'] = list()
     labels = vision.get_labels(output['edm_preview'])
     for label in labels:
@@ -86,7 +95,6 @@ for item in unprocessed_items:
         application_description = output['dc_title']
     else:
         application_description = transformation.enchant_description_with_title(application_description, output['dc_title'])
-
 
     output['application']['description'] = application_description
 
