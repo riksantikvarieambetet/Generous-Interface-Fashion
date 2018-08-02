@@ -22,17 +22,16 @@ export default {
   },
   methods: {
     filterWithPalette: function() {
-      //store.commit('deactivateColorFilter');
-      //this.palette.forEach(color => store.commit('addColorFilter', color));
-      //store.commit('updateDynamicColor', this.palette[this.palette.length - 1]);
-      //store.commit('activateColorFilter');
-      //this.$root.$emit('triggerFiltering');
-      //this.randomPalette();
+      // store.commit('deactivateColorFilter');
+      // this.palette.forEach(color => store.commit('addColorFilter', color));
+      // store.commit('updateDynamicColor', this.palette[this.palette.length - 1]);
+      // store.commit('activateColorFilter');
+      // this.$root.$emit('triggerFiltering');
+      // this.randomPalette();
 
       store.commit('replaceColorFilter', this.palette);
       this.$root.$emit('resetSelectedColor');
       this.$root.$emit('triggerFiltering');
-
     },
 
     randomPalette: function() {
