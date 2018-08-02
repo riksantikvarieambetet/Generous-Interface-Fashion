@@ -353,7 +353,7 @@ button {
 }
 
 .color-mountain {
-    margin-top: 335px;
+    margin-top: 340px;
     transform: scaleY(-1);
 }
 
@@ -361,6 +361,7 @@ button {
     float: left;
     min-height: 10px;
     max-height: 250px;
+    overflow: hidden;
 }
 
 @media only screen and (min-width: 1000px) {
