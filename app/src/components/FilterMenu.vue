@@ -353,8 +353,10 @@ button {
 }
 
 .color-mountain {
-    margin-top: 340px;
+    width: 100%;
     transform: scaleY(-1);
+    display: inline-block;
+    height: 283px;
 }
 
 .color-mountain > div {
