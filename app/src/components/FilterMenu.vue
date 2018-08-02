@@ -26,6 +26,10 @@
           <div class="colorNew" @click="lockColor" v-if="staticColors[selectedColorId] != ''">
             <h1>+</h1>
           </div>
+
+          <div class="color-mountain">
+            <div v-for="c in colorStats" v-bind:key="c[0]" v-bind:style="{ background: c[0], height: c[1] + 'px', width: 100 / colorStats.length + '%' }"></div>
+          </div>
         </div>
       </FilterContainer>
     </transition>
@@ -59,6 +63,7 @@ export default {
       labelFilterOpen: false,
       selectedColorId: 0,
       selectedLabelIds: [],
+      colorStats: [],
     };
   },
   components: {
@@ -163,6 +168,17 @@ export default {
       this.selectedLabelIds.forEach(label => {
         finalList = finalList.filter(item => item.application.labels.includes(label));
       });
+
+      let colorStats = [];
+      let remainingColors = [];
+      finalList.forEach(item => {
+        remainingColors = remainingColors.concat(item.application.css_colors);
+      });
+
+      remainingColors.forEach(c => {
+        colorStats.push([c, remainingColors.filter(x => x === c).length]);
+      });
+      this.colorStats = Array.from(new Set(colorStats.map(JSON.stringify)), JSON.parse).filter(y => y[1] > 2);
 
       store.commit('addActiveItems', finalList);
 
@@ -334,6 +350,17 @@ button {
     left: 15px;
     top: 6px;
     color: white;
+}
+
+.color-mountain {
+    margin-top: 335px;
+    transform: scaleY(-1);
+}
+
+.color-mountain > div {
+    float: left;
+    min-height: 10px;
+    max-height: 250px;
 }
 
 @media only screen and (min-width: 1000px) {

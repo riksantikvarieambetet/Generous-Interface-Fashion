@@ -39,6 +39,7 @@ export default {
         .then(data => {
           store.commit('addAllItems', shuffle(data));
           store.commit('addActiveItems', store.state.allItems);
+          this.$root.$emit('triggerFiltering');
         });
 
       this.$http
