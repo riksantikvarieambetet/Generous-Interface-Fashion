@@ -41,13 +41,6 @@ export default {
           store.commit('addActiveItems', store.state.allItems);
           this.$root.$emit('triggerFiltering');
         });
-
-      this.$http
-        .get('labels.json')
-        .then(response => response.body)
-        .then(data => {
-          store.commit('addLabels', data);
-        });
     },
 
     handleScroll: function() {

@@ -41,7 +41,7 @@
 
     <transition name="slide-north">
       <FilterContainer v-if="labelFilterOpen">
-        <span v-for="label in labels" v-bind:key="label[0]" v-bind:style="{ fontSize: label[1] / 10 + 'px' }" @click="setSelectedLabelId(label[0])" :class="{ selectedLabel: selectedLabelIds.includes(label[0]) }">{{ label[0] }}, </span>
+        <span v-for="label in labelStats" v-bind:key="label[0]" v-bind:style="{ fontSize: label[1] / 10 + 'px' }" @click="setSelectedLabelId(label[0])" :class="{ selectedLabel: selectedLabelIds.includes(label[0]) }">{{ label[0] }}, </span>
       </FilterContainer>
     </transition>
   </div>
@@ -71,6 +71,7 @@ export default {
       selectedColorId: 0,
       selectedLabelIds: [],
       colorStats: [],
+      labelStats: [],
     };
   },
   components: {
@@ -182,14 +183,22 @@ export default {
 
       let colorStats = [];
       let remainingColors = [];
+      let labelStats = [];
+      let remainingLabels = [];
       finalList.forEach(item => {
         remainingColors = remainingColors.concat(item.application.css_colors);
+        remainingLabels = remainingLabels.concat(item.application.labels);
       });
 
       remainingColors.forEach(c => {
         colorStats.push([c, remainingColors.filter(x => x === c).length]);
       });
       this.colorStats = Array.from(new Set(colorStats.map(JSON.stringify)), JSON.parse).filter(y => y[1] > 2);
+
+      remainingLabels.forEach(l => {
+        labelStats.push([l, remainingLabels.filter(x => x === l).length]);
+      });
+      this.labelStats = Array.from(new Set(labelStats.map(JSON.stringify)), JSON.parse).filter(y => y[1] > 2);
 
       store.commit('addActiveItems', finalList);
 
