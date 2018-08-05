@@ -50,7 +50,7 @@ export default {
     width: 98%;
     height: 50px;
     cursor: pointer;
-    margin: 0 auto;
+    margin: 5px auto;
 }
 
 .palette div {
