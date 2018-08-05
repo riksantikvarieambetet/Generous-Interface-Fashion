@@ -71,6 +71,8 @@ export const store = new Vuex.Store({
       Vue.set(state.colorFilter, params.id, params.color);
     },
 
+    clearColorFilter: state => (state.colorFilter = ['']),
+
     addColorFilter: (state, color) => {
       if (!state.colorFilter.includes(color)) {
         state.colorFilter.push(color);

@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     filterWithPalette: function() {
-      store.commit('deactivateColorFilter');
+      store.commit('clearColorFilter');
       this.palette.forEach(color => store.commit('addColorFilter', color));
       store.commit('updateDynamicColor', this.palette[this.palette.length - 1]);
       store.commit('activateColorFilter');
