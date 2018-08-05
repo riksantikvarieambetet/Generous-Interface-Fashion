@@ -40,8 +40,9 @@ export default {
     padding: 7px;
     box-sizing: border-box;
     z-index: 1;
-    height: 100vh;
+    height: calc(100vh - 50px);
     right: 0;
+    overflow-y: scroll;
 }
 
 .palette {
