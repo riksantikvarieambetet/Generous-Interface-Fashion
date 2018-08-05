@@ -161,7 +161,7 @@ export default {
     },
 
     savePalette() {
-      savedSate.commit('savePalette', this.staticColors);
+      savedSate.commit('savePalette', this.staticColors.slice(0));
     },
 
     executeFiltering() {
