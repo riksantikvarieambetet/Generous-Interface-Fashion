@@ -8,6 +8,7 @@ import Vuex from 'vuex';
 import { VueHammer } from 'vue2-hammer';
 import vmodal from 'vue-js-modal';
 import VueI18n from 'vue-i18n';
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(VueI18n);
 Vue.use(vmodal);
@@ -97,6 +98,16 @@ export const store = new Vuex.Store({
         return color;
       });
     },
+  },
+});
+
+export const savedSate = new Vuex.Store({
+  plugins: [createPersistedState()],
+  state: {
+    savedPalettes: [],
+  },
+  mutations: {
+    savePalette: (state, palette) => (state.savedPalettes.push(palette)),
   },
 });
 

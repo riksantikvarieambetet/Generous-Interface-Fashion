@@ -6,6 +6,9 @@
       <div v-on:click="toggleLabelFilter" class="label-btn">
         <i class="fas fa-tag"></i>
       </div>
+      <div v-on:click="$root.$emit('toggleSidebar')" class="label-btn">
+        <i class="fas fa-save"></i>
+      </div>
       <div v-on:click="toggleColorFilter" class="color-btn">
         <i class="fas fa-palette"></i>
         <div v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
@@ -26,6 +29,8 @@
           <div class="colorNew" @click="lockColor" v-if="staticColors[selectedColorId] != ''">
             <h1>+</h1>
           </div>
+
+          <button v-on:click="savePalette()">Save Palette Search</button>
 
           <div class="color-mountain">
             <div v-for="c in colorStats" v-bind:key="c[0]" v-bind:style="{ background: c[0], height: c[1] + 'px', width: 100 / colorStats.length + '%' }"></div>
@@ -49,11 +54,13 @@ import { Chrome } from 'vue-color';
 import fontawesome from '@fortawesome/fontawesome';
 import faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
-import { store } from '../main.js';
+import faSave from '@fortawesome/fontawesome-free-solid/faSave';
+import { store, savedSate } from '../main.js';
 import ColorConvert from 'color-convert';
 
 fontawesome.library.add(faPalette);
 fontawesome.library.add(faTag);
+fontawesome.library.add(faSave);
 
 export default {
   name: 'FilterMenu',
@@ -151,6 +158,10 @@ export default {
       }
 
       this.executeFiltering();
+    },
+
+    savePalette() {
+      savedSate.commit('savePalette', this.staticColors);
     },
 
     executeFiltering() {

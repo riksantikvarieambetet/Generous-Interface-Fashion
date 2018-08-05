@@ -2,6 +2,9 @@
   <div>
     <spinner v-if="loading" class="spinner" size="big" />
     <FilterMenu />
+
+    <Sidebar v-if="sidebarIsOpen" />
+
     <div v-if="list" v-bind:list="list" class="wall" v-images-loaded:on.progress="imageChange">
       <div v-for="item in list" v-bind:key="item.europeana_record" class="image">
         <ObjectView v-bind:object="item"/>
@@ -17,6 +20,7 @@ import Spinner from 'vue-simple-spinner';
 
 import ObjectView from './ObjectView.vue';
 import FilterMenu from './FilterMenu.vue';
+import Sidebar from './Sidebar.vue';
 import Palette from './Palette.vue';
 import { store } from '../main.js';
 
@@ -27,9 +31,20 @@ export default {
     FilterMenu,
     Spinner,
     Palette,
+    Sidebar,
   },
   directives: {
     imagesLoaded,
+  },
+  data() {
+    return {
+      sidebarIsOpen: false,
+    };
+  },
+  mounted() {
+    this.$root.$on('toggleSidebar', () => {
+      this.toggleSidebar();
+    });
   },
   computed: {
     list() {
@@ -51,6 +66,10 @@ export default {
       } else {
         store.commit('loadingImages');
       }
+    },
+
+    toggleSidebar() {
+      this.sidebarIsOpen = !this.sidebarIsOpen;
     },
   },
 };
