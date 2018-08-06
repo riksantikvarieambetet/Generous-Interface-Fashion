@@ -33,7 +33,7 @@
           <button v-on:click="savePalette()">Save Palette Search</button>
 
           <div class="color-mountain">
-            <div v-for="c in colorStats" v-bind:key="c[0]" v-bind:style="{ background: c[0], height: c[1] + 'px', width: 100 / colorStats.length + '%' }"></div>
+            <div v-for="c in colorStats" v-bind:key="c[0]" v-bind:style="{ background: c[0], height: c[1] + 'px', width: 100 / colorStats.length + '%' }" @click="setSelectedSnappedColorId(c[0])" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }"></div>
           </div>
         </div>
       </FilterContainer>
@@ -70,6 +70,7 @@ export default {
       labelFilterOpen: false,
       selectedColorId: 0,
       selectedLabelIds: [],
+      selectedSnappedColorIds: [],
       colorStats: [],
       labelStats: [],
     };
@@ -161,6 +162,17 @@ export default {
       this.executeFiltering();
     },
 
+    setSelectedSnappedColorId(id) {
+      if (this.selectedSnappedColorIds.includes(id)) {
+        let index = this.selectedSnappedColorIds.indexOf(id);
+        if (index !== -1) this.selectedSnappedColorIds.splice(index, 1);
+      } else {
+        this.selectedSnappedColorIds.push(id);
+      }
+
+      this.executeFiltering();
+    },
+
     savePalette() {
       savedSate.commit('savePalette', this.staticColors.slice(0));
     },
@@ -179,6 +191,10 @@ export default {
 
       this.selectedLabelIds.forEach(label => {
         finalList = finalList.filter(item => item.application.labels.includes(label));
+      });
+
+      this.selectedSnappedColorIds.forEach(color => {
+        finalList = finalList.filter(item => item.application.css_colors.includes(color));
       });
 
       let colorStats = [];
@@ -377,13 +393,25 @@ button {
     transform: scaleY(-1);
     display: inline-block;
     height: 283px;
+    overflow: hidden;
 }
 
 .color-mountain > div {
     float: left;
     min-height: 10px;
     max-height: 250px;
-    overflow: hidden;
+    cursor: pointer;
+}
+
+.color-mountain > div.selected::before {
+    content: '';
+    background: #333;
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 100%;
+    position: absolute;
+    top: 250px;
 }
 
 @media only screen and (min-width: 1000px) {
