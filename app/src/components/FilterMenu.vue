@@ -3,10 +3,10 @@
     <div class="menu">
       <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" v-on:click="openModal" />
       <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="nActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ nAllItems }} {{ $t('nItemsSuffix') }}</span>
-      <div v-on:click="toggleLabelFilter" class="label-btn">
+      <div v-on:click="toggleLabelFilter" class="menu-btn">
         <i class="fas fa-tag"></i>
       </div>
-      <div v-on:click="$root.$emit('toggleSidebar')" class="label-btn">
+      <div v-on:click="$root.$emit('toggleSidebar')" class="menu-btn">
         <i class="fas fa-save"></i>
       </div>
       <div v-on:click="toggleColorFilter" class="color-btn">
@@ -272,9 +272,12 @@ export default {
     cursor: pointer;
 }
 
-.label-btn {
-    display: inline;
+.menu-btn {
+    display: inline-block;
     cursor: pointer;
+    width: 25px;
+    text-align: center;
+    margin-right: 5px;
 }
 
 .color-btn {
