@@ -404,6 +404,7 @@ button {
     min-height: 10px;
     max-height: 250px;
     cursor: pointer;
+    position: relative;
 }
 
 .color-mountain > div.selected::before {
@@ -415,6 +416,7 @@ button {
     border-radius: 100%;
     position: absolute;
     top: 250px;
+    left: calc(50% - 2.5px);
 }
 
 @media only screen and (min-width: 1000px) {
