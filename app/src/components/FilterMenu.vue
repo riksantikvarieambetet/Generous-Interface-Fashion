@@ -17,25 +17,36 @@
     <transition name="slide-north">
       <FilterContainer v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
 
-        <div class="desktop-break">
-          <Chrome v-bind:value="staticColors[selectedColorId]" v-on:input="updateColorFilterStatic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
+        <div v-show="advancedColorFilterToggle">
+          <div class="desktop-break">
+            <Chrome v-bind:value="staticColors[selectedColorId]" v-on:input="updateColorFilterStatic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
+          </div>
+
+          <div class="desktop-break">
+            <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setselectedColorId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
+              <span role="button" v-on:click.stop="removeColorById(index)" v-if="index == selectedColorId">x</span>
+            </div>
+
+            <div class="colorNew" @click="lockColor" v-if="staticColors[selectedColorId] != ''">
+              <h1>+</h1>
+            </div>
+
+            <button v-on:click="savePalette()">Save Palette Search</button>
+
+            <div class="color-mountain">
+              <div v-for="c in colorStats" v-bind:key="c[0]" v-bind:style="{ background: c[0], height: c[1] + 'px', width: 100 / colorStats.length + '%' }" @click="setSelectedSnappedColorId(c[0])" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }"></div>
+            </div>
+          </div>
         </div>
 
-        <div class="desktop-break">
-          <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setselectedColorId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
-            <span role="button" v-on:click.stop="removeColorById(index)" v-if="index == selectedColorId">x</span>
-          </div>
-
-          <div class="colorNew" @click="lockColor" v-if="staticColors[selectedColorId] != ''">
-            <h1>+</h1>
-          </div>
-
-          <button v-on:click="savePalette()">Save Palette Search</button>
-
+        <div v-show="!advancedColorFilterToggle">
           <div class="color-mountain">
             <div v-for="c in colorStats" v-bind:key="c[0]" v-bind:style="{ background: c[0], height: c[1] + 'px', width: 100 / colorStats.length + '%' }" @click="setSelectedSnappedColorId(c[0])" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }"></div>
           </div>
         </div>
+
+        <p>Advanced color filter <toggle-button @change="toggleAdvancedColorFilter" :value="false" :labels="{checked: 'On', unchecked: 'Off'}" :color="'#008cff'" /></p>
+
       </FilterContainer>
     </transition>
 
@@ -73,6 +84,7 @@ export default {
       selectedSnappedColorIds: [],
       colorStats: [],
       labelStats: [],
+      advancedColorFilterToggle: false,
     };
   },
   components: {
@@ -119,6 +131,15 @@ export default {
       if (this.labelFilterOpen) this.labelFilterOpen = false;
 
       this.colorFilterOpen = !this.colorFilterOpen;
+    },
+
+    toggleAdvancedColorFilter() {
+      this.advancedColorFilterToggle = !this.advancedColorFilterToggle;
+
+      if (!this.advancedColorFilterToggle) {
+        store.commit('clearColorFilter');
+        this.executeFiltering();
+      }
     },
 
     toggleLabelFilter() {

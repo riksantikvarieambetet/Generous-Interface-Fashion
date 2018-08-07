@@ -9,7 +9,9 @@ import { VueHammer } from 'vue2-hammer';
 import vmodal from 'vue-js-modal';
 import VueI18n from 'vue-i18n';
 import createPersistedState from 'vuex-persistedstate';
+import ToggleButton from 'vue-js-toggle-button';
 
+Vue.use(ToggleButton);
 Vue.use(VueI18n);
 Vue.use(vmodal);
 Vue.use(VueHammer);
