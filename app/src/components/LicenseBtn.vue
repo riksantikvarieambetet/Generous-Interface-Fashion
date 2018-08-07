@@ -1,5 +1,5 @@
 <template>
-  <a v-bind:href="uri">
+  <a v-bind:href="uri" target="_blank">
     <img v-bind:src="license.img" v-bind:alt="license.name" />
   </a>
 </template>
