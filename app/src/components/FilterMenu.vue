@@ -136,7 +136,7 @@ export default {
     toggleAdvancedColorFilter() {
       this.advancedColorFilterToggle = !this.advancedColorFilterToggle;
 
-      if (!this.advancedColorFilterToggle) {
+      if (!this.advancedColorFilterToggle && this.staticColors[0] !== '') {
         store.commit('clearColorFilter');
         this.executeFiltering();
       }
