@@ -9,7 +9,7 @@
       </div>
       <p>{{ object.application.description }}</p>
       <LicenseBtn v-bind:uri="object.edm_rights" /><br />
-      <a v-bind:href="object.edm_is_shown_at">{{ $t('moreDetails') }} {{ object.edm_data_provider }}</a>
+      <a v-bind:href="object.edm_is_shown_at" target="_blank">{{ $t('moreDetails') }} {{ object.edm_data_provider }}</a>
     </modal>
   </div>
 </template>
