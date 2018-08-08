@@ -206,6 +206,13 @@ export default {
         labelStats.push([l, remainingLabels.filter(x => x === l).length]);
       });
       this.labelStats = Array.from(new Set(labelStats.map(JSON.stringify)), JSON.parse).filter(y => y[1] > 2);
+      this.labelStats = this.labelStats.map(l => {
+        l[1] = l[1] / 10;
+        if (l[1] < 10) l[1] = 10;
+        if (l[1] > 40) l[1] = 40;
+        l[1] += 'px';
+        return l;
+      });
 
       store.commit('addActiveItems', finalList);
 
