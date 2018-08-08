@@ -9,9 +9,8 @@
       <div v-on:click="$root.$emit('toggleSidebar')" class="menu-btn">
         <i class="fas fa-save"></i>
       </div>
-      <div v-on:click="toggleColorFilter" class="color-btn">
+      <div v-on:click="toggleColorFilter" class="menu-btn">
         <i class="fas fa-palette"></i>
-        <div v-for="colorC in colorCount" v-bind:key="colorC[1]" v-bind:style="{ background: colorC[1], width: colorC[0] + '%' }"></div>
       </div>
     </div>
     <transition name="slide-north">
@@ -103,10 +102,6 @@ export default {
       return store.state.colorFilter;
     },
 
-    colorCount() {
-      return store.getters.getColorPercentages;
-    },
-
     currentDynamicColorState() {
       return store.state.colorFilterDynamic;
     },
@@ -192,13 +187,11 @@ export default {
     executeFiltering() {
       let finalList = store.state.allItems;
       console.log('debug: executing filtering');
-      store.commit('colorCountClear');
 
       this.staticColors.forEach(stateColor => {
         if (stateColor === '') return;
 
         finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
-        store.commit('colorCountAdd', [store.state.allItems.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor))).length, stateColor]);
       });
 
       this.selectedLabelIds.forEach(label => {
@@ -265,7 +258,6 @@ export default {
     height: 50px;
     z-index: 2;
     text-align: right;
-    padding-right: 35px;
     box-sizing: border-box;
     line-height: 50px;
     position: fixed;
@@ -290,23 +282,6 @@ export default {
     width: 25px;
     text-align: center;
     margin-right: 5px;
-}
-
-.color-btn {
-    height: 32px;
-    width: 48px;
-    float: right;
-    margin-top: 9px;
-    cursor: pointer;
-    border-radius: 4px;
-    position: relative;
-    overflow: hidden;
-    background: #aaaaaa;
-}
-
-.color-btn div {
-    height: 32px;
-    float: left;
 }
 
 .color-picker {
@@ -392,15 +367,6 @@ button {
 
 .selectedLabel {
   background: cyan;
-}
-
-.svg-inline--fa.fa-palette.fa-w-16 {
-    height: unset;
-    width: 21px;
-    position: absolute;
-    left: 15px;
-    top: 6px;
-    color: white;
 }
 
 @media only screen and (min-width: 1000px) {

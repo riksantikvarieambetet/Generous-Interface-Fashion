@@ -64,9 +64,6 @@ export const store = new Vuex.Store({
       state.colorFilter = colors;
     },
 
-    colorCountClear: (state) => (state.colorCount = []),
-    colorCountAdd: (state, values) => (state.colorCount.push(values)),
-
     setSelectedSnappedColorId: (state, id) => {
       if (state.selectedSnappedColorIds.includes(id)) {
         let index = state.selectedSnappedColorIds.indexOf(id);
