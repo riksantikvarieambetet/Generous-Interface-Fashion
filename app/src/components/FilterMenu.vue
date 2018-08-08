@@ -22,7 +22,7 @@
           </div>
 
           <div class="desktop-break">
-            <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setselectedColorId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
+            <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setSelectedColorId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
               <span role="button" v-on:click.stop="removeColorById(index)" v-if="index == selectedColorId">x</span>
             </div>
 
@@ -148,7 +148,7 @@ export default {
 
     lockColor() {
       store.commit('addColorFilter', '');
-      this.setselectedColorId(this.staticColors.length - 1);
+      this.setSelectedColorId(this.staticColors.length - 1);
     },
 
     removeColorById(id) {
@@ -158,10 +158,10 @@ export default {
       }
 
       this.executeFiltering();
-      this.setselectedColorId(Math.min(this.selectedColorId, this.staticColors.length - 1));
+      this.setSelectedColorId(Math.min(this.selectedColorId, this.staticColors.length - 1));
     },
 
-    setselectedColorId(id) {
+    setSelectedColorId(id) {
       this.selectedColorId = id;
     },
 
