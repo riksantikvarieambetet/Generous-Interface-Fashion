@@ -7,7 +7,7 @@
       <div class="btn-container"><button v-on:click="closeWelcome">{{ $t('appBegin') }}</button></div>
     </modal>
 
-    <spinner v-if="loading" class="spinner" size="big" />
+    <spinner v-if="loading || loadingJson" class="spinner" size="big" />
   </div>
 </template>
 
@@ -27,6 +27,11 @@ export default {
     loading() {
       return store.state.isLoadingImages;
     },
+  },
+  data() {
+    return {
+      loadingJson: true,
+    };
   },
   mounted() {
     this.$root.$on('openInfo', () => {
@@ -50,6 +55,7 @@ export default {
           store.commit('addAllItems', shuffle(data));
           store.commit('addActiveItems', store.state.allItems);
           this.$root.$emit('triggerFiltering');
+          this.loadingJson = false;
         });
     },
 
