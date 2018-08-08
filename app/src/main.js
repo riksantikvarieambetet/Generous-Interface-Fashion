@@ -1,13 +1,13 @@
 import Vue from 'vue';
-import App from './App';
-import messages from './i18n';
-
 import AsyncComputed from 'vue-async-computed';
 import VueResource from 'vue-resource';
 import { VueHammer } from 'vue2-hammer';
 import vmodal from 'vue-js-modal';
 import VueI18n from 'vue-i18n';
 import ToggleButton from 'vue-js-toggle-button';
+
+import App from './App';
+import messages from './i18n';
 
 Vue.use(ToggleButton);
 Vue.use(VueI18n);

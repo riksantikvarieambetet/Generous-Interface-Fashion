@@ -59,15 +59,16 @@
 </template>
 
 <script>
-import FilterContainer from './FilterContainer';
-import AnimatedNumber from './AnimatedNumber';
 import { Chrome } from 'vue-color';
 import fontawesome from '@fortawesome/fontawesome';
 import faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
 import faSave from '@fortawesome/fontawesome-free-solid/faSave';
-import { savedSate, store } from '../store';
 import ColorConvert from 'color-convert';
+
+import FilterContainer from './FilterContainer';
+import AnimatedNumber from './AnimatedNumber';
+import { savedSate, store } from '../store';
 
 fontawesome.library.add(faPalette);
 fontawesome.library.add(faTag);
