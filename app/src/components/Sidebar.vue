@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { store, savedSate } from '../main.js';
+import { savedSate, store } from '../store';
 
 export default {
   name: 'Sidebar',

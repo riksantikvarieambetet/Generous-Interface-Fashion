@@ -66,7 +66,7 @@ import fontawesome from '@fortawesome/fontawesome';
 import faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
 import faSave from '@fortawesome/fontawesome-free-solid/faSave';
-import { store, savedSate } from '../main.js';
+import { savedSate, store } from '../store';
 import ColorConvert from 'color-convert';
 
 fontawesome.library.add(faPalette);

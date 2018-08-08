@@ -16,7 +16,7 @@
 
 <script>
 import LicenseBtn from './LicenseBtn';
-import { store } from '../main.js';
+import { store } from '../store';
 
 export default {
   name: 'ObjectView',

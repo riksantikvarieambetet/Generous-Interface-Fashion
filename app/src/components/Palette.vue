@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { store } from '../main.js';
+import { store } from '../store';
 
 export default {
   name: 'Palette',

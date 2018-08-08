@@ -22,7 +22,7 @@ import ObjectView from './ObjectView.vue';
 import FilterMenu from './FilterMenu.vue';
 import Sidebar from './Sidebar.vue';
 import Palette from './Palette.vue';
-import { store } from '../main.js';
+import { store } from '../store';
 
 export default {
   name: 'ImageWall',
