@@ -6,7 +6,7 @@ This project was created within the scope of the Swedish National Heritage Board
 ## Setup
 
 ```bash
-git clone 
+git clone https://github.com/riksantikvarieambetet/Generous-Interface-Fashion.git
 ```
 
 ### Web Application
