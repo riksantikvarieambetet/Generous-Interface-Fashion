@@ -18,10 +18,10 @@
 import imagesLoaded from 'vue-images-loaded';
 import Spinner from 'vue-simple-spinner';
 
-import ObjectView from './ObjectView.vue';
-import FilterMenu from './FilterMenu.vue';
-import Sidebar from './Sidebar.vue';
-import Palette from './Palette.vue';
+import ObjectView from './ObjectView';
+import FilterMenu from './FilterMenu';
+import Sidebar from './Sidebar';
+import Palette from './Palette';
 import { store } from '../store';
 
 export default {

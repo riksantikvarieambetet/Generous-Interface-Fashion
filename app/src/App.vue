@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ImageWall from './components/ImageWall.vue';
+import ImageWall from './components/ImageWall';
 import { store } from './store';
 
 export default {
