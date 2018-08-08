@@ -1,7 +1,8 @@
 <template>
   <div class="sidebar-container">
     <h2>Saved Palettes</h2>
-    <div v-for="(palette, i) in savedPalettes" v-bind:key="i" class="palette" v-on:click="filterWithPalette(palette)">
+    <p v-if="savedPalettes.length === 0">You have no saved palettes.</p>
+    <div v-else v-for="(palette, i) in savedPalettes" v-bind:key="i" class="palette" v-on:click="filterWithPalette(palette)">
       <div v-for="color in palette" v-bind:key="i + color" v-bind:style="{ background: color }"></div>
     </div>
   </div>
