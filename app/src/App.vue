@@ -45,7 +45,7 @@ export default {
 
     handleScroll: function() {
       if ((window.innerHeight + window.scrollY) >= (document.querySelector('html').offsetHeight) - 50) {
-        if (/*! store.state.isLoadingImages && */store.state.visibleLimit <= store.state.activeItems.length) {
+        if (store.state.visibleLimit <= store.state.activeItems.length) {
           store.commit('increaseVisibleLimit', 10);
         }
       }

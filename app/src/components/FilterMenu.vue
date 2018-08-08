@@ -298,7 +298,6 @@ button {
 }
 
 .color {
-    /*width: calc(33% - 6px);*/
     width: 70px;
     height: 70px;
     margin-top: 5px;
