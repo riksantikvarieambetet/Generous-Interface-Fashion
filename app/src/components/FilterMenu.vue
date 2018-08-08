@@ -47,7 +47,7 @@
 
     <transition name="slide-north">
       <FilterContainer v-if="labelFilterOpen">
-        <span v-for="label in labelStats" v-bind:key="label[0]" v-bind:style="{ fontSize: label[1] / 10 + 'px' }" @click="setSelectedLabelId(label[0])" :class="{ selectedLabel: selectedLabelIds.includes(label[0]) }">{{ label[0] }}, </span>
+        <LabelStack v-bind:labels="labelStats" />
       </FilterContainer>
     </transition>
   </div>
@@ -64,6 +64,7 @@ import ColorConvert from 'color-convert';
 import FilterContainer from './FilterContainer';
 import AnimatedNumber from './AnimatedNumber';
 import ColorMountain from './ColorMountain';
+import LabelStack from './LabelStack';
 import { savedSate, store } from '../store';
 
 fontawesome.library.add(faPalette);
@@ -77,7 +78,6 @@ export default {
       colorFilterOpen: false,
       labelFilterOpen: false,
       selectedColorId: 0,
-      selectedLabelIds: [],
       colorStats: [],
       labelStats: [],
       advancedColorFilterToggle: false,
@@ -88,6 +88,7 @@ export default {
     Chrome,
     AnimatedNumber,
     ColorMountain,
+    LabelStack,
   },
   computed: {
     nActiveItems() {
@@ -102,12 +103,12 @@ export default {
       return store.state.colorFilter;
     },
 
-    labels() {
-      return store.state.labels;
-    },
-
     selectedSnappedColorIds() {
       return store.state.selectedSnappedColorIds;
+    },
+
+    selectedLabelIds() {
+      return store.state.selectedLabelIds;
     },
   },
   mounted() {
@@ -163,17 +164,6 @@ export default {
 
     setSelectedColorId(id) {
       this.selectedColorId = id;
-    },
-
-    setSelectedLabelId(id) {
-      if (this.selectedLabelIds.includes(id)) {
-        let index = this.selectedLabelIds.indexOf(id);
-        if (index !== -1) this.selectedLabelIds.splice(index, 1);
-      } else {
-        this.selectedLabelIds.push(id);
-      }
-
-      this.executeFiltering();
     },
 
     savePalette() {
@@ -355,10 +345,6 @@ button {
 
 .colorNew span{
   vertical-align: middle;
-}
-
-.selectedLabel {
-  background: cyan;
 }
 
 @media only screen and (min-width: 1000px) {

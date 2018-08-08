@@ -9,8 +9,6 @@ export const store = new Vuex.Store({
     allItems: [],
     activeItems: [],
 
-    labels: [],
-
     visibleLimit: 30,
 
     colorFilter: [''],
@@ -19,6 +17,7 @@ export const store = new Vuex.Store({
     isLoadingImages: false,
 
     selectedSnappedColorIds: [],
+    selectedLabelIds: [],
   },
   mutations: {
     addAllItems(state, items) {
@@ -70,6 +69,15 @@ export const store = new Vuex.Store({
         if (index !== -1) state.selectedSnappedColorIds.splice(index, 1);
       } else {
         state.selectedSnappedColorIds.push(id);
+      }
+    },
+
+    setSelectedLabelId: (state, id) => {
+      if (state.selectedLabelIds.includes(id)) {
+        let index = state.selectedLabelIds.indexOf(id);
+        if (index !== -1) state.selectedLabelIds.splice(index, 1);
+      } else {
+        state.selectedLabelIds.push(id);
       }
     },
   },
