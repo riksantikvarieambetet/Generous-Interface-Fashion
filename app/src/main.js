@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import AsyncComputed from 'vue-async-computed';
 import VueResource from 'vue-resource';
 import { VueHammer } from 'vue2-hammer';
 import vmodal from 'vue-js-modal';
@@ -13,7 +12,6 @@ Vue.use(ToggleButton);
 Vue.use(VueI18n);
 Vue.use(vmodal);
 Vue.use(VueHammer);
-Vue.use(AsyncComputed);
 Vue.use(VueResource);
 
 Vue.config.productionTip = false;
