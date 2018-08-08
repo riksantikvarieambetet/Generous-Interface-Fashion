@@ -12,7 +12,6 @@ export const store = new Vuex.Store({
     labels: [],
 
     visibleLimit: 30,
-    garmentFilter: [],
 
     colorFilter: [''],
     colorCount: [],
@@ -38,15 +37,6 @@ export const store = new Vuex.Store({
 
     resetVisibleLimit(state) {
       state.visibleLimit = 30;
-    },
-
-    toggleGarment(state, garment) {
-      let index = state.garmentFilter.indexOf(garment);
-      if (index === -1) {
-        state.garmentFilter.push(garment);
-      } else {
-        state.garmentFilter.splice(index, 1);
-      }
     },
 
     loadingImages: state => (state.isLoadingImages = true),
