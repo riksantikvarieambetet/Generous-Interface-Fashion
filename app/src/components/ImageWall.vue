@@ -1,6 +1,5 @@
 <template>
   <div>
-    <spinner v-if="loading" class="spinner" size="big" />
     <FilterMenu />
 
     <Sidebar v-if="sidebarIsOpen" />
@@ -16,7 +15,6 @@
 
 <script>
 import imagesLoaded from 'vue-images-loaded';
-import Spinner from 'vue-simple-spinner';
 
 import ObjectView from './ObjectView';
 import FilterMenu from './FilterMenu';
@@ -29,7 +27,6 @@ export default {
   components: {
     ObjectView,
     FilterMenu,
-    Spinner,
     Palette,
     Sidebar,
   },
@@ -49,9 +46,6 @@ export default {
   computed: {
     list() {
       return store.state.activeItems.slice(0, store.state.visibleLimit);
-    },
-    loading() {
-      return store.state.isLoadingImages;
     },
     isAtEndOfFeed() {
       return (store.state.activeItems.length <= store.state.visibleLimit);
@@ -76,12 +70,6 @@ export default {
 </script>
 
 <style scoped>
-.spinner {
-    position: fixed;
-    right: 7px;
-    bottom: 7px;
-    z-index: 100;
-}
 
 .wall {
     margin-top: 50px;

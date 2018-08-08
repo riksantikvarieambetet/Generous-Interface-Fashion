@@ -6,10 +6,14 @@
       <p>{{ $t('appDescription') }}</p>
       <div class="btn-container"><button v-on:click="closeWelcome">{{ $t('appBegin') }}</button></div>
     </modal>
+
+    <spinner v-if="loading" class="spinner" size="big" />
   </div>
 </template>
 
 <script>
+import Spinner from 'vue-simple-spinner';
+
 import ImageWall from './components/ImageWall';
 import { store } from './store';
 
@@ -17,6 +21,12 @@ export default {
   name: 'app',
   components: {
     ImageWall,
+    Spinner,
+  },
+  computed: {
+    loading() {
+      return store.state.isLoadingImages;
+    },
   },
   mounted() {
     this.$root.$on('openInfo', () => {
@@ -140,5 +150,12 @@ body {
     position: relative;
     left: -50%;
     margin: auto;
+}
+
+.spinner {
+    position: fixed;
+    right: 7px;
+    bottom: 7px;
+    z-index: 100;
 }
 </style>
