@@ -300,10 +300,6 @@ button {
     color: #fff;
 }
 
-.red-btn {
-    background-color: #f44336;
-}
-
 .color {
     /*width: calc(33% - 6px);*/
     width: 70px;
