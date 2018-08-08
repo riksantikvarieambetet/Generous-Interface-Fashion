@@ -17,6 +17,8 @@ export const store = new Vuex.Store({
     colorCount: [],
 
     isLoadingImages: false,
+
+    selectedSnappedColorIds: [],
   },
   mutations: {
     addAllItems(state, items) {
@@ -64,6 +66,15 @@ export const store = new Vuex.Store({
 
     colorCountClear: (state) => (state.colorCount = []),
     colorCountAdd: (state, values) => (state.colorCount.push(values)),
+
+    setSelectedSnappedColorId: (state, id) => {
+      if (state.selectedSnappedColorIds.includes(id)) {
+        let index = state.selectedSnappedColorIds.indexOf(id);
+        if (index !== -1) state.selectedSnappedColorIds.splice(index, 1);
+      } else {
+        state.selectedSnappedColorIds.push(id);
+      }
+    },
   },
   getters: {
     getColorPercentages: state => {

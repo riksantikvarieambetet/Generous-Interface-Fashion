@@ -33,16 +33,12 @@
 
             <button v-on:click="savePalette()">Save Palette Search</button>
 
-            <div class="color-mountain">
-              <div v-for="c in colorStats" v-bind:key="c[0]" v-bind:style="{ background: c[0], height: c[1] + 'px', width: 100 / colorStats.length + '%' }" @click="setSelectedSnappedColorId(c[0])" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }"></div>
-            </div>
+            <ColorMountain v-bind:colors="colorStats" />
           </div>
         </div>
 
         <div v-show="!advancedColorFilterToggle">
-          <div class="color-mountain">
-            <div v-for="c in colorStats" v-bind:key="c[0]" v-bind:style="{ background: c[0], height: c[1] + 'px', width: 100 / colorStats.length + '%' }" @click="setSelectedSnappedColorId(c[0])" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }"></div>
-          </div>
+          <ColorMountain v-bind:colors="colorStats" />
         </div>
 
         <p>Advanced color filter <toggle-button @change="toggleAdvancedColorFilter" :value="false" :labels="{checked: 'On', unchecked: 'Off'}" :color="'#008cff'" /></p>
@@ -68,6 +64,7 @@ import ColorConvert from 'color-convert';
 
 import FilterContainer from './FilterContainer';
 import AnimatedNumber from './AnimatedNumber';
+import ColorMountain from './ColorMountain';
 import { savedSate, store } from '../store';
 
 fontawesome.library.add(faPalette);
@@ -82,7 +79,6 @@ export default {
       labelFilterOpen: false,
       selectedColorId: 0,
       selectedLabelIds: [],
-      selectedSnappedColorIds: [],
       colorStats: [],
       labelStats: [],
       advancedColorFilterToggle: false,
@@ -92,6 +88,7 @@ export default {
     FilterContainer,
     Chrome,
     AnimatedNumber,
+    ColorMountain,
   },
   computed: {
     nActiveItems() {
@@ -116,6 +113,10 @@ export default {
 
     labels() {
       return store.state.labels;
+    },
+
+    selectedSnappedColorIds() {
+      return store.state.selectedSnappedColorIds;
     },
   },
   mounted() {
@@ -179,17 +180,6 @@ export default {
         if (index !== -1) this.selectedLabelIds.splice(index, 1);
       } else {
         this.selectedLabelIds.push(id);
-      }
-
-      this.executeFiltering();
-    },
-
-    setSelectedSnappedColorId(id) {
-      if (this.selectedSnappedColorIds.includes(id)) {
-        let index = this.selectedSnappedColorIds.indexOf(id);
-        if (index !== -1) this.selectedSnappedColorIds.splice(index, 1);
-      } else {
-        this.selectedSnappedColorIds.push(id);
       }
 
       this.executeFiltering();
@@ -411,34 +401,6 @@ button {
     left: 15px;
     top: 6px;
     color: white;
-}
-
-.color-mountain {
-    width: 100%;
-    transform: scaleY(-1);
-    display: inline-block;
-    height: 283px;
-    overflow: hidden;
-}
-
-.color-mountain > div {
-    float: left;
-    min-height: 10px;
-    max-height: 250px;
-    cursor: pointer;
-    position: relative;
-}
-
-.color-mountain > div.selected::before {
-    content: '';
-    background: #333;
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    border-radius: 100%;
-    position: absolute;
-    top: 250px;
-    left: calc(50% - 2.5px);
 }
 
 @media only screen and (min-width: 1000px) {
