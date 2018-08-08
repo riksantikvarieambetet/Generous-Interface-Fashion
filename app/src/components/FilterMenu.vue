@@ -102,10 +102,6 @@ export default {
       return store.state.colorFilter;
     },
 
-    currentDynamicColorState() {
-      return store.state.colorFilterDynamic;
-    },
-
     labels() {
       return store.state.labels;
     },
