@@ -46,6 +46,7 @@ export default {
     height: calc(100vh - 50px);
     right: 0;
     overflow-y: scroll;
+    min-width: 250px;
 }
 
 .palette {
