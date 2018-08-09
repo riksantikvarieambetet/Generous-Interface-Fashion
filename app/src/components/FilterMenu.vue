@@ -3,15 +3,17 @@
     <div class="menu">
       <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" v-on:click="openModal" />
       <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="nActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ nAllItems }} {{ $t('nItemsSuffix') }}</span>
-      <div v-on:click="toggleLabelFilter" class="menu-btn">
+
+      <div v-on:click="toggleLabelFilter" :class="{ active: labelFilterIsActive }" class="menu-btn">
         <i class="fas fa-tag"></i>
       </div>
       <div v-on:click="$root.$emit('toggleSidebar')" class="menu-btn">
         <i class="fas fa-save"></i>
       </div>
-      <div v-on:click="toggleColorFilter" class="menu-btn">
+      <div v-on:click="toggleColorFilter" :class="{ active: anyColorFilterIsActive }" class="menu-btn">
         <i class="fas fa-palette"></i>
       </div>
+
     </div>
     <transition name="slide-north">
       <FilterContainer v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
@@ -60,6 +62,7 @@ import faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
 import faSave from '@fortawesome/fontawesome-free-solid/faSave';
 import ColorConvert from 'color-convert';
+import { mapGetters } from 'vuex';
 
 import FilterContainer from './FilterContainer';
 import AnimatedNumber from './AnimatedNumber';
@@ -91,6 +94,10 @@ export default {
     LabelStack,
   },
   computed: {
+    ...mapGetters([
+      'anyColorFilterIsActive',
+      'labelFilterIsActive',
+    ]),
     nActiveItems() {
       return store.state.activeItems.length;
     },
@@ -275,9 +282,19 @@ export default {
 .menu-btn {
     display: inline-block;
     cursor: pointer;
-    width: 25px;
+    width: 50px;
+    height: 50px;
     text-align: center;
     margin-right: 5px;
+    box-sizing: border-box;
+}
+
+.menu-btn:hover {
+    background: #f5f5f5;
+}
+
+.menu-btn.active {
+    border-bottom: solid 6px #008cff;
 }
 
 .color-picker {

@@ -7,6 +7,7 @@ import ToggleButton from 'vue-js-toggle-button';
 
 import App from './App';
 import messages from './i18n';
+import { store } from './store';
 
 Vue.use(ToggleButton);
 Vue.use(VueI18n);
@@ -31,4 +32,5 @@ const i18n = new VueI18n({
 new Vue({
   render: h => h(App),
   i18n,
+  store,
 }).$mount('#app');

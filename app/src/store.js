@@ -12,7 +12,6 @@ export const store = new Vuex.Store({
     visibleLimit: 30,
 
     colorFilter: [''],
-    colorCount: [],
 
     isLoadingImages: false,
 
@@ -82,6 +81,15 @@ export const store = new Vuex.Store({
     },
   },
   getters: {
+    anyColorFilterIsActive: state => {
+      if (state.colorFilter[0] === '' && state.selectedSnappedColorIds.length < 1) return false;
+      return true;
+    },
+
+    labelFilterIsActive: state => {
+      if (state.selectedLabelIds < 1) return false;
+      return true;
+    },
   },
 });
 
