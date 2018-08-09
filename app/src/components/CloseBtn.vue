@@ -17,12 +17,12 @@ export default {
 
 <style scoped>
 div {
-  float: right;
-  margin-right: 5px;
-  cursor: pointer;
-}
-
-div svg {
-    margin-top: 5px;
+    float: right;
+    margin-right: 5px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: #e7e7e7;
+    border-radius: 100%;
 }
 </style>
