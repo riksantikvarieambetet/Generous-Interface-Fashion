@@ -136,10 +136,10 @@ body {
 }
 
 .welcome .btn-container {
-  position: absolute;
-  left: 50%;
-  bottom: 16px;
-  width: 80%;
+    position: absolute;
+    left: 50%;
+    bottom: 16px;
+    width: 80%;
 }
 
 .welcome button {
