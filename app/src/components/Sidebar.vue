@@ -25,10 +25,7 @@ export default {
   },
   methods: {
     filterWithPalette: function(palette) {
-      store.commit('clearColorFilter');
-      palette.forEach(color => store.commit('addColorFilter', color));
-      store.commit('updateDynamicColor', palette[palette.length - 1]);
-      store.commit('activateColorFilter');
+      store.commit('replaceColorFilter', palette);
       this.$root.$emit('triggerFiltering');
     },
   },
