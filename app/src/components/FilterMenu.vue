@@ -18,6 +18,8 @@
     <transition name="slide-north">
       <FilterContainer v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
 
+        <close-btn v-on:click.native="toggleColorFilter" />
+
         <div v-show="advancedColorFilterToggle">
           <div class="desktop-break">
             <Chrome v-bind:value="staticColors[selectedColorId]" v-on:input="updateColorFilterStatic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
@@ -49,6 +51,7 @@
 
     <transition name="slide-north">
       <FilterContainer v-if="labelFilterOpen">
+        <CloseBtn v-on:click.native="toggleLabelFilter" />
         <LabelStack v-bind:labels="labelStats" />
       </FilterContainer>
     </transition>
@@ -65,6 +68,7 @@ import ColorConvert from 'color-convert';
 import { mapGetters } from 'vuex';
 
 import FilterContainer from './FilterContainer';
+import CloseBtn from './CloseBtn';
 import AnimatedNumber from './AnimatedNumber';
 import ColorMountain from './ColorMountain';
 import LabelStack from './LabelStack';
@@ -92,6 +96,7 @@ export default {
     AnimatedNumber,
     ColorMountain,
     LabelStack,
+    CloseBtn,
   },
   computed: {
     ...mapGetters([

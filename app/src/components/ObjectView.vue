@@ -3,6 +3,7 @@
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
 
     <modal v-bind:name="object.europeana_record" v-bind:classes="['v--modal details']" height="auto" v-hammer:swipe.up="toggle" transition="slide-north">
+      <CloseBtn v-on:click.native="toggle" />
       <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
       <div class="image-colors">
         <div v-for="color in object.application.colors" v-bind:key="color.score" v-bind:style="{ background: `#${color.hex}`, width: color.score * 100 + '%' }" v-on:click="filterByColor(color.hex)"></div>
@@ -16,12 +17,14 @@
 
 <script>
 import LicenseBtn from './LicenseBtn';
+import CloseBtn from './CloseBtn';
 import { store } from '../store';
 
 export default {
   name: 'ObjectView',
   components: {
     LicenseBtn,
+    CloseBtn,
   },
   props: {
     object: false,

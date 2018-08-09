@@ -1,5 +1,6 @@
 <template>
   <div class="sidebar-container">
+    <CloseBtn v-on:click.native="$root.$emit('toggleSidebar')" />
     <h2>Saved Palettes</h2>
     <p v-if="savedPalettes.length === 0">You have no saved palettes.</p>
     <div v-else v-for="(palette, i) in savedPalettes" v-bind:key="i" class="palette" v-on:click="filterWithPalette(palette)">
@@ -10,11 +11,12 @@
 
 <script>
 import { savedSate, store } from '../store';
+import CloseBtn from './CloseBtn';
 
 export default {
   name: 'Sidebar',
-  data() {
-    return {};
+  components: {
+    CloseBtn,
   },
   computed: {
     savedPalettes() {
