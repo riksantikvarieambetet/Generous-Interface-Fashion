@@ -2,7 +2,7 @@
   <div>
     <div class="menu">
       <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" v-on:click="openModal" />
-      <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="nActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ nAllItems }} {{ $t('nItemsSuffix') }}</span>
+      <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="numberOfActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
 
       <div v-on:click="toggleLabelFilter" :class="{ active: labelFilterIsActive }" class="menu-btn">
         <i class="fas fa-tag"></i>
@@ -97,26 +97,12 @@ export default {
     ...mapGetters([
       'anyColorFilterIsActive',
       'labelFilterIsActive',
+      'numberOfActiveItems',
+      'numberOfItems',
+      'staticColors',
+      'selectedSnappedColorIds',
+      'selectedLabelIds',
     ]),
-    nActiveItems() {
-      return store.state.activeItems.length;
-    },
-
-    nAllItems() {
-      return store.state.allItems.length;
-    },
-
-    staticColors() {
-      return store.state.colorFilter;
-    },
-
-    selectedSnappedColorIds() {
-      return store.state.selectedSnappedColorIds;
-    },
-
-    selectedLabelIds() {
-      return store.state.selectedLabelIds;
-    },
   },
   mounted() {
     this.$root.$on('triggerFiltering', () => {

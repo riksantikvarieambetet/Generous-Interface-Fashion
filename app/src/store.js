@@ -90,6 +90,13 @@ export const store = new Vuex.Store({
       if (state.selectedLabelIds < 1) return false;
       return true;
     },
+
+    numberOfActiveItems: state => state.activeItems.length,
+    numberOfItems: state => state.allItems.length,
+
+    staticColors: state => state.colorFilter,
+    selectedSnappedColorIds: state => state.selectedSnappedColorIds,
+    selectedLabelIds: state => state.selectedLabelIds,
   },
 });
 
