@@ -174,6 +174,9 @@ export default {
       let finalList = store.state.allItems;
       console.log('debug: executing filtering');
 
+      // if there is a static color make sure that the advanced color filter is avaible!
+      if (this.staticColors[0] !== '') this.advancedColorFilterToggle = true;
+
       this.staticColors.forEach(stateColor => {
         if (stateColor === '') return;
 
