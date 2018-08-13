@@ -206,11 +206,12 @@ export default {
       remainingLabels.forEach(l => {
         labelStats.push([l, remainingLabels.filter(x => x === l).length]);
       });
-      this.labelStats = Array.from(new Set(labelStats.map(JSON.stringify)), JSON.parse).filter(y => y[1] > 2);
-      this.labelStats = this.labelStats.map(l => {
-        l[1] = l[1] / 10;
-        if (l[1] < 10) l[1] = 10;
-        if (l[1] > 40) l[1] = 40;
+      labelStats = Array.from(new Set(labelStats.map(JSON.stringify)), JSON.parse).filter(y => y[1] > 2);
+
+      let max = labelStats.reduce((tot, lab) => Math.max(tot, lab[1]), 0);
+      this.labelStats = labelStats.map(l => {
+        let norm = ((l[1] - 2) / (max - 2));
+        l[1] = norm * 30 + 10;
         l[1] += 'px';
         return l;
       });
