@@ -372,6 +372,12 @@ button {
         width: calc(50% - 10px);
     }
 }
+
+@media only screen and (max-width: 410px) {
+    .menu-btn {
+        width: 30px;
+    }
+}
 </style>
 
 <style>
