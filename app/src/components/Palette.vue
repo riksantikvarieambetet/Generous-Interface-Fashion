@@ -22,19 +22,19 @@ export default {
   },
   methods: {
     filterWithPalette: function() {
-      store.commit('replaceColorFilter', this.palette);
+      store.commit('replaceColorFilter', []);
+      store.commit('replaceSnappedColorIds', this.palette);
       this.$root.$emit('triggerFiltering');
       this.randomPalette();
     },
 
     randomPalette: function() {
       const palettes = [
-        ['#3541b5', '#2a95b9', '#04131a'],
-        ['#6b4f4a', '88813b', '#734443'],
-        ['#239e51', '#23929e', '#000000'],
-        ['#2b8fad', '#d5392f', '#d5d103'],
-        ['#451313', '#a77da9', '#834240'],
-        ['#13451e', '#799a20'],
+        ['sienna', 'sandybrown', 'darkolivegreen'],
+        ['darkolivegreen', 'rosybrown', 'lavender'],
+        ['darkslategrey', 'tan', 'rosybrown'],
+        ['tan', 'rosybrown', 'burlywood'],
+        ['darkslateblue', 'darkslategrey'],
       ];
 
       this.palette = palettes[Math.floor(Math.random() * palettes.length)];

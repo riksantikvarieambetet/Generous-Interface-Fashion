@@ -62,6 +62,10 @@ export const store = new Vuex.Store({
       state.colorFilter = colors;
     },
 
+    replaceSnappedColorIds: (state, ids) => {
+      state.selectedSnappedColorIds = ids;
+    },
+
     setSelectedSnappedColorId: (state, id) => {
       if (state.selectedSnappedColorIds.includes(id)) {
         let index = state.selectedSnappedColorIds.indexOf(id);
