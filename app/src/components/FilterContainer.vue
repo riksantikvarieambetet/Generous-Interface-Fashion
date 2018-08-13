@@ -16,7 +16,7 @@ export default {
 
 <style scoped>
 .filter-container {
-    position: fixed;
+    position: absolute;
     width: 100%;
     background: #FFF;
     padding: 7px;
