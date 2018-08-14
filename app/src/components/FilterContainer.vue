@@ -16,11 +16,13 @@ export default {
 
 <style scoped>
 .filter-container {
-    position: absolute;
+    position: fixed;
     width: 100%;
     background: #FFF;
     padding: 7px;
     box-sizing: border-box;
     z-index: 1;
+    max-height: calc(100vh - 60px);
+    overflow-y: scroll;
 }
 </style>
