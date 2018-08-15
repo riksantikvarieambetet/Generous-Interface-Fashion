@@ -53,6 +53,10 @@ export const store = new Vuex.Store({
       }
     },
 
+    replaceLabelIds: (state, ids) => {
+      state.selectedLabelIds = ids;
+    },
+
     setSelectedLabelId: (state, id) => {
       if (state.selectedLabelIds.includes(id)) {
         let index = state.selectedLabelIds.indexOf(id);

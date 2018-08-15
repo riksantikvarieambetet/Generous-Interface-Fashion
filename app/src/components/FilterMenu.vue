@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="menu">
-      <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" v-on:click="openModal" />
+      <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" v-on:click="resetFilters" />
       <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="numberOfActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
 
       <div v-on:click="toggleLabelFilter" :class="{ active: labelFilterIsActive }" class="menu-btn">
@@ -87,6 +87,13 @@ export default {
   methods: {
     openModal() {
       this.$root.$emit('openInfo');
+    },
+
+    resetFilters() {
+      store.commit('replaceSnappedColorIds', []);
+      store.commit('replaceLabelIds', []);
+      store.commit('resetVisibleLimit');
+      this.executeFiltering();
     },
 
     toggleColorFilter() {
