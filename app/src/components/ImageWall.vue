@@ -74,5 +74,11 @@ export default {
 .wall {
     margin-top: 50px;
     width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image{
+
 }
 </style>

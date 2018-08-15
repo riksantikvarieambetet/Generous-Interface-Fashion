@@ -2,6 +2,10 @@
   <div class="object">
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
 
+    <div class="wallDetails" v-if="showWallDetails">
+      <span v-for="label in object.application.labels" class="label">{{label}}</span>
+    </div>
+
     <modal v-bind:name="object.europeana_record" v-bind:classes="['v--modal details']" height="auto" v-hammer:swipe.up="toggle" transition="slide-north">
       <CloseBtn v-on:click.native="toggle" />
       <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
@@ -31,7 +35,7 @@ export default {
   },
   data() {
     return {
-      isShown: false,
+      isShown: false
     };
   },
   methods: {
@@ -47,6 +51,11 @@ export default {
       this.toggle();
     },
   },
+  computed: {
+    showWallDetails() {
+      return store.state.wallDetails;
+    }
+  }
 };
 </script>
 
@@ -61,8 +70,12 @@ export default {
 
 <style scoped>
 .object {
-    float: left;
+    /*float: left;*/
     overflow: hidden;
+    height: auto;
+    max-width: 50vw;
+    transition: 0 ease-in-out;
+    margin-bottom: 10px;
 }
 
 .object > img {
@@ -77,9 +90,36 @@ export default {
     border: 2px solid white;
 }
 
-.object > img:hover {
+.object:hover {
     /*transform: scale(1.1);*/
-    border: 2px solid gray;
+    /*border: 2px solid gray;*/
+    /*background: black;
+    color: white;*/
+}
+
+.wallDetails{
+  bottom: 0;
+  background: rgba(255,255,255,0.5);
+  font-size: smaller;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.label{
+  font-size: small;
+  background: rgb(240,240,240);
+  color: rgb(100,100,100);
+  margin: 1px;
+  padding: 1px;
+  border-radius: 4px;
+  border: 1px solid lightgray;
+  cursor: pointer;
+}
+
+.label:hover{
+  border: 1px solid gray;
+  color: black;
 }
 
 .details img {
@@ -116,13 +156,21 @@ button {
 }
 
 @media only screen and (min-width: 600px) {
-    .object > img {
-        width: 25vw;
-        height: 25vw;
-    }
+  .object {
+      max-width: 25vw;
+  }
+
+  .object > img {
+      width: 25vw;
+      height: 25vw;
+  }
 }
 
 @media only screen and (min-width: 1200px) {
+    .object {
+        max-width: 20vw;
+    }
+
     .object > img {
         width: 20vw;
         height: 20vw;
