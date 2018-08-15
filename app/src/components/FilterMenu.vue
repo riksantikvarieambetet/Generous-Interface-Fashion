@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="menu">
-      <div class="menu-btn logo" v-on:click="openModal">
+      <div class="menu-btn logo" v-on:click="resetFilters">
         <i class="fas fa-sync"></i>
       </div>
       <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="numberOfActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
@@ -91,6 +91,13 @@ export default {
   methods: {
     openModal() {
       this.$root.$emit('openInfo');
+    },
+
+    resetFilters() {
+      store.commit('replaceSnappedColorIds', []);
+      store.commit('replaceLabelIds', []);
+      store.commit('resetVisibleLimit');
+      this.executeFiltering();
     },
 
     toggleColorFilter() {
