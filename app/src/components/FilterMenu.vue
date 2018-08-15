@@ -20,31 +20,7 @@
 
         <close-btn v-on:click.native="toggleColorFilter" />
 
-        <div v-show="advancedColorFilterToggle">
-          <div class="desktop-break">
-            <Chrome v-bind:value="staticColors[selectedColorId]" v-on:input="updateColorFilterStatic" v-bind:disableAlpha="true" v-bind:disableFields="true" class="color-picker" />
-          </div>
-
-          <div class="desktop-break">
-            <div v-for="(color,index) in staticColors" v-bind:key="color" v-bind:style="{ background: color }" @click="setSelectedColorId(index)" :class="{selectedColorId: index == selectedColorId, unsetColor: color == ''}" class="color">
-              <span role="button" v-on:click.stop="removeColorById(index)" v-if="index == selectedColorId">x</span>
-            </div>
-
-            <div class="colorNew" @click="lockColor" v-if="staticColors[selectedColorId] != ''">
-              <h1>+</h1>
-            </div>
-
-            <button v-on:click="savePalette()">Save Palette Search</button>
-
-            <ColorMountain v-bind:colors="colorStats" />
-          </div>
-        </div>
-
-        <div v-show="!advancedColorFilterToggle">
-          <ColorMountain v-bind:colors="colorStats" />
-        </div>
-
-        <p>Advanced color filter <toggle-button @change="toggleAdvancedColorFilter" :value="false" :labels="{checked: 'On', unchecked: 'Off'}" :color="'#008cff'" /></p>
+        <ColorMountain v-bind:colors="colorStats" />
 
       </FilterContainer>
     </transition>
@@ -59,12 +35,10 @@
 </template>
 
 <script>
-import { Chrome } from 'vue-color';
 import fontawesome from '@fortawesome/fontawesome';
 import faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
 import faSave from '@fortawesome/fontawesome-free-solid/faSave';
-import ColorConvert from 'color-convert';
 import { mapGetters } from 'vuex';
 
 import FilterContainer from './FilterContainer';
@@ -84,15 +58,12 @@ export default {
     return {
       colorFilterOpen: false,
       labelFilterOpen: false,
-      selectedColorId: 0,
       colorStats: [],
       labelStats: [],
-      advancedColorFilterToggle: false,
     };
   },
   components: {
     FilterContainer,
-    Chrome,
     AnimatedNumber,
     ColorMountain,
     LabelStack,
@@ -104,7 +75,6 @@ export default {
       'labelFilterIsActive',
       'numberOfActiveItems',
       'numberOfItems',
-      'staticColors',
       'selectedSnappedColorIds',
       'selectedLabelIds',
     ]),
@@ -125,43 +95,10 @@ export default {
       this.colorFilterOpen = !this.colorFilterOpen;
     },
 
-    toggleAdvancedColorFilter() {
-      this.advancedColorFilterToggle = !this.advancedColorFilterToggle;
-
-      if (!this.advancedColorFilterToggle && this.staticColors[0] !== '') {
-        store.commit('clearColorFilter');
-        this.executeFiltering();
-      }
-    },
-
     toggleLabelFilter() {
       if (this.colorFilterOpen) this.colorFilterOpen = false;
 
       this.labelFilterOpen = !this.labelFilterOpen;
-    },
-
-    updateColorFilterStatic(value) {
-      store.commit('updateStaticColor', {id: this.selectedColorId, color: value.hex});
-      this.executeFiltering();
-    },
-
-    lockColor() {
-      store.commit('addColorFilter', '');
-      this.setSelectedColorId(this.staticColors.length - 1);
-    },
-
-    removeColorById(id) {
-      store.commit('removeColorFilterById', id);
-      if (this.staticColors.length === 0) {
-        store.commit('addColorFilter', '');
-      }
-
-      this.executeFiltering();
-      this.setSelectedColorId(Math.min(this.selectedColorId, this.staticColors.length - 1));
-    },
-
-    setSelectedColorId(id) {
-      this.selectedColorId = id;
     },
 
     savePalette() {
@@ -171,15 +108,6 @@ export default {
     executeFiltering() {
       let finalList = store.state.allItems;
       console.log('debug: executing filtering');
-
-      // if there is a static color make sure that the advanced color filter is avaible!
-      if (this.staticColors[0] !== '') this.advancedColorFilterToggle = true;
-
-      this.staticColors.forEach(stateColor => {
-        if (stateColor === '') return;
-
-        finalList = finalList.filter(item => item.application.colors.some(color => this.isSimilarHSV(color.hex, stateColor)));
-      });
 
       this.selectedLabelIds.forEach(label => {
         finalList = finalList.filter(item => item.application.labels.includes(label));
@@ -222,24 +150,6 @@ export default {
       console.log('debug: reseting visibleLimit');
       store.commit('resetVisibleLimit');
       window.scrollTo(0, 0);
-    },
-
-    isSimilarHSV(hex1, hex2) {
-      const hsl1 = ColorConvert.hex.hsv(hex1);
-      const hsl2 = ColorConvert.hex.hsv(hex2);
-
-      const hDiff = Math.abs(hsl1[0] - hsl2[0]);
-      const sDiff = Math.abs(hsl1[1] - hsl2[1]);
-      const vDiff = Math.abs(hsl1[2] - hsl2[2]);
-
-      // Colored images
-      let hueTest = hsl1[1] !== 0 && hDiff < 10 && sDiff < 30 && vDiff < 30;
-
-      // BW images
-      let sTest = hsl1[1] === 0 && (sDiff < 10 && vDiff < 5);
-      let vTest = hsl1[1] === 0 && hsl1[2] < 20 && vDiff < 5;
-
-      return hueTest || sTest || vTest;
     },
 
   },
@@ -289,113 +199,9 @@ export default {
     border-bottom: solid 6px #008cff;
 }
 
-.color-picker {
-    width: 100%;
-    box-shadow: unset;
-}
-
-button {
-    border-radius: 4px;
-    background-color: #008cff;
-    border: none;
-    padding: 15px;
-    transition: all 0.5s;
-    text-align: center;
-    cursor: pointer;
-    font-size: 17px;
-    margin-top: 5px;
-    display: block;
-    width: 100%;
-    color: #fff;
-}
-
-.color {
-    width: 70px;
-    height: 70px;
-    margin-top: 5px;
-    float: left;
-    margin-left: 5px;
-    margin-bottom: 5px;
-    position: relative;
-    border-radius: 4px;
-}
-
-.color.selectedColorId{
-  box-sizing: border-box;
-  border: 2px solid black;
-  box-shadow:inset 0px 0px 0px 2px white;
-}
-
-.color.unsetColor{
-  background: url('/transparent.png');
-}
-
-.color span {
-    height: 20px;
-    width: 20px;
-    background: #000;
-    color: #fff;
-    position: absolute;
-    left: -6px;
-    top: -6px;
-    border-radius: 100%;
-    line-height: 19px;
-    cursor: pointer;
-}
-
-.colorNew {
-    width: calc(70px);
-    height: 70px;
-    margin-top: 5px;
-    float: left;
-    margin-left: 5px;
-    margin-bottom: 5px;
-    position: relative;
-    border-radius: 4px;
-    border: 2px dashed gray;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    size: larger;
-    cursor: pointer;
-}
-
-.colorNew span{
-  vertical-align: middle;
-}
-
-@media only screen and (min-width: 1000px) {
-    .desktop-break {
-        float: left;
-        padding: 5px;
-        width: calc(50% - 10px);
-    }
-}
-
 @media only screen and (max-width: 410px) {
     .menu-btn {
         width: 30px;
     }
-}
-</style>
-
-<style>
-/* hack for color picker styling */
-.vc-chrome-hue-wrap {
-    height: 27px !important;
-}
-
-.vc-chrome-hue-wrap .vc-hue-picker{
-    width: 30px !important;
-    height: 30px !important;
-    border-radius: 15px !important;
-}
-
-.vc-chrome-active-color {
-    left: -8px !important;
-    top: -1px !important;
-    height: 30px !important;
-    width: 30px !important;
 }
 </style>
