@@ -65,6 +65,7 @@ export default {
     toggleSidebar() {
       this.sidebarIsOpen = !this.sidebarIsOpen;
     },
+
   },
 };
 </script>

@@ -3,7 +3,7 @@
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
 
     <div class="wallDetails" v-if="showWallDetails">
-      <span v-for="label in object.application.labels" class="label">{{label}}</span>
+      <span v-for="label in object.application.labels" class="label" :class="{active: labelActive(label)}" @click="setSelectedLabelId(label)">{{label}}</span>
     </div>
 
     <modal v-bind:name="object.europeana_record" v-bind:classes="['v--modal details']" height="auto" v-hammer:swipe.up="toggle" transition="slide-north">
@@ -50,6 +50,16 @@ export default {
       this.$root.$emit('triggerFiltering');
       this.toggle();
     },
+
+    setSelectedLabelId(id) {
+      //console.log(id);
+      store.commit('setSelectedLabelId', id);
+      this.$root.$emit('triggerFiltering');
+    },
+    labelActive(label){
+      return store.state.selectedLabelIds.includes(label);
+    }
+
   },
   computed: {
     showWallDetails() {
@@ -108,18 +118,26 @@ export default {
 
 .label{
   font-size: small;
-  background: rgb(240,240,240);
-  color: rgb(100,100,100);
+
   margin: 1px;
   padding: 1px;
   border-radius: 4px;
   border: 1px solid lightgray;
   cursor: pointer;
+  background: rgb(255,255,255);
 }
 
 .label:hover{
   border: 1px solid gray;
   color: black;
+}
+
+.label.active{
+  /*background: lightblue;*/
+  /*border: 1px solid black;*/
+  background: rgb(240,240,240);
+  color: rgb(100,100,100);
+
 }
 
 .details img {
