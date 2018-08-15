@@ -3,6 +3,7 @@
     <ImageWall />
     <modal name="welcome" v-bind:classes="['v--modal', 'welcome']" v-hammer:swipe.up="closeWelcome" transition="slide-north">
       <h1>{{ $t('appTitle') }}</h1>
+      <h2>{{ $t('explore') }}{{ $t('tags') }} <i class="fas fa-tag"></i>{{ $t('and') }}{{ $t('color') }} <i class="fas fa-palette"></i>!</h2>
       <p>{{ $t('appDescription') }}</p>
       <div class="btn-container"><button v-on:click="closeWelcome">{{ $t('appBegin') }}</button></div>
     </modal>
