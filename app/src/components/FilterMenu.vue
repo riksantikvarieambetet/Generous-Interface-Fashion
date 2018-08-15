@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="menu">
-      <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" v-on:click="resetFilters" />
+      <div class="menu-btn logo" v-on:click="resetFilters">
+        <i class="fas fa-sync"></i>
+      </div>
       <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="numberOfActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
 
       <div v-on:click="toggleLabelFilter" :class="{ active: labelFilterIsActive }" class="menu-btn">
@@ -39,6 +41,7 @@ import fontawesome from '@fortawesome/fontawesome';
 import faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
 import faSave from '@fortawesome/fontawesome-free-solid/faSave';
+import faSync from '@fortawesome/fontawesome-free-solid/faSync';
 import { mapGetters } from 'vuex';
 
 import FilterContainer from './FilterContainer';
@@ -51,6 +54,7 @@ import { savedSate, store } from '../store';
 fontawesome.library.add(faPalette);
 fontawesome.library.add(faTag);
 fontawesome.library.add(faSave);
+fontawesome.library.add(faSync);
 
 export default {
   name: 'FilterMenu',
@@ -181,13 +185,6 @@ export default {
     padding-left: 7px;
 }
 
-.logo {
-    display: block;
-    float: left;
-    max-height: 100%;
-    cursor: pointer;
-}
-
 .menu-btn {
     display: inline-block;
     cursor: pointer;
@@ -196,6 +193,12 @@ export default {
     text-align: center;
     margin-right: 5px;
     box-sizing: border-box;
+}
+
+.logo {
+    display: block;
+    float: left;
+    margin-right: 0;
 }
 
 .menu-btn:hover {
