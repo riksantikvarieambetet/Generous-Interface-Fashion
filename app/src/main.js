@@ -3,13 +3,11 @@ import VueResource from 'vue-resource';
 import { VueHammer } from 'vue2-hammer';
 import vmodal from 'vue-js-modal';
 import VueI18n from 'vue-i18n';
-import ToggleButton from 'vue-js-toggle-button';
 
 import App from './App';
 import messages from './i18n';
 import { store } from './store';
 
-Vue.use(ToggleButton);
 Vue.use(VueI18n);
 Vue.use(vmodal);
 Vue.use(VueHammer);

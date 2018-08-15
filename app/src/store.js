@@ -11,8 +11,6 @@ export const store = new Vuex.Store({
 
     visibleLimit: 30,
 
-    colorFilter: [''],
-
     isLoadingImages: false,
 
     selectedSnappedColorIds: [],
@@ -42,26 +40,6 @@ export const store = new Vuex.Store({
     loadingImages: state => (state.isLoadingImages = true),
     notLoadingImages: state => (state.isLoadingImages = false),
 
-    updateStaticColor: (state, params) => {
-      Vue.set(state.colorFilter, params.id, params.color);
-    },
-
-    clearColorFilter: state => (state.colorFilter = ['']),
-
-    addColorFilter: (state, color) => {
-      if (!state.colorFilter.includes(color)) {
-        state.colorFilter.push(color);
-      }
-    },
-
-    removeColorFilterById: (state, id) => {
-      state.colorFilter.splice(id, 1);
-    },
-
-    replaceColorFilter: (state, colors) => {
-      state.colorFilter = colors;
-    },
-
     replaceSnappedColorIds: (state, ids) => {
       state.selectedSnappedColorIds = ids;
     },
@@ -86,7 +64,7 @@ export const store = new Vuex.Store({
   },
   getters: {
     anyColorFilterIsActive: state => {
-      if (state.colorFilter[0] === '' && state.selectedSnappedColorIds.length < 1) return false;
+      if (state.selectedSnappedColorIds.length < 1) return false;
       return true;
     },
 
@@ -98,7 +76,6 @@ export const store = new Vuex.Store({
     numberOfActiveItems: state => state.activeItems.length,
     numberOfItems: state => state.allItems.length,
 
-    staticColors: state => state.colorFilter,
     selectedSnappedColorIds: state => state.selectedSnappedColorIds,
     selectedLabelIds: state => state.selectedLabelIds,
   },
