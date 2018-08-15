@@ -3,7 +3,7 @@
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
 
     <div class="wallDetails" v-if="showWallDetails">
-      <span v-for="label in object.application.labels" class="label" :class="{active: labelActive(label)}" @click="setSelectedLabelId(label)">{{label}}</span>
+      <span v-for="label in object.application.labels" v-bind:key="label" class="label" :class="{active: labelActive(label)}" @click="setSelectedLabelId(label)">{{label}}</span>
     </div>
 
     <modal v-bind:name="object.europeana_record" v-bind:classes="['v--modal details']" height="auto" v-hammer:swipe.up="toggle" transition="slide-north">
@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      isShown: false
+      isShown: false,
     };
   },
   methods: {
@@ -64,8 +64,8 @@ export default {
   computed: {
     showWallDetails() {
       return store.state.wallDetails;
-    }
-  }
+    },
+  },
 };
 </script>
 

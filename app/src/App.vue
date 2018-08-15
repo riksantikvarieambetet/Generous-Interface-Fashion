@@ -58,7 +58,6 @@ export default {
           this.$root.$emit('triggerFiltering');
           this.loadingJson = false;
         });
-
     },
 
     handleScroll: function() {
@@ -73,9 +72,9 @@ export default {
       this.$modal.hide('welcome');
     },
 
-    toggleWallDetails: function(){
+    toggleWallDetails: function() {
       store.commit('toggleWallDetails');
-    }
+    },
 
   },
   beforeMount() {
@@ -91,7 +90,7 @@ export default {
   },
   destroyed: function() {
     window.removeEventListener('scroll', this.handleScroll);
-  }
+  },
 };
 </script>
 
