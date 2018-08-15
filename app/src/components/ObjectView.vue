@@ -85,7 +85,6 @@ export default {
     height: auto;
     max-width: 50vw;
     transition: 0 ease-in-out;
-    margin-bottom: 10px;
 }
 
 .object > img {
@@ -114,6 +113,7 @@ export default {
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .label{
