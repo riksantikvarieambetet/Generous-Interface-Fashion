@@ -13,7 +13,8 @@ const messages = {
     color: 'colour',
     appDescription: 'A prototype by the Swedish National Heritage Board, Malmö Museer, Nationalmuseum, National Museums of World Culture and the Nordic Museum.',
     moreDetails: 'More details at',
-    explorePalette: 'Explore With the Palette Below?',
+    theEnd: '~ THE END ~',
+    explorePalette: 'PICK A COLOUR TO EXPLORE:',
   },
   sv: {
     nItemsPrefix: 'Visar',
@@ -29,7 +30,8 @@ const messages = {
     color: 'färg',
     appDescription: 'En prototyp från Riksantikvarieämbetet, Malmö museer, Nationalmuseum, Nordiska museet och Världskulturmuseerna.',
     moreDetails: 'Mer information hos',
-    explorePalette: 'Utforska med paletten nedan?',
+    theEnd: '~ SLUT ~',
+    explorePalette: 'VÄLJ EN FÄRG FÖR ATT UTFORSKA:',
   },
 };
 

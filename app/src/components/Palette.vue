@@ -1,20 +1,24 @@
 <template>
   <div class="root">
-    <h2>{{ $t('explorePalette') }}</h2>
-    <div class="palette" v-on:click="filterWithPalette">
-        <div v-if="palette" v-for="color in palette" v-bind:key="color" v-bind:style="{ background: color }"></div>
-    </div>
+    <h2>{{ $t('theEnd') }}</h2>
+    <p>{{ $t('explorePalette') }}</p>
+    <div class="color" v-on:click="filterWithPalette" v-bind:key="color" v-bind:style="{ background: color }"></div>
+    <div class="btn" v-on:click="randomPalette">Shuffle <i class="fas fa-random"></i></div>
   </div>
 </template>
 
 <script>
 import { store } from '../store';
+import fontawesome from '@fortawesome/fontawesome';
+import faRandom from '@fortawesome/fontawesome-free-solid/faRandom';
+
+fontawesome.library.add(faRandom);
 
 export default {
   name: 'Palette',
   data() {
     return {
-      palette: false,
+      color: false,
     };
   },
   created() {
@@ -23,21 +27,15 @@ export default {
   methods: {
     filterWithPalette: function() {
       store.commit('replaceColorFilter', ['']);
-      store.commit('replaceSnappedColorIds', this.palette);
+      store.commit('replaceSnappedColorIds', [this.color]);
       this.$root.$emit('triggerFiltering');
       this.randomPalette();
     },
 
     randomPalette: function() {
-      const palettes = [
-        ['sienna', 'sandybrown', 'darkolivegreen'],
-        ['darkolivegreen', 'rosybrown', 'lavender'],
-        ['darkslategrey', 'tan', 'rosybrown'],
-        ['tan', 'rosybrown', 'burlywood'],
-        ['darkslateblue', 'darkslategrey'],
-      ];
+      const palettes = ['crimson', 'brown', 'lightsalmon', 'firebrick', 'tomato', 'darkslategrey', 'black', 'dimgrey', 'darkgrey', 'grey', 'silver', 'whitesmoke', 'lavender', 'indianred', 'sienna', 'darkolivegreen', 'per', 'rosybrown', 'gainsboro', 'saddlebrown', 'antiquewhite', 'midnightblue', 'darkslateblue', 'slategrey', 'tan', 'burlywood', 'darkkhaki', 'wheat', 'lightslategrey', 'navajowhite', 'palegoldenrod', 'darksalmon', 'lightpink', 'yellowgreen', 'khaki', 'blanchedalmond', 'chocolate', 'goldenrod', 'palevioletred', 'bisque', 'lightsteelblue', 'cornflowerblue', 'lightgrey', 'sandybrown', 'maroon', 'linen', 'teal', 'steelblue', 'beige', 'skyblue', 'mediumaquamarine', 'darkseagreen', 'darkorange', 'ghostwhite', 'cadetblue', 'powderblue', 'thistle', 'mediumpurple', 'coral', 'olivedrab', 'lightskyblue', 'royalblue', 'darkgoldenrod', 'oldlace', 'olive', 'lightcoral', 'darkgreen', 'salmon', 'gold', 'dodgerblue', 'seagreen'];
 
-      this.palette = palettes[Math.floor(Math.random() * palettes.length)];
+      this.color = palettes[Math.floor(Math.random() * palettes.length)];
     },
   },
 };
@@ -49,10 +47,10 @@ export default {
     width: 100vw;
     margin: 0;
     display: inline-block;
-    margin: 10px;
+    margin: 50px 10px 0;
 }
 
-.palette {
+.color {
     display: table;
     table-layout: fixed;
     width: 98%;
@@ -61,8 +59,15 @@ export default {
     margin: 0 auto;
 }
 
-.palette div {
-    display: table-cell;
-    height:100px;
+.btn {
+  border: 1px solid black;
+  margin: 5px;
+  padding: 1em 0;
+  cursor: pointer;
 }
+
+.btn:hover {
+    background: #f5f5f5;
+}
+
 </style>
