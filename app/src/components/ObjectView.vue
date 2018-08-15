@@ -6,7 +6,7 @@
       <CloseBtn v-on:click.native="toggle" />
       <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
       <div class="image-colors">
-        <div v-for="color in object.application.colors" v-bind:key="color.score" v-bind:style="{ background: `#${color.hex}`, width: color.score * 100 + '%' }" v-on:click="filterByColor(color.hex)"></div>
+        <div v-for="color in object.application.css_colors" v-bind:key="color" v-bind:style="{ background: color }" @click="filterByColor(color)"></div>
       </div>
       <p>{{ object.application.description }}</p>
       <LicenseBtn v-bind:uri="object.edm_rights" /><br />
@@ -42,7 +42,7 @@ export default {
     },
 
     filterByColor(color) {
-      store.commit('replaceColorFilter', ['#' + color]);
+      store.commit('setSelectedSnappedColorId', color);
       this.$root.$emit('triggerFiltering');
       this.toggle();
     },
@@ -104,14 +104,17 @@ button {
 }
 
 .image-colors {
-    width: 100%;
-    display: block;
+    display: table;
+    table-layout: fixed;
+    width: 98%;
     height: 50px;
+    cursor: pointer;
+    margin: 0 auto;
 }
 
 .image-colors div {
     height: 50px;
-    float: left;
+    display: table-cell;
     cursor: pointer;
 }
 
