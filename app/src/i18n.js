@@ -10,7 +10,7 @@ const messages = {
     explore: 'Explore the collection using ',
     tags: 'tags',
     and: ' and ',
-    color: 'color',
+    color: 'colour',
     appDescription: 'A prototype by the Swedish National Heritage Board, Malmö Museer, Nationalmuseum, National Museums of World Culture and the Nordic Museum.',
     moreDetails: 'More details at',
     explorePalette: 'Explore With the Palette Below?',
