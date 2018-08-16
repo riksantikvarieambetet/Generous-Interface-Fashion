@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="flerp" ref="flerp" @click="toggle" v-show="labelFilterIsActive || anyColorFilterIsActive">
+      <span>Selection</span>
       <div v-show="isShown"><i class="fas fa-angle-down"></i></div>
       <div v-show="!isShown"><i class="fas fa-angle-up"></i></div>
     </div>
@@ -90,11 +91,18 @@ export default {
 .flerp {
     position: fixed;
     height: 30px;
-    width: 50px;
+    width: auto;
+    padding: 0 7px;
     bottom: 0;
     right: 10px;
     background: #fff;
     cursor: pointer;
+    line-height: 30px;
+}
+
+.flerp div {
+    width: 20px;
+    float: right;
 }
 
 .flerp svg {
