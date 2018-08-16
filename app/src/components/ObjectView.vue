@@ -19,27 +19,7 @@
         <LabelBtn v-for="label in object.application.labels" v-bind:key="label" :label="label"></LabelBtn>
       </div>
 
-      <div class="image-description">
-        <p>
-          {{ object.application.description }}
-        </p>
-      </div>
-
-      <div class="buttons">
-
-        <div>
-          <a :href="object.edm_is_shown_at" target="_blank">{{ $t('moreDetails') }} {{ object.edm_data_provider }}</a>
-        </div>
-
-        <div>
-          <a :href="'https://www.google.se/searchbyimage?image_url=' + object.edm_preview" target="_blank">Hitta liknande bilder på Google</a>
-        </div>
-
-      </div>
-
-      <br />
-
-      <LicenseBtn v-bind:uri="object.edm_rights" /><br />
+      <p>Bilden tillhandlahållas av <a target="_blank" :href="object.edm_is_shown_at">{{ object.edm_data_provider }}</a> under licensen <a target="_blank" :href="object.edm_rights">{{ resolveLicense(object.edm_rights) }}</a>.</p>
 
     </modal>
   </div>
@@ -73,6 +53,11 @@ export default {
       if (!this.isShown) this.$modal.show(this.object.europeana_record);
       if (this.isShown) this.$modal.hide(this.object.europeana_record);
       this.isShown = !this.isShown;
+    },
+
+    resolveLicense(lisence) {
+      if (lisence === 'http://creativecommons.org/licenses/by-nc-nd/2.5/') return 'Attribution-NonCommercial-NoDerivs 2.5 Generic';
+      if (lisence === 'http://creativecommons.org/licenses/by/2.5/') return 'Attribution 2.5 Generic';
     },
 
     filterByColor(color) {
@@ -126,14 +111,7 @@ export default {
     transform: scale(1);
     transition: 0.0s ease-in-out;
     box-sizing: border-box;
-    border: 2px solid white;
-}
-
-.object:hover {
-    /*transform: scale(1.1);*/
-    /*border: 2px solid gray;*/
-    /*background: black;
-    color: white;*/
+    border: 2px solid #e9e9e9;
 }
 
 .wall-details {
@@ -153,38 +131,6 @@ export default {
     max-width: 100vw;
     margin-bottom: 5px;
 }
-
-.buttons {
-  display: flex;
-
-  justify-content: center;
-
-  font-size: smaller;
-}
-
-.buttons > div {
-  flex: 1 1 0;
-  border: 1px solid gray;
-}
-
-button {
-    border: none;
-    margin: 0;
-    padding: 0;
-    width: auto;
-    overflow: visible;
-    background: transparent;
-    position: fixed;
-    top: 60px;
-    left: 10px;
-    cursor: pointer;
-    font-size: 20px;
-}
-
-.image-description{
-  margin-bottom: 5px;
-}
-
 .image-colors {
     display: flex;
     flex-wrap: wrap;
@@ -193,7 +139,7 @@ button {
     margin-bottom: 5px;
 }
 
-.image-labels{
+.image-labels {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
