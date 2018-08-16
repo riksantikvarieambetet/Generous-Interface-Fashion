@@ -23,7 +23,6 @@ export default {
     filterByColor() {
       store.commit('setSelectedSnappedColorId', this.color);
       this.$root.$emit('triggerFiltering');
-      console.log(store.state.selectedSnappedColorIds);
     },
   },
 };

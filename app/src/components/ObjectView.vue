@@ -82,7 +82,6 @@ export default {
     },
 
     setSelectedLabelId(id) {
-      // console.log(id);
       store.commit('setSelectedLabelId', id);
       this.$root.$emit('triggerFiltering');
     },
