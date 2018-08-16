@@ -58,7 +58,7 @@ p {
     position: relative;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   p {
     font-size: 14px;
     right: 35px;
