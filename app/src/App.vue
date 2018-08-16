@@ -8,6 +8,8 @@
       <div class="btn-container"><button v-on:click="closeWelcome">{{ $t('appBegin') }}</button></div>
     </modal>
 
+    <Footer />
+
     <spinner v-if="loading || loadingJson" class="spinner" size="big" />
   </div>
 </template>
@@ -16,6 +18,7 @@
 import Spinner from 'vue-simple-spinner';
 
 import ImageWall from './components/ImageWall';
+import Footer from './components/Footer';
 import { store } from './store';
 
 export default {
@@ -23,6 +26,7 @@ export default {
   components: {
     ImageWall,
     Spinner,
+    Footer,
   },
   computed: {
     loading() {
