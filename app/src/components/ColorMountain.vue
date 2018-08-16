@@ -44,16 +44,4 @@ export default {
     cursor: pointer;
     position: relative;
 }
-
-.color-mountain > div.selected::before {
-    content: '';
-    background: #333;
-    display: inline-block;
-    width: 5px;
-    height: 5px;
-    border-radius: 100%;
-    position: absolute;
-    top: 250px;
-    left: calc(50% - 2.5px);
-}
 </style>
