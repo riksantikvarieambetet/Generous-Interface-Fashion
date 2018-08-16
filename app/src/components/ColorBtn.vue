@@ -49,9 +49,7 @@ export default {
 }
 
 .btn:hover, .btn.active{
-  -webkit-box-shadow:inset 0px 0px 0px 2px white;
-  -moz-box-shadow:inset 0px 0px 0px 2px white;
-  box-shadow:inset 0px 0px 0px 2px white;
+  box-shadow: inset 0px 0px 0px 2px white;
 }
 
 </style>
