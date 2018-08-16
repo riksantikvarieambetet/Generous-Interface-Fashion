@@ -1,6 +1,10 @@
 <template>
-  <div class="footer">
-    <div>
+  <div>
+    <div class="flerp" ref="flerp" @click="toggle" v-show="labelFilterIsActive || anyColorFilterIsActive">
+      <div v-show="isShown"><i class="fas fa-angle-down"></i></div>
+      <div v-show="!isShown"><i class="fas fa-angle-up"></i></div>
+    </div>
+    <div class="footer" ref="footer" v-show="isShown">
       <div v-for="color in selectedSnappedColorIds" :key="color" class="color" @click="removeColor(color)" v-bind:style="{ background: color }">
         <div class="close-btn">
           <i class="fas fa-times-circle fa-lg"></i>
@@ -20,11 +24,16 @@
 <script>
 import fontawesome from '@fortawesome/fontawesome';
 import faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
+import faAngleDown from '@fortawesome/fontawesome-free-solid/faAngleDown';
+import faAngleUp from '@fortawesome/fontawesome-free-solid/faAngleUp';
 import { mapGetters } from 'vuex';
+import Vue from 'vue';
 
 import { store } from '../store';
 
 fontawesome.library.add(faTimesCircle);
+fontawesome.library.add(faAngleDown);
+fontawesome.library.add(faAngleUp);
 
 export default {
   name: 'Footer',
@@ -43,9 +52,25 @@ export default {
       isShown: true,
     };
   },
+  mounted() {
+    this.$root.$on('triggerFiltering', () => {
+      this.moveFlerp();
+    });
+  },
   methods: {
     toggle() {
       this.isShown = !this.isShown;
+      this.moveFlerp();
+    },
+
+    moveFlerp() {
+      Vue.nextTick(() => {
+        if (this.$refs.footer && this.isShown) {
+          this.$refs.flerp.style.bottom = this.$refs.footer.clientHeight + 'px';
+        } else {
+          this.$refs.flerp.style.bottom = '0px';
+        }
+      });
     },
 
     removeColor(color) {
@@ -62,13 +87,26 @@ export default {
 </script>
 
 <style scoped>
+.flerp {
+    position: fixed;
+    height: 30px;
+    width: 50px;
+    bottom: 0;
+    right: 10px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.flerp svg {
+    margin-top: 7px;
+}
+
 .footer {
     width: 100vw;
     position: fixed;
     bottom: 0;
     /* top: 50px; */
     background: #fff;
-    padding: 2.5px;
     box-sizing: border-box;
 }
 
@@ -76,6 +114,7 @@ export default {
     height: 55px;
     float: left;
     margin-left: 5px;
+    margin-top: 2.5px;
     border-radius: 10px;
     padding: 5px;
     box-sizing: border-box;
@@ -95,6 +134,7 @@ export default {
     width: 70px;
     height: 55px;
     float: left;
+    margin-top: 2.5px;
     margin-left: 5px;
     box-sizing: border-box;
     border-radius: 10px;
