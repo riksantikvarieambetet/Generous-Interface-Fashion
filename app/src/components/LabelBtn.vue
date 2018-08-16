@@ -27,11 +27,11 @@ export default {
 </script>
 
 <style scoped>
-.label{
+.label {
   display: inline-flex;
 }
 
-.btn{
+.btn {
   font-size: small;
 
   margin: 1px;
@@ -42,12 +42,12 @@ export default {
   background: rgb(255,255,255);
 }
 
-.btn:hover{
+.btn:hover {
   border-color: gray;
   color: black;
 }
 
-.btn.active{
+.btn.active {
   /*background: lightblue;*/
   /*border: 1px solid black;*/
   background: rgb(240,240,240);

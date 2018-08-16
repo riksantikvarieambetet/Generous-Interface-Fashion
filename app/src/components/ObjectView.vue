@@ -2,7 +2,7 @@
   <div class="object">
     <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" v-on:click="toggle()" />
 
-    <div class="wallDetails" v-if="showWallDetails">
+    <div class="wall-details" v-if="showWallDetails">
       <span v-for="label in object.application.labels" v-bind:key="label" class="label" :class="{ active: labelActive(label) }" @click="setSelectedLabelId(label)">{{ label }}</span>
     </div>
 
@@ -28,7 +28,7 @@
       <div class="buttons">
 
         <div>
-          <a v-bind:href="object.edm_is_shown_at" target="_blank">{{ $t('moreDetails') }} {{ object.edm_data_provider }}</a>
+          <a :href="object.edm_is_shown_at" target="_blank">{{ $t('moreDetails') }} {{ object.edm_data_provider }}</a>
         </div>
 
         <div>
@@ -85,6 +85,7 @@ export default {
       store.commit('setSelectedLabelId', id);
       this.$root.$emit('triggerFiltering');
     },
+
     labelActive(label) {
       return store.state.selectedLabelIds.includes(label);
     },
@@ -135,7 +136,7 @@ export default {
     color: white;*/
 }
 
-.wallDetails{
+.wall-details {
   bottom: 0;
   background: rgba(255,255,255,0.5);
   font-size: smaller;
@@ -153,7 +154,7 @@ export default {
     margin-bottom: 5px;
 }
 
-.buttons{
+.buttons {
   display: flex;
 
   justify-content: center;
