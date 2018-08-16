@@ -98,6 +98,7 @@ export default {
     background: #fff;
     cursor: pointer;
     line-height: 30px;
+    border-radius: 5px 5px 0 0;
 }
 
 .flerp div {
