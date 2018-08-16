@@ -43,6 +43,10 @@ export default {
 
 <style scoped>
 
+.root {
+    margin-bottom: 130px;
+}
+
 .root h2 {
     width: 100vw;
     margin: 0;
