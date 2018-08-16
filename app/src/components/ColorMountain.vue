@@ -37,7 +37,7 @@ export default {
     width: 100%;
     transform: scaleY(-1);
     display: inline-block;
-    height: 283px;
+    height: 250px;
     overflow: hidden;
 }
 
