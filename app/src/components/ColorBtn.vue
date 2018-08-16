@@ -12,18 +12,18 @@ import { store } from '../store';
 export default {
   name: 'ColorBtn',
   props: {
-    color: null
+    color: null,
   },
   computed: {
-    isActive(){
-      return store.state.selectedSnappedColorIds.includes(this.color)
-    }
+    isActive() {
+      return store.state.selectedSnappedColorIds.includes(this.color);
+    },
   },
   methods: {
     filterByColor() {
       store.commit('setSelectedSnappedColorId', this.color);
       this.$root.$emit('triggerFiltering');
-      console.log(store.state.selectedSnappedColorIds)
+      console.log(store.state.selectedSnappedColorIds);
     },
   },
 };

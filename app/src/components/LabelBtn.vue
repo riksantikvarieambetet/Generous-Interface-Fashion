@@ -10,12 +10,12 @@ import { store } from '../store';
 export default {
   name: 'LabelBtn',
   props: {
-    label: null
+    label: null,
   },
   computed: {
-    isActive(){
-      return store.state.selectedLabelIds.includes(this.label)
-    }
+    isActive() {
+      return store.state.selectedLabelIds.includes(this.label);
+    },
   },
   methods: {
     setSelectedLabelId() {

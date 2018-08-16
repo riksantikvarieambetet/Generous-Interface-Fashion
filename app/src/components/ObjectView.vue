@@ -12,15 +12,12 @@
       <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
 
       <div class="image-colors">
-        <ColorBtn v-for="color in object.application.css_colors" v-bind:key="color-btn" :color="color"></ColorBtn>
+        <ColorBtn v-for="color in object.application.css_colors" v-bind:key="color" :color="color"></ColorBtn>
       </div>
 
       <div class="image-labels">
-        <LabelBtn v-for="label in object.application.labels" v-bind:key="label-btn" :label="label"></LabelBtn>
+        <LabelBtn v-for="label in object.application.labels" v-bind:key="label" :label="label"></LabelBtn>
       </div>
-
-
-
 
       <div class="image-description">
         <p>
