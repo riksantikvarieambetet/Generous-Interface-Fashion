@@ -1,6 +1,6 @@
 <template>
   <div class="label">
-    <span class="btn" :class="{active: isActive}" @click="setSelectedLabelId()">{{label}}</span>
+    <span class="btn" :class="{ active: isActive }" @click="setSelectedLabelId()">{{ label }}</span>
   </div>
 </template>
 
@@ -27,7 +27,6 @@ export default {
 </script>
 
 <style scoped>
-
 .label{
   display: inline-flex;
 }

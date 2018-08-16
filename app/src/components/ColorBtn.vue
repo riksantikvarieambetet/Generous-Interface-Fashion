@@ -1,7 +1,7 @@
 <template>
   <div class="color">
 
-    <div class="btn" :class="{active: isActive}" :style="{ background: color, 'border-color': color }" @click="filterByColor(color)"></div>
+    <div class="btn" :class="{ active: isActive }" :style="{ background: color, 'border-color': color }" @click="filterByColor(color)"></div>
 
   </div>
 </template>
@@ -48,7 +48,8 @@ export default {
   cursor: pointer;
 }
 
-.btn:hover, .btn.active{
+.btn:hover,
+.btn.active{
   box-shadow: inset 0px 0px 0px 2px white;
 }
 
