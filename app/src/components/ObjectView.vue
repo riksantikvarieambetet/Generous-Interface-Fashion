@@ -8,13 +8,8 @@
 
     <modal v-bind:name="object.europeana_record" v-bind:classes="['v--modal details']" height="auto" v-hammer:swipe.up="toggle" transition="slide-north">
       <CloseBtn v-on:click.native="toggle" />
-      <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
 
-      <div class="image-description">
-        <p>
-          {{ object.application.description }}
-        </p>
-      </div>
+      <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
 
       <div class="image-colors">
         <ColorBtn v-for="color in object.application.css_colors" v-bind:key="color-btn" :color="color"></ColorBtn>
@@ -25,8 +20,30 @@
       </div>
 
 
+
+
+      <div class="image-description">
+        <p>
+          {{ object.application.description }}
+        </p>
+      </div>
+
+      <div class="buttons">
+
+        <div>
+          <a v-bind:href="object.edm_is_shown_at" target="_blank">{{ $t('moreDetails') }} {{ object.edm_data_provider }}</a>
+        </div>
+
+        <div>
+          <a :href="'https://www.google.se/searchbyimage?image_url=' + object.edm_preview" target="_blank">Hitta liknande bilder på Google</a>
+        </div>
+
+      </div>
+
+      <br />
+
       <LicenseBtn v-bind:uri="object.edm_rights" /><br />
-      <a v-bind:href="object.edm_is_shown_at" target="_blank">{{ $t('moreDetails') }} {{ object.edm_data_provider }}</a>
+
     </modal>
   </div>
 </template>
@@ -137,6 +154,20 @@ export default {
     margin: auto;
     display: block;
     max-width: 100vw;
+    margin-bottom: 5px;
+}
+
+.buttons{
+  display: flex;
+
+  justify-content: center;
+
+  font-size: smaller;
+}
+
+.buttons > div {
+  flex: 1 1 0;
+  border: 1px solid gray;
 }
 
 button {
@@ -154,24 +185,15 @@ button {
 }
 
 .image-description{
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .image-colors {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: 98%;
-    height: 50px;
     cursor: pointer;
-    margin: 0 auto;
-    margin-bottom: 10px;
-}
-
-.image-colors div {
-    height: 50px;
-    display: table-cell;
-    cursor: pointer;
+    margin-bottom: 5px;
 }
 
 .image-labels{

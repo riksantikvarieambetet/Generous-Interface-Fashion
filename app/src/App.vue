@@ -103,6 +103,16 @@ body {
   margin: 0;
 }
 
+a, a:visited{
+  color: rgb(60,80,120);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover{
+  text-decoration: underline;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

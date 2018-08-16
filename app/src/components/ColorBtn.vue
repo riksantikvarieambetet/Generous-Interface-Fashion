@@ -32,9 +32,9 @@ export default {
 <style scoped>
 
 .color{
+  flex: 0 0 30px;
   display: inline;
-  width: 50px;
-  height: 50px;
+  height: 30px;
   margin: 1px;
 }
 
@@ -44,24 +44,15 @@ export default {
   height: 100%;
   border-radius: 50%;
   box-sizing: border-box;
-  border: 3px solid black;
+  border: 2px solid black;
   margin: 1px;
   cursor: pointer;
 }
 
-.btn:hover{
-  color: black;
-}
-
-.btn.active{
-  /*background: lightblue;*/
-  /*border: 1px solid black;*/
-  background: rgb(240,240,240);
-  color: rgb(100,100,100);
-
-  -webkit-box-shadow:inset 0px 0px 0px 3px white;
-  -moz-box-shadow:inset 0px 0px 0px 3px white;
-  box-shadow:inset 0px 0px 0px 3px white;
+.btn:hover, .btn.active{
+  -webkit-box-shadow:inset 0px 0px 0px 2px white;
+  -moz-box-shadow:inset 0px 0px 0px 2px white;
+  box-shadow:inset 0px 0px 0px 2px white;
 }
 
 </style>
