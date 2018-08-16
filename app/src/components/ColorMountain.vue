@@ -1,6 +1,6 @@
 <template>
   <div class="color-mountain">
-    <div v-for="c in colors" v-bind:key="c[0]" v-bind:style="{ background: c[0], height: c[1] + 'px', width: 100 / colors.length + '%' }" @click="setSelectedSnappedColorId(c[0])" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }"></div>
+    <div v-for="c in sortedColors" v-bind:key="c[0]" v-bind:style="{ background: c[0], height: c[1] + 'px', width: 100 / colors.length + '%' }" @click="setSelectedSnappedColorId(c[0])" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }"></div>
   </div>
 </template>
 
@@ -17,6 +17,10 @@ export default {
   computed: {
     selectedSnappedColorIds() {
       return store.state.selectedSnappedColorIds;
+    },
+
+    sortedColors() {
+      return this.colors.slice(0).sort((a, b) => b[1] - a[1]);
     },
   },
   methods: {
