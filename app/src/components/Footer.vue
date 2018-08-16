@@ -92,9 +92,9 @@ export default {
     position: fixed;
     height: 30px;
     width: auto;
-    padding: 0 7px;
+    padding: 0 24px;
     bottom: 0;
-    right: 10px;
+    right: 40px;
     background: #fff;
     cursor: pointer;
     line-height: 30px;
