@@ -9,10 +9,22 @@
     <modal v-bind:name="object.europeana_record" v-bind:classes="['v--modal details']" height="auto" v-hammer:swipe.up="toggle" transition="slide-north">
       <CloseBtn v-on:click.native="toggle" />
       <img v-bind:src="object.edm_preview" v-bind:alt="object.application.description" />
-      <div class="image-colors">
-        <div v-for="color in object.application.css_colors" v-bind:key="color" v-bind:style="{ background: color }" @click="filterByColor(color)"></div>
+
+      <div class="image-description">
+        <p>
+          {{ object.application.description }}
+        </p>
       </div>
-      <p>{{ object.application.description }}</p>
+
+      <div class="image-colors">
+        <ColorBtn v-for="color in object.application.css_colors" v-bind:key="color-btn" :color="color"></ColorBtn>
+      </div>
+
+      <div class="image-labels">
+        <LabelBtn v-for="label in object.application.labels" v-bind:key="label-btn" :label="label"></LabelBtn>
+      </div>
+
+
       <LicenseBtn v-bind:uri="object.edm_rights" /><br />
       <a v-bind:href="object.edm_is_shown_at" target="_blank">{{ $t('moreDetails') }} {{ object.edm_data_provider }}</a>
     </modal>
@@ -21,6 +33,8 @@
 
 <script>
 import LicenseBtn from './LicenseBtn';
+import LabelBtn from './LabelBtn';
+import ColorBtn from './ColorBtn';
 import CloseBtn from './CloseBtn';
 import { store } from '../store';
 
@@ -28,6 +42,8 @@ export default {
   name: 'ObjectView',
   components: {
     LicenseBtn,
+    LabelBtn,
+    ColorBtn,
     CloseBtn,
   },
   props: {
@@ -55,9 +71,6 @@ export default {
       //console.log(id);
       store.commit('setSelectedLabelId', id);
       this.$root.$emit('triggerFiltering');
-    },
-    labelActive(label){
-      return store.state.selectedLabelIds.includes(label);
     }
 
   },
@@ -116,30 +129,6 @@ export default {
   margin-bottom: 10px;
 }
 
-.label{
-  font-size: small;
-
-  margin: 1px;
-  padding: 1px;
-  border-radius: 4px;
-  border: 1px solid lightgray;
-  cursor: pointer;
-  background: rgb(255,255,255);
-}
-
-.label:hover{
-  border: 1px solid gray;
-  color: black;
-}
-
-.label.active{
-  /*background: lightblue;*/
-  /*border: 1px solid black;*/
-  background: rgb(240,240,240);
-  color: rgb(100,100,100);
-
-}
-
 .details img {
     max-height: calc(100vh - 200px);
     margin: auto;
@@ -161,19 +150,32 @@ button {
     font-size: 20px;
 }
 
+.image-description{
+  margin-bottom: 10px;
+}
+
 .image-colors {
-    display: table;
-    table-layout: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 98%;
     height: 50px;
     cursor: pointer;
     margin: 0 auto;
+    margin-bottom: 10px;
 }
 
 .image-colors div {
     height: 50px;
     display: table-cell;
     cursor: pointer;
+}
+
+.image-labels{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 @media only screen and (min-width: 600px) {
