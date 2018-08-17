@@ -1,7 +1,16 @@
 <template>
   <div class="color-mountain">
+
     <p>Filtrera innehållet med ett färgkrav.</p>
-    <div v-for="c in sortedColors" :key="c[0]" :style="{ background: c[0], height: c[1] + 'px', width: 100 / colors.length + '%' }" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" @click="setSelectedSnappedColorId(c[0])" />
+
+    <div class="colors">
+      <div v-for="c in sortedColors" :key="c[0]" :style="{ background: c[0], height: 10 + c[1]/sortedColors[0][1] * 100 + 'px', width: 100 / colors.length + '%' }" class="color" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" @click="setSelectedSnappedColorId(c[0])">
+
+      </div>
+    </div>
+
+    <div class="color-line"></div>
+
   </div>
 </template>
 
@@ -36,27 +45,48 @@ export default {
 
 <style scoped>
 .color-mountain {
+  position: relative;
+
+  /*transform: scaleY(-1);*/
+  /*display: inline-block;*/
+
+}
+
+.colors{
+  display: flex;
+  align-items: flex-end;
   width: 100%;
-  transform: scaleY(-1);
-  display: inline-block;
-  height: 250px;
-  overflow: hidden;
 }
 
 p {
   position: absolute;
-  font-size: 3vw;
-  transform: scaleY(-1);
-  right: 60px;
-  top: 120px;
+  font-size: 1vw;
+  right: 10px;
+  top: 10px;
 }
 
-.color-mountain > div {
-  float: left;
-  min-height: 10px;
-  max-height: 250px;
-  cursor: pointer;
+.color {
   position: relative;
+  cursor: pointer;
+  -webkit-transition: height 1.5s; /* Safari */
+  transition: height 1.5s ease-in-out;
+  box-sizing: border-box;
+}
+
+.color:not(:hover) {
+  border-bottom: 3px solid white;
+}
+
+.color:hover, .color.selected {
+  border-bottom-width: 0px;
+}
+
+.color-line {
+  position: absolute;
+  bottom: 3px;
+  height: 2px;
+  width: 100%;
+  background: white;
 }
 
 @media (max-width: 450px) {
