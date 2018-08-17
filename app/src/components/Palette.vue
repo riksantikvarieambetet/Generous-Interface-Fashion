@@ -3,7 +3,7 @@
     <h2>{{ $t('theEnd') }}</h2>
     <p>{{ $t('explorePalette') }}</p>
     <div :key="color" :style="{ background: color }" class="color" @click="filterWithPalette" />
-    <div class="btn" @click="randomPalette">Shuffle <i class="fas fa-random" /></div>
+    <div class="btn" @click="randomPalette">{{ $t('shuffle') }} <i class="fas fa-random" /></div>
   </div>
 </template>
 

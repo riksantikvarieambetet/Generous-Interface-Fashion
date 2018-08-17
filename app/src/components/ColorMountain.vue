@@ -1,6 +1,6 @@
 <template>
   <div class="color-mountain">
-    <p>Filtrera innehållet med ett färgkrav.</p>
+    <p>{{ $t('filterWithColor') }}</p>
     <div v-for="c in sortedColors" :key="c[0]" :style="{ background: c[0], height: c[1] + 'px', width: 100 / colors.length + '%' }" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" @click="setSelectedSnappedColorId(c[0])" />
   </div>
 </template>
