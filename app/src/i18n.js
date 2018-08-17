@@ -19,6 +19,7 @@ const messages = {
     shuffle: 'Shuffle colours',
     underLicense: 'under the license',
     filterWithColor: 'Pick a colour to filter content',
+    selectedFilters: 'Selected Filters',
   },
   sv: {
     nItemsPrefix: 'Visar',
@@ -40,6 +41,7 @@ const messages = {
     shuffle: 'Blanda färger',
     underLicense: 'under licensen',
     filterWithColor: 'Välj en färg för att filtrera innehållet',
+    selectedFilters: 'Valda filter',
   },
 };
 

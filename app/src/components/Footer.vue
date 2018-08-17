@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-show="labelFilterIsActive || anyColorFilterIsActive" ref="flerp" class="flerp" @click="toggle">
-      <span>Selection</span>
+      <span>{{ $t('selectedFilters') }}</span>
       <div v-show="isShown"><i class="fas fa-angle-down" /></div>
       <div v-show="!isShown"><i class="fas fa-angle-up" /></div>
     </div>
