@@ -20,7 +20,7 @@ div {
   position: absolute;
   top: 0;
   right: 0;
-  margin-right: 5px;
+  margin: 5px;
   cursor: pointer;
   width: 20px;
   height: 20px;
