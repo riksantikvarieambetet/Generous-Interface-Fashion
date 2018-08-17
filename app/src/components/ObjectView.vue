@@ -2,10 +2,6 @@
   <div class="object">
     <img :src="object.edm_preview" :alt="object.application.description" @click="toggle()">
 
-    <div v-if="showWallDetails" class="wall-details">
-      <span v-for="label in object.application.labels" :key="label" :class="{ active: labelActive(label) }" class="label" @click="setSelectedLabelId(label)">{{ label }}</span>
-    </div>
-
     <modal v-hammer:swipe.up="toggle" :name="object.europeana_record" :classes="['v--modal details']" height="auto" transition="slide-north">
       <close-btn @click.native="toggle" />
 
@@ -122,16 +118,6 @@ export default {
   transition: s ease-in-out;
   box-sizing: border-box;
   border: 2px solid #e9e9e9;
-}
-
-.wall-details {
-  bottom: 0;
-  background: rgba(255, 255, 255, .5);
-  font-size: smaller;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
 }
 
 .details img {
