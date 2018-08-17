@@ -2,8 +2,8 @@
   <div class="root">
     <h2>{{ $t('theEnd') }}</h2>
     <p>{{ $t('explorePalette') }}</p>
-    <div class="color" v-on:click="filterWithPalette" v-bind:key="color" v-bind:style="{ background: color }"></div>
-    <div class="btn" v-on:click="randomPalette">Shuffle <i class="fas fa-random"></i></div>
+    <div :key="color" :style="{ background: color }" class="color" @click="filterWithPalette" />
+    <div class="btn" @click="randomPalette">Shuffle <i class="fas fa-random" /></div>
   </div>
 </template>
 
@@ -45,23 +45,22 @@ export default {
 <style scoped>
 
 .root {
-    margin-bottom: 130px;
+  margin-bottom: 130px;
 }
 
 .root h2 {
-    width: 100vw;
-    margin: 0;
-    display: inline-block;
-    margin: 50px 10px 0;
+  width: 100vw;
+  display: inline-block;
+  margin: 50px 10px 0;
 }
 
 .color {
-    display: table;
-    table-layout: fixed;
-    width: 98%;
-    height: 100px;
-    cursor: pointer;
-    margin: 0 auto;
+  display: table;
+  table-layout: fixed;
+  width: 98%;
+  height: 100px;
+  cursor: pointer;
+  margin: 0 auto;
 }
 
 .btn {
@@ -72,7 +71,7 @@ export default {
 }
 
 .btn:hover {
-    background: #f5f5f5;
+  background: #f5f5f5;
 }
 
 </style>

@@ -1,37 +1,37 @@
 <template>
   <div>
     <div class="menu">
-      <div class="menu-btn logo" v-on:click="resetFilters">
-        <i class="fas fa-sync"></i>
+      <div class="menu-btn logo" @click="resetFilters">
+        <i class="fas fa-sync" />
       </div>
-      <span class="left">{{ $t('nItemsPrefix') }} <AnimatedNumber v-bind:number="numberOfActiveItems"></AnimatedNumber>{{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
+      <span class="left">{{ $t('nItemsPrefix') }} <animated-number :number="numberOfActiveItems" />{{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
 
-      <div v-on:click="toggleLabelFilter" :class="{ active: labelFilterIsActive }" class="menu-btn">
-        <i class="fas fa-tag"></i>
+      <div :class="{ active: labelFilterIsActive }" class="menu-btn" @click="toggleLabelFilter">
+        <i class="fas fa-tag" />
       </div>
-      <div v-on:click="$root.$emit('toggleSidebar')" class="menu-btn">
-        <i class="fas fa-save"></i>
+      <div class="menu-btn" @click="$root.$emit('toggleSidebar')">
+        <i class="fas fa-save" />
       </div>
-      <div v-on:click="toggleColorFilter" :class="{ active: anyColorFilterIsActive }" class="menu-btn">
-        <i class="fas fa-palette"></i>
+      <div :class="{ active: anyColorFilterIsActive }" class="menu-btn" @click="toggleColorFilter">
+        <i class="fas fa-palette" />
       </div>
 
     </div>
     <transition name="slide-north">
-      <FilterContainer v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
+      <filter-container v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
 
-        <close-btn v-on:click.native="toggleColorFilter" />
+        <close-btn @click.native="toggleColorFilter" />
 
-        <ColorMountain v-bind:colors="colorStats" />
+        <color-mountain :colors="colorStats" />
 
-      </FilterContainer>
+      </filter-container>
     </transition>
 
     <transition name="slide-north">
-      <FilterContainer v-if="labelFilterOpen">
-        <CloseBtn v-on:click.native="toggleLabelFilter" />
-        <LabelStack v-bind:labels="labelStats" />
-      </FilterContainer>
+      <filter-container v-if="labelFilterOpen">
+        <close-btn @click.native="toggleLabelFilter" />
+        <label-stack :labels="labelStats" />
+      </filter-container>
     </transition>
   </div>
 </template>
@@ -58,6 +58,13 @@ fontawesome.library.add(faSync);
 
 export default {
   name: 'FilterMenu',
+  components: {
+    FilterContainer,
+    AnimatedNumber,
+    ColorMountain,
+    LabelStack,
+    CloseBtn,
+  },
   data() {
     return {
       colorFilterOpen: false,
@@ -65,13 +72,6 @@ export default {
       colorStats: [],
       labelStats: [],
     };
-  },
-  components: {
-    FilterContainer,
-    AnimatedNumber,
-    ColorMountain,
-    LabelStack,
-    CloseBtn,
   },
   computed: {
     ...mapGetters([
@@ -169,49 +169,49 @@ export default {
 
 <style scoped>
 .menu {
-    width: 100vw;
-    background: #fff;
-    height: 50px;
-    z-index: 2;
-    text-align: right;
-    box-sizing: border-box;
-    line-height: 50px;
-    position: fixed;
-    top: 0;
+  width: 100vw;
+  background: #fff;
+  height: 50px;
+  z-index: 2;
+  text-align: right;
+  box-sizing: border-box;
+  line-height: 50px;
+  position: fixed;
+  top: 0;
 }
 
 .left {
-    float: left;
-    padding-left: 7px;
+  float: left;
+  padding-left: 7px;
 }
 
 .menu-btn {
-    display: inline-block;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    margin-right: 5px;
-    box-sizing: border-box;
+  display: inline-block;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  margin-right: 5px;
+  box-sizing: border-box;
 }
 
 .logo {
-    display: block;
-    float: left;
-    margin-right: 0;
+  display: block;
+  float: left;
+  margin-right: 0;
 }
 
 .menu-btn:hover {
-    background: #f5f5f5;
+  background: #f5f5f5;
 }
 
 .menu-btn.active {
-    border-bottom: solid 6px #008cff;
+  border-bottom: solid 6px #008cff;
 }
 
 @media only screen and (max-width: 410px) {
-    .menu-btn {
-        width: 30px;
-    }
+  .menu-btn {
+    width: 30px;
+  }
 }
 </style>

@@ -1,22 +1,23 @@
 <template>
-    <span>
-        {{ displayNumber }}
-    </span>
+  <span>
+    {{ displayNumber }}
+  </span>
 </template>
 
 <script>
 export default {
   name: 'AnimatedNumber',
+  props: {
+    number: {
+      type: Number,
+      default: 0,
+    },
+  },
   data() {
     return {
       displayNumber: 0,
       interval: false,
     };
-  },
-  props: {
-    'number': {
-      default: 0,
-    },
   },
   ready: function() {
     this.displayNumber = this.number ? this.number : 0;

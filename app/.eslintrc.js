@@ -4,7 +4,7 @@ module.exports = {
     node: true,
   },
   'extends': [
-    'plugin:vue/essential',
+    'plugin:vue/recommended',
     '@vue/standard'
   ],
   rules: {
@@ -13,6 +13,10 @@ module.exports = {
     'semi': [2, 'always'],
     'comma-dangle': [2, 'always-multiline'],
     'space-before-function-paren': [2, 'never'],
+    'vue/max-attributes-per-line': [2, {
+      'singleline': 50,
+    }],
+    'vue/component-name-in-template-casing': ['error', 'kebab-case'],
   },
   parserOptions: {
     parser: 'babel-eslint',

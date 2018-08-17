@@ -1,20 +1,20 @@
 <template>
   <div>
-    <div class="flerp" ref="flerp" @click="toggle" v-show="labelFilterIsActive || anyColorFilterIsActive">
+    <div v-show="labelFilterIsActive || anyColorFilterIsActive" ref="flerp" class="flerp" @click="toggle">
       <span>Selection</span>
-      <div v-show="isShown"><i class="fas fa-angle-down"></i></div>
-      <div v-show="!isShown"><i class="fas fa-angle-up"></i></div>
+      <div v-show="isShown"><i class="fas fa-angle-down" /></div>
+      <div v-show="!isShown"><i class="fas fa-angle-up" /></div>
     </div>
-    <div class="footer" ref="footer" v-show="isShown">
-      <div v-for="color in selectedSnappedColorIds" :key="color" class="color" @click="removeColor(color)" v-bind:style="{ background: color }">
+    <div v-show="isShown" ref="footer" class="footer">
+      <div v-for="color in selectedSnappedColorIds" :key="color" :style="{ background: color }" class="color" @click="removeColor(color)">
         <div class="close-btn">
-          <i class="fas fa-times-circle fa-lg"></i>
+          <i class="fas fa-times-circle fa-lg" />
         </div>
       </div>
 
       <div v-for="label in selectedLabelIds" :key="label" class="label" @click="removeLabel(label)">
         <div class="close-btn">
-          <i class="fas fa-times-circle fa-lg"></i>
+          <i class="fas fa-times-circle fa-lg" />
         </div>
         <span>{{ label }}</span>
       </div>
@@ -38,7 +38,10 @@ fontawesome.library.add(faAngleUp);
 
 export default {
   name: 'Footer',
-  components: {
+  data() {
+    return {
+      isShown: true,
+    };
   },
   computed: {
     ...mapGetters([
@@ -47,11 +50,6 @@ export default {
       'selectedSnappedColorIds',
       'selectedLabelIds',
     ]),
-  },
-  data() {
-    return {
-      isShown: true,
-    };
   },
   mounted() {
     this.$root.$on('triggerFiltering', () => {
@@ -89,81 +87,82 @@ export default {
 
 <style scoped>
 .flerp {
-    position: fixed;
-    height: 30px;
-    width: auto;
-    padding: 0 24px;
-    bottom: 0;
-    right: 40px;
-    background: #fff;
-    cursor: pointer;
-    line-height: 30px;
-    border-radius: 5px 5px 0 0;
+  position: fixed;
+  height: 30px;
+  width: auto;
+  padding: 0 24px;
+  bottom: 0;
+  right: 40px;
+  background: #fff;
+  cursor: pointer;
+  line-height: 30px;
+  border-radius: 5px 5px 0 0;
 }
 
 .flerp div {
-    width: 20px;
-    float: right;
+  width: 20px;
+  float: right;
 }
 
 .flerp svg {
-    margin-top: 7px;
+  margin-top: 7px;
 }
 
 .footer {
-    width: 100vw;
-    position: fixed;
-    bottom: 0;
-    /* top: 50px; */
-    background: #fff;
-    box-sizing: border-box;
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+
+  /* top: 50px; */
+  background: #fff;
+  box-sizing: border-box;
 }
 
 .label {
-    height: 55px;
-    float: left;
-    margin-left: 5px;
-    margin-top: 2.5px;
-    border-radius: 10px;
-    padding: 5px;
-    box-sizing: border-box;
-    background: #dadada;
-    line-height: 50px;
-    position: relative;
-    margin-bottom: 5px;
+  height: 55px;
+  float: left;
+  margin-left: 5px;
+  margin-top: 2.5px;
+  border-radius: 10px;
+  padding: 5px;
+  box-sizing: border-box;
+  background: #dadada;
+  line-height: 50px;
+  position: relative;
+  margin-bottom: 5px;
 }
 
 .label span {
-    padding: 0 16px;
-    font-weight: 500;
-    font-size: 120%;
+  padding: 0 16px;
+  font-weight: 500;
+  font-size: 120%;
 }
 
 .color {
-    width: 70px;
-    height: 55px;
-    float: left;
-    margin-top: 2.5px;
-    margin-left: 5px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    padding: 5px;
-    position: relative;
-    margin-bottom: 5px;
+  width: 70px;
+  height: 55px;
+  float: left;
+  margin-top: 2.5px;
+  margin-left: 5px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 5px;
+  position: relative;
+  margin-bottom: 5px;
 }
 
 .close-btn {
-    display: inline;
-    cursor: pointer;
-    background: rgba(51, 51, 51, .3);
-    border-radius: 100%;
-    height: 21px;
-    line-height: 21px;
-    position: absolute;
-    left: 5px;
+  display: inline;
+  cursor: pointer;
+  background: rgba(51, 51, 51, .3);
+  border-radius: 100%;
+  height: 21px;
+  line-height: 21px;
+  position: absolute;
+  left: 5px;
 }
 
 .close-btn svg {
-    color: #fff;
+  color: #fff;
 }
 </style>

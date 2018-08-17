@@ -1,15 +1,15 @@
 <template>
   <div>
-    <FilterMenu />
+    <filter-menu />
 
-    <Sidebar v-if="sidebarIsOpen" />
+    <sidebar v-if="sidebarIsOpen" />
 
-    <div v-if="list" v-bind:list="list" class="wall" v-images-loaded:on.progress="imageChange">
-      <div v-for="item in list" v-bind:key="item.europeana_record" class="image">
-        <ObjectView v-bind:object="item"/>
+    <div v-if="list" v-images-loaded:on.progress="imageChange" :list="list" class="wall">
+      <div v-for="item in list" :key="item.europeana_record" class="image">
+        <object-view :object="item" />
       </div>
     </div>
-    <Palette v-if="isAtEndOfFeed"></Palette>
+    <palette v-if="isAtEndOfFeed" />
   </div>
 </template>
 
@@ -38,11 +38,6 @@ export default {
       sidebarIsOpen: false,
     };
   },
-  mounted() {
-    this.$root.$on('toggleSidebar', () => {
-      this.toggleSidebar();
-    });
-  },
   computed: {
     list() {
       return store.state.activeItems.slice(0, store.state.visibleLimit);
@@ -51,6 +46,11 @@ export default {
       return (store.state.activeItems.length <= store.state.visibleLimit);
     },
 
+  },
+  mounted() {
+    this.$root.$on('toggleSidebar', () => {
+      this.toggleSidebar();
+    });
   },
   methods: {
     imageChange(instance) {
@@ -73,13 +73,9 @@ export default {
 <style scoped>
 
 .wall {
-    margin-top: 50px;
-    width: 100vw;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.image{
-
+  margin-top: 50px;
+  width: 100vw;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

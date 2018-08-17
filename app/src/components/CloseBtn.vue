@@ -1,6 +1,6 @@
 <template>
   <div>
-    <i class="fas fa-times"></i>
+    <i class="fas fa-times" />
   </div>
 </template>
 
@@ -17,12 +17,12 @@ export default {
 
 <style scoped>
 div {
-    float: right;
-    margin-right: 5px;
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
-    background: #e7e7e7;
-    border-radius: 100%;
+  float: right;
+  margin-right: 5px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  background: #e7e7e7;
+  border-radius: 100%;
 }
 </style>

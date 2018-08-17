@@ -1,11 +1,11 @@
 <template>
   <div id="app">
-    <ImageWall />
-    <modal name="welcome" v-bind:classes="['v--modal', 'welcome']" v-hammer:swipe.up="closeWelcome" transition="slide-north">
+    <image-wall />
+    <modal v-hammer:swipe.up="closeWelcome" :classes="['v--modal', 'welcome']" name="welcome" transition="slide-north">
       <h1 @click="toggleWallDetails">{{ $t('appTitle') }}</h1>
-      <h2>{{ $t('explore') }}{{ $t('tags') }} <i class="fas fa-tag"></i>{{ $t('and') }}{{ $t('color') }} <i class="fas fa-palette"></i>!</h2>
+      <h2>{{ $t('explore') }}{{ $t('tags') }} <i class="fas fa-tag" />{{ $t('and') }}{{ $t('color') }} <i class="fas fa-palette" />!</h2>
       <p>{{ $t('appDescription') }}</p>
-      <div class="btn-container"><button v-on:click="closeWelcome">{{ $t('appBegin') }}</button></div>
+      <div class="btn-container"><button @click="closeWelcome">{{ $t('appBegin') }}</button></div>
     </modal>
 
     <Footer />
@@ -22,26 +22,40 @@ import Footer from './components/Footer';
 import { store } from './store';
 
 export default {
-  name: 'app',
+  name: 'App',
   components: {
     ImageWall,
     Spinner,
     Footer,
-  },
-  computed: {
-    loading() {
-      return store.state.isLoadingImages;
-    },
   },
   data() {
     return {
       loadingJson: true,
     };
   },
+  computed: {
+    loading() {
+      return store.state.isLoadingImages;
+    },
+  },
   mounted() {
     this.$root.$on('openInfo', () => {
       this.$modal.show('welcome');
     });
+  },
+  beforeMount() {
+    this.fetchIntoState();
+  },
+  created: function() {
+    window.addEventListener('scroll', this.handleScroll);
+
+    // some rendering hack...
+    setTimeout(() => {
+      this.$modal.show('welcome');
+    }, 100);
+  },
+  destroyed: function() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   methods: {
     fetchIntoState: function() {
@@ -81,20 +95,6 @@ export default {
     },
 
   },
-  beforeMount() {
-    this.fetchIntoState();
-  },
-  created: function() {
-    window.addEventListener('scroll', this.handleScroll);
-
-    // some rendering hack...
-    setTimeout(() => {
-      this.$modal.show('welcome');
-    }, 100);
-  },
-  destroyed: function() {
-    window.removeEventListener('scroll', this.handleScroll);
-  },
 };
 </script>
 
@@ -108,13 +108,14 @@ body {
   background: #e9e9e9;
 }
 
-a, a:visited{
-  color: rgb(60,80,120);
+a,
+a:visited {
+  color: rgb(60, 80, 120);
   text-decoration: none;
   font-weight: 500;
 }
 
-a:hover{
+a:hover {
   text-decoration: underline;
 }
 
@@ -133,9 +134,11 @@ a:hover{
 .slide-north-enter-active {
   transition: .5s;
 }
+
 .slide-north-enter {
   transform: translate(0, -100%);
 }
+
 .slide-north-leave-to {
   transform: translate(0, -100%);
 }
@@ -143,46 +146,46 @@ a:hover{
 /* MODAL */
 
 .welcome {
-    padding: 8px !important;
-    max-width: 100%;
+  padding: 8px !important;
+  max-width: 100%;
 }
 
 .welcome h1 {
-    margin: 0;
+  margin: 0;
 }
 
 .welcome p {
-    margin-top: 8px;
-    margin-bottom: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .welcome .btn-container {
-    position: absolute;
-    left: 50%;
-    bottom: 16px;
-    width: 80%;
+  position: absolute;
+  left: 50%;
+  bottom: 16px;
+  width: 80%;
 }
 
 .welcome button {
-    border-radius: 4px;
-    background-color: #008cff;
-    border: none;
-    padding: 15px;
-    transition: all 0.5s;
-    text-align: center;
-    cursor: pointer;
-    font-size: 17px;
-    display: block;
-    color: #fff;
-    position: relative;
-    left: -50%;
-    margin: auto;
+  border-radius: 4px;
+  background-color: #008cff;
+  border: none;
+  padding: 15px;
+  transition: all .5s;
+  text-align: center;
+  cursor: pointer;
+  font-size: 17px;
+  display: block;
+  color: #fff;
+  position: relative;
+  left: -50%;
+  margin: auto;
 }
 
 .spinner {
-    position: fixed;
-    right: 7px;
-    bottom: 7px;
-    z-index: 100;
+  position: fixed;
+  right: 7px;
+  bottom: 7px;
+  z-index: 100;
 }
 </style>
