@@ -23,7 +23,7 @@ export default {
   name: 'Palette',
   data() {
     return {
-      s: [],
+      colors: [],
     };
   },
   created() {
