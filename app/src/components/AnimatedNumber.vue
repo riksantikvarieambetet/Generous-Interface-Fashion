@@ -29,7 +29,7 @@ export default {
 
       this.interval = window.setInterval(() => {
         if (this.displayNumber !== this.number) {
-          let change = (this.number - this.displayNumber) / 20;
+          let change = (this.number - this.displayNumber) / 50;
           change = change >= 0 ? Math.ceil(change) : Math.floor(change);
           this.displayNumber = this.displayNumber + change;
         }
@@ -44,13 +44,15 @@ export default {
 .number{
   border-radius: 5px;
   padding: 3px;
-  transition: background 3s;
+  transition: background 2s;
   background: white;
+  color: black;
 }
 
 .isAnimating{
   background: rgb(24,143,252);
   transition: background 0.5s;
+  color: white;
 }
 
 </style>
