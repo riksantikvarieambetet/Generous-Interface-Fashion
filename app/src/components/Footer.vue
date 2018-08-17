@@ -20,7 +20,7 @@
       </div>
 
       <div v-show="labelFilterIsActive || anyColorFilterIsActive" class="right-btn" @click="resetFilters">
-        <i class="fas fa-trash-alt" />
+        <i class="fas fa-bomb" />
       </div>
     </div>
   </div>
@@ -28,6 +28,7 @@
 
 <script>
 import fontawesome from '@fortawesome/fontawesome';
+import faBomb from '@fortawesome/fontawesome-free-solid/faBomb';
 import faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 import faAngleDown from '@fortawesome/fontawesome-free-solid/faAngleDown';
 import faAngleUp from '@fortawesome/fontawesome-free-solid/faAngleUp';
@@ -37,6 +38,7 @@ import Vue from 'vue';
 import { store } from '../store';
 
 fontawesome.library.add(faTrashAlt);
+fontawesome.library.add(faBomb);
 fontawesome.library.add(faAngleDown);
 fontawesome.library.add(faAngleUp);
 
@@ -128,65 +130,75 @@ export default {
 }
 
 .label, .color {
-  height: 55px;
+  height: 40px;
   margin-left: 5px;
   margin-top: 5px;
   box-sizing: border-box;
   margin-bottom: 5px;
   position: relative;
   padding: 7px;
-  border: solid 2px #dadada;
-  box-shadow: inset 0 0 0 2px white;
 }
 
 .label {
   float: left;
-  border-radius: 10px;
-  background: #dadada;
-  line-height: 45px;
+  border-radius: 5px;
+  border: 1px solid;
+  line-height: 25px;
   cursor: default;
+  background: rgb(240, 240, 240);
+  border-color: rgb(150, 150, 150);
 }
 
 .color {
-  width: 70px;
+  width: 40px;
   float: left;
-  border-radius: 10px;
+  border-radius: 40px;
+  border: solid 2px #dadada;
+  box-shadow: inset 0 0 0 2px white;
 }
 
 .label span {
-  padding: 0 20px;
-  font-weight: 500;
-  font-size: 120%;
+  padding: 0 20px 0 5px;
+  font-weight: normal;
 }
 
 .close-btn {
   display: inline;
   cursor: pointer;
   height: 21px;
-  line-height: 21px;
+  line-height: 23px;
   position: absolute;
-  left: 7px;
+  right: 7px;
 }
 
-.close-btn svg {
+.color .close-btn {
+  right: 11px;
+}
+
+.color .close-btn svg {
   color: #fff;
 }
 
 .right-btn {
   background: #dadada;
-  line-height: 60px;
-  font-size: 1.5em;
+  line-height: 35px;
+  font-size: 1.3em;
   border-radius: 10px;
-  height: 55px;
-  width: 55px;
+  height: 36px;
+  width: 36px;
   float: right;
   margin-right: 5px;
   margin-top: 5px;
   cursor: pointer;
+  border: solid 2px #dadada;
 }
 
-.right-btn:hover svg, .close-btn:hover svg {
+.close-btn:hover svg {
   transform: scale(1.1);
+}
+
+.right-btn:hover {
+  box-shadow: inset 0 0 0 2px white;
 }
 
 </style>
