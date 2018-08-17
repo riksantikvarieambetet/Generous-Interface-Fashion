@@ -19,7 +19,7 @@
         <span>{{ label }}</span>
       </div>
 
-      <div class="right-btn" @click="resetFilters">
+      <div v-show="labelFilterIsActive || anyColorFilterIsActive" class="right-btn" @click="resetFilters">
         <i class="fas fa-sync" />
       </div>
     </div>
@@ -78,6 +78,13 @@ export default {
       });
     },
 
+    resetFilters() {
+      store.commit('replaceSnappedColorIds', []);
+      store.commit('replaceLabelIds', []);
+      store.commit('resetVisibleLimit');
+      this.$root.$emit('triggerFiltering');
+    },
+
     removeColor(color) {
       store.commit('setSelectedSnappedColorId', color); // toggle...
       this.$root.$emit('triggerFiltering');
@@ -118,8 +125,6 @@ export default {
   width: 100vw;
   position: fixed;
   bottom: 0;
-
-  /* top: 50px; */
   background: #fff;
   box-sizing: border-box;
 }

@@ -87,13 +87,6 @@ export default {
       this.$root.$emit('openInfo');
     },
 
-    resetFilters() {
-      store.commit('replaceSnappedColorIds', []);
-      store.commit('replaceLabelIds', []);
-      store.commit('resetVisibleLimit');
-      this.executeFiltering();
-    },
-
     toggleColorFilter() {
       if (this.labelFilterOpen) this.labelFilterOpen = false;
 
