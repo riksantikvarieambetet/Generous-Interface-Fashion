@@ -6,21 +6,21 @@
       <div v-show="!isShown"><i class="fas fa-angle-up" /></div>
     </div>
     <div v-show="isShown" ref="footer" class="footer">
-      <div v-for="color in selectedSnappedColorIds" :key="color" :style="{ background: color }" class="color" @click="removeColor(color)">
-        <div class="close-btn">
-          <i class="fas fa-times-circle fa-lg" />
+      <div v-for="color in selectedSnappedColorIds" :key="color" :style="{ background: color }" class="color">
+        <div class="close-btn" @click="removeColor(color)">
+          <i class="fas fa-trash-alt" />
         </div>
       </div>
 
-      <div v-for="label in selectedLabelIds" :key="label" class="label" @click="removeLabel(label)">
-        <div class="close-btn">
-          <i class="fas fa-times-circle fa-lg" />
+      <div v-for="label in selectedLabelIds" :key="label" class="label">
+        <div class="close-btn" @click="removeLabel(label)">
+          <i class="fas fa-trash-alt" />
         </div>
         <span>{{ label }}</span>
       </div>
 
       <div v-show="labelFilterIsActive || anyColorFilterIsActive" class="right-btn" @click="resetFilters">
-        <i class="fas fa-sync" />
+        <i class="fas fa-trash-alt" />
       </div>
     </div>
   </div>
@@ -28,19 +28,17 @@
 
 <script>
 import fontawesome from '@fortawesome/fontawesome';
-import faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
+import faTrashAlt from '@fortawesome/fontawesome-free-solid/faTrashAlt';
 import faAngleDown from '@fortawesome/fontawesome-free-solid/faAngleDown';
 import faAngleUp from '@fortawesome/fontawesome-free-solid/faAngleUp';
-import faSync from '@fortawesome/fontawesome-free-solid/faSync';
 import { mapGetters } from 'vuex';
 import Vue from 'vue';
 
 import { store } from '../store';
 
-fontawesome.library.add(faTimesCircle);
+fontawesome.library.add(faTrashAlt);
 fontawesome.library.add(faAngleDown);
 fontawesome.library.add(faAngleUp);
-fontawesome.library.add(faSync);
 
 export default {
   name: 'Footer',
@@ -133,18 +131,19 @@ export default {
   height: 55px;
   float: left;
   margin-left: 5px;
-  margin-top: 2.5px;
+  margin-top: 5px;
   border-radius: 10px;
   padding: 5px;
   box-sizing: border-box;
   background: #dadada;
-  line-height: 50px;
+  line-height: 45px;
   position: relative;
   margin-bottom: 5px;
+  cursor: default;
 }
 
 .label span {
-  padding: 0 16px;
+  padding: 0 20px;
   font-weight: 500;
   font-size: 120%;
 }
@@ -153,7 +152,7 @@ export default {
   width: 70px;
   height: 55px;
   float: left;
-  margin-top: 2.5px;
+  margin-top: 5px;
   margin-left: 5px;
   box-sizing: border-box;
   border-radius: 10px;
@@ -165,8 +164,6 @@ export default {
 .close-btn {
   display: inline;
   cursor: pointer;
-  background: rgba(51, 51, 51, .3);
-  border-radius: 100%;
   height: 21px;
   line-height: 21px;
   position: absolute;
@@ -178,16 +175,20 @@ export default {
 }
 
 .right-btn {
+  background: #dadada;
+  line-height: 60px;
+  font-size: 1.5em;
+  border-radius: 10px;
+  height: 55px;
+  width: 55px;
   float: right;
-  margin-right: 20px;
-  margin-top: 20px;
+  margin-right: 5px;
+  margin-top: 5px;
   cursor: pointer;
 }
 
-.right-btn svg {
-  transition: transform .8s ease-in-out;
+.right-btn:hover svg, .close-btn:hover svg {
+  transform: scale(1.1);
 }
-.right-btn:hover svg {
-  transform: rotate(360deg);
-}
+
 </style>
