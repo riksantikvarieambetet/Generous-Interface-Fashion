@@ -1,7 +1,7 @@
 <template>
   <div>
-    <span v-for="label in labels" v-bind:key="label[0]" v-bind:style="{ fontSize: label[1] }">
-      <span @click="setSelectedLabelId(label[0])" class="label" :class="{ selectedLabel: selectedLabelIds.includes(label[0]) }">{{ label[0] }}</span>
+    <span v-for="label in labels" :key="label[0]" :style="{ fontSize: label[1] }">
+      <span :class="{ selectedLabel: selectedLabelIds.includes(label[0]) }" class="label" @click="setSelectedLabelId(label[0])">{{ label[0] }}</span>
       <span>, </span>
     </span>
   </div>
@@ -13,8 +13,9 @@ import { store } from '../store';
 export default {
   name: 'LabelStack',
   props: {
-    'labels': {
-      default: [],
+    labels: {
+      type: Array,
+      default: () => [],
     },
   },
   computed: {
@@ -33,12 +34,12 @@ export default {
 
 <style scoped>
 .label {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .selectedLabel {
-    background: #008cff;
-    padding: 0px 2px;
-    border-radius: 4px;
+  background: #008cff;
+  padding: 0 2px;
+  border-radius: 4px;
 }
 </style>

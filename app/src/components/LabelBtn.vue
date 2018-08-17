@@ -1,6 +1,6 @@
 <template>
   <div class="label">
-    <span class="btn" :class="{ active: isActive }" @click="setSelectedLabelId()">{{ label }}</span>
+    <span :class="{ active: isActive }" class="btn" @click="setSelectedLabelId()">{{ label }}</span>
   </div>
 </template>
 
@@ -10,7 +10,10 @@ import { store } from '../store';
 export default {
   name: 'LabelBtn',
   props: {
-    label: null,
+    label: {
+      type: [String, Boolean],
+      default: false,
+    },
   },
   computed: {
     isActive() {
@@ -33,13 +36,12 @@ export default {
 
 .btn {
   font-size: small;
-
   margin: 1px;
   padding: 2px;
   border-radius: 4px;
   border: 1px solid lightgray;
   cursor: pointer;
-  background: rgb(255,255,255);
+  background: rgb(255, 255, 255);
 }
 
 .btn:hover {
@@ -48,11 +50,10 @@ export default {
 }
 
 .btn.active {
-  /*background: lightblue;*/
-  /*border: 1px solid black;*/
-  background: rgb(240,240,240);
-  border-color: rgb(150,150,150);
+  /* background: lightblue; */
 
+  /* border: 1px solid black; */
+  background: rgb(240, 240, 240);
+  border-color: rgb(150, 150, 150);
 }
-
 </style>

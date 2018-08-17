@@ -1,7 +1,7 @@
 <template>
   <div class="color">
 
-    <div class="btn" :class="{ active: isActive }" :style="{ background: color, 'border-color': color }" @click="filterByColor(color)"></div>
+    <div :class="{ active: isActive }" :style="{ background: color, 'border-color': color }" class="btn" @click="filterByColor(color)" />
 
   </div>
 </template>
@@ -12,7 +12,10 @@ import { store } from '../store';
 export default {
   name: 'ColorBtn',
   props: {
-    color: null,
+    color: {
+      type: [String, Boolean],
+      default: false,
+    },
   },
   computed: {
     isActive() {
@@ -30,14 +33,14 @@ export default {
 
 <style scoped>
 
-.color{
+.color {
   flex: 0 0 30px;
   display: inline;
   height: 30px;
   margin: 1px;
 }
 
-.btn{
+.btn {
   font-size: small;
   width: 100%;
   height: 100%;
@@ -49,8 +52,8 @@ export default {
 }
 
 .btn:hover,
-.btn.active{
-  box-shadow: inset 0px 0px 0px 2px white;
+.btn.active {
+  box-shadow: inset 0 0 0 2px white;
 }
 
 </style>
