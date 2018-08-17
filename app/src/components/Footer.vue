@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-show="labelFilterIsActive || anyColorFilterIsActive" ref="flerp" class="flerp" @click="toggle">
-      <span>Selection</span>
+      <span>{{ $t('selectedFilters') }}</span>
       <div v-show="isShown"><i class="fas fa-angle-down" /></div>
       <div v-show="!isShown"><i class="fas fa-angle-up" /></div>
     </div>
@@ -18,6 +18,10 @@
         </div>
         <span>{{ label }}</span>
       </div>
+
+      <div v-show="labelFilterIsActive || anyColorFilterIsActive" class="right-btn" @click="resetFilters">
+        <i class="fas fa-sync" />
+      </div>
     </div>
   </div>
 </template>
@@ -27,6 +31,7 @@ import fontawesome from '@fortawesome/fontawesome';
 import faTimesCircle from '@fortawesome/fontawesome-free-solid/faTimesCircle';
 import faAngleDown from '@fortawesome/fontawesome-free-solid/faAngleDown';
 import faAngleUp from '@fortawesome/fontawesome-free-solid/faAngleUp';
+import faSync from '@fortawesome/fontawesome-free-solid/faSync';
 import { mapGetters } from 'vuex';
 import Vue from 'vue';
 
@@ -35,6 +40,7 @@ import { store } from '../store';
 fontawesome.library.add(faTimesCircle);
 fontawesome.library.add(faAngleDown);
 fontawesome.library.add(faAngleUp);
+fontawesome.library.add(faSync);
 
 export default {
   name: 'Footer',
@@ -70,6 +76,13 @@ export default {
           this.$refs.flerp.style.bottom = '0px';
         }
       });
+    },
+
+    resetFilters() {
+      store.commit('replaceSnappedColorIds', []);
+      store.commit('replaceLabelIds', []);
+      store.commit('resetVisibleLimit');
+      this.$root.$emit('triggerFiltering');
     },
 
     removeColor(color) {
@@ -112,8 +125,6 @@ export default {
   width: 100vw;
   position: fixed;
   bottom: 0;
-
-  /* top: 50px; */
   background: #fff;
   box-sizing: border-box;
 }
@@ -164,5 +175,19 @@ export default {
 
 .close-btn svg {
   color: #fff;
+}
+
+.right-btn {
+  float: right;
+  margin-right: 20px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.right-btn svg {
+  transition: transform .8s ease-in-out;
+}
+.right-btn:hover svg {
+  transform: rotate(360deg);
 }
 </style>

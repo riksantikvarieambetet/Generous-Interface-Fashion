@@ -1,16 +1,12 @@
 <template>
   <div>
     <div class="menu">
-      <div class="menu-btn logo" @click="resetFilters">
-        <i class="fas fa-sync" />
-      </div>
+      <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" @click="openModal">
+
       <span class="left">{{ $t('nItemsPrefix') }} <animated-number :number="numberOfActiveItems" />{{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
 
       <div :class="{ active: labelFilterIsActive }" class="menu-btn" @click="toggleLabelFilter">
         <i class="fas fa-tag" />
-      </div>
-      <div class="menu-btn" @click="$root.$emit('toggleSidebar')">
-        <i class="fas fa-save" />
       </div>
       <div :class="{ active: anyColorFilterIsActive }" class="menu-btn" @click="toggleColorFilter">
         <i class="fas fa-palette" />
@@ -41,7 +37,6 @@ import fontawesome from '@fortawesome/fontawesome';
 import faTag from '@fortawesome/fontawesome-free-solid/faTag';
 import faPalette from '@fortawesome/fontawesome-free-solid/faPalette';
 import faSave from '@fortawesome/fontawesome-free-solid/faSave';
-import faSync from '@fortawesome/fontawesome-free-solid/faSync';
 import { mapGetters } from 'vuex';
 
 import FilterContainer from './FilterContainer';
@@ -49,12 +44,11 @@ import CloseBtn from './CloseBtn';
 import AnimatedNumber from './AnimatedNumber';
 import ColorMountain from './ColorMountain';
 import LabelStack from './LabelStack';
-import { savedSate, store } from '../store';
+import { store } from '../store';
 
 fontawesome.library.add(faPalette);
 fontawesome.library.add(faTag);
 fontawesome.library.add(faSave);
-fontawesome.library.add(faSync);
 
 export default {
   name: 'FilterMenu',
@@ -93,13 +87,6 @@ export default {
       this.$root.$emit('openInfo');
     },
 
-    resetFilters() {
-      store.commit('replaceSnappedColorIds', []);
-      store.commit('replaceLabelIds', []);
-      store.commit('resetVisibleLimit');
-      this.executeFiltering();
-    },
-
     toggleColorFilter() {
       if (this.labelFilterOpen) this.labelFilterOpen = false;
 
@@ -110,10 +97,6 @@ export default {
       if (this.colorFilterOpen) this.colorFilterOpen = false;
 
       this.labelFilterOpen = !this.labelFilterOpen;
-    },
-
-    savePalette() {
-      savedSate.commit('savePalette', this.staticColors.slice(0));
     },
 
     executeFiltering() {
@@ -198,7 +181,8 @@ export default {
 .logo {
   display: block;
   float: left;
-  margin-right: 0;
+  max-height: 100%;
+  cursor: pointer;
 }
 
 .menu-btn:hover {
@@ -207,11 +191,5 @@ export default {
 
 .menu-btn.active {
   border-bottom: solid 6px #008cff;
-}
-
-@media only screen and (max-width: 410px) {
-  .menu-btn {
-    width: 30px;
-  }
 }
 </style>

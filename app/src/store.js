@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
@@ -15,7 +14,6 @@ export const store = new Vuex.Store({
 
     selectedSnappedColorIds: [],
     selectedLabelIds: [],
-    wallDetails: false,
   },
   mutations: {
     addAllItems(state, items) {
@@ -66,9 +64,6 @@ export const store = new Vuex.Store({
         state.selectedLabelIds.push(id);
       }
     },
-    toggleWallDetails: (state) => {
-      state.wallDetails = !state.wallDetails;
-    },
   },
   getters: {
     anyColorFilterIsActive: state => {
@@ -86,15 +81,5 @@ export const store = new Vuex.Store({
 
     selectedSnappedColorIds: state => state.selectedSnappedColorIds,
     selectedLabelIds: state => state.selectedLabelIds,
-  },
-});
-
-export const savedSate = new Vuex.Store({
-  plugins: [createPersistedState()],
-  state: {
-    savedPalettes: [],
-  },
-  mutations: {
-    savePalette: (state, palette) => (state.savedPalettes.push(palette)),
   },
 });

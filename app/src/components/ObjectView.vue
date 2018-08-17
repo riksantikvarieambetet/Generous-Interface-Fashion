@@ -2,10 +2,6 @@
   <div class="object">
     <img :src="object.edm_preview" :alt="object.application.description" @click="toggle()">
 
-    <div v-if="showWallDetails" class="wall-details">
-      <span v-for="label in object.application.labels" :key="label" :class="{ active: labelActive(label) }" class="label" @click="setSelectedLabelId(label)">{{ label }}</span>
-    </div>
-
     <modal v-hammer:swipe.up="toggle" :name="object.europeana_record" :classes="['v--modal details']" height="auto" transition="slide-north">
       <close-btn @click.native="toggle" />
 
@@ -19,8 +15,9 @@
         <label-btn v-for="label in object.application.labels" :key="label" :label="label" />
       </div>
 
-      <p>Bilden tillhandlahållas av <a :href="object.edm_is_shown_at" target="_blank">{{ object.edm_data_provider }}</a> under licensen <a :href="object.edm_rights" target="_blank">{{ resolveLicense(object.edm_rights) }}</a>.</p>
+      <p>{{ object.application.description }}</p>
 
+      <p class="fine-print">{{ $t('imageProvidedBy') }} {{ object.edm_data_provider }} {{ $t('underLicense') }} <a :href="object.edm_rights" target="_blank">{{ resolveLicense(object.edm_rights) }} <i class="fas fa-external-link-alt" /></a>. {{ $t('moreObjectDetails') }} <a :href="object.edm_is_shown_at" target="_blank">{{ object.edm_data_provider }} <i class="fas fa-external-link-alt" /></a></p>
     </modal>
   </div>
 </template>
@@ -30,6 +27,10 @@ import LabelBtn from './LabelBtn';
 import ColorBtn from './ColorBtn';
 import CloseBtn from './CloseBtn';
 import { store } from '../store';
+import fontawesome from '@fortawesome/fontawesome';
+import faExternalLinkAlt from '@fortawesome/fontawesome-free-solid/faExternalLinkAlt';
+
+fontawesome.library.add(faExternalLinkAlt);
 
 export default {
   name: 'ObjectView',
@@ -61,9 +62,9 @@ export default {
       this.isShown = !this.isShown;
     },
 
-    resolveLicense(lisence) {
-      if (lisence === 'http://creativecommons.org/licenses/by-nc-nd/2.5/') return 'Attribution-NonCommercial-NoDerivs 2.5 Generic';
-      if (lisence === 'http://creativecommons.org/licenses/by/2.5/') return 'Attribution 2.5 Generic';
+    resolveLicense(licence) {
+      if (licence === 'http://creativecommons.org/licenses/by-nc-nd/2.5/') return 'Attribution-NonCommercial-NoDerivs 2.5 Generic';
+      if (licence === 'http://creativecommons.org/licenses/by/2.5/') return 'Attribution 2.5 Generic';
     },
 
     filterByColor(color) {
@@ -115,18 +116,8 @@ export default {
   border: 2px solid #e9e9e9;
 }
 
-.wall-details {
-  bottom: 0;
-  background: rgba(255, 255, 255, .5);
-  font-size: smaller;
-  z-index: 1;
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-
 .details img {
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 240px);
   margin: auto;
   display: block;
   max-width: 100vw;
@@ -146,6 +137,10 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 10px;
+}
+
+.fine-print {
+  font-size: .8em;
 }
 
 @media only screen and (min-width: 600px) {
