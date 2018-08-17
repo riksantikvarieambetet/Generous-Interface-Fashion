@@ -3,7 +3,7 @@
     <image-wall />
     <modal v-hammer:swipe.up="closeWelcome" :classes="['v--modal', 'welcome']" name="welcome" transition="slide-north">
       <h1>{{ $t('appTitle') }}</h1>
-      <h2>{{ $t('explore') }}{{ $t('tags') }} <i class="fas fa-tag" />{{ $t('and') }}{{ $t('color') }} <i class="fas fa-palette" />!</h2>
+      <p class="big-text">{{ $t('explore') }}{{ $t('tags') }} <i class="fas fa-tag" />{{ $t('and') }}{{ $t('color') }} <i class="fas fa-palette" />!</p>
       <p>{{ $t('appDescription') }}</p>
       <div class="btn-container"><button @click="closeWelcome">{{ $t('appBegin') }}</button></div>
     </modal>
@@ -159,6 +159,11 @@ a:hover {
   left: 50%;
   bottom: 16px;
   width: 80%;
+}
+
+.big-text {
+  font-size: 120%;
+  font-weight: 500;
 }
 
 .welcome button {
