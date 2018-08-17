@@ -71,14 +71,7 @@ p {
   -webkit-transition: height 1.5s; /* Safari */
   transition: height 1.5s ease-in-out;
   box-sizing: border-box;
-}
-
-.color:hover{
-
-}
-
-.color:not(:hover) {
-  border-bottom: 3px solid white;
+  border-bottom: 5px solid white;
 }
 
 .color:hover, .color.selected {
