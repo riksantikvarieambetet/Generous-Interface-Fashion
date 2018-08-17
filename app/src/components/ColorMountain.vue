@@ -4,8 +4,9 @@
     <!--p>{{ $t('filterWithColor') }}</p-->
 
     <div class="colors">
-      <div v-for="c in sortedColors" :key="c[0]" :style="{ background: c[0], height: 10 + c[1]/sortedColors[0][1] * 100 + 'px', width: 100 / colors.length + '%' }" class="color" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" @click="setSelectedSnappedColorId(c[0])">
-
+      <div v-for="c in sortedColors" :key="c[0]" class="colorContainer" @click="setSelectedSnappedColorId(c[0])">
+        <div  :style="{ background: c[0], height: 10 + c[1]/sortedColors[0][1] * 100 + 'px'}" class="color" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" >
+        </div>
       </div>
     </div>
 
@@ -54,7 +55,7 @@ export default {
 
 .colors{
   display: flex;
-  align-items: flex-end;
+  align-items: stretch;
   width: 100%;
 }
 
@@ -65,16 +66,21 @@ p {
   top: 10px;
 }
 
-.color {
-  position: relative;
+.colorContainer{
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   cursor: pointer;
-  -webkit-transition: height 1.5s; /* Safari */
+}
+
+.color {
   transition: height 1.5s ease-in-out;
   box-sizing: border-box;
   border-bottom: 5px solid white;
 }
 
-.color:hover, .color.selected {
+.colorContainer:hover > .color, .color.selected {
   border-bottom-width: 0px;
 }
 
