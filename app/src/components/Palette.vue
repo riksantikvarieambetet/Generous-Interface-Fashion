@@ -28,10 +28,7 @@ export default {
   },
   methods: {
     filterWithPalette: function(color) {
-      console.log('test1');
-      console.log(color);
       store.commit('replaceSnappedColorIds', [color]);
-
       store.commit('replaceLabelIds', []);
       this.$root.$emit('triggerFiltering');
       this.randomPalette();
