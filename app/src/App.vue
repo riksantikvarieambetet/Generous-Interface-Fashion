@@ -2,7 +2,7 @@
   <div id="app">
     <image-wall />
     <modal v-hammer:swipe.up="closeWelcome" :classes="['v--modal', 'welcome']" name="welcome" transition="slide-north">
-      <h1 @click="toggleWallDetails">{{ $t('appTitle') }}</h1>
+      <h1>{{ $t('appTitle') }}</h1>
       <h2>{{ $t('explore') }}{{ $t('tags') }} <i class="fas fa-tag" />{{ $t('and') }}{{ $t('color') }} <i class="fas fa-palette" />!</h2>
       <p>{{ $t('appDescription') }}</p>
       <div class="btn-container"><button @click="closeWelcome">{{ $t('appBegin') }}</button></div>
@@ -89,11 +89,6 @@ export default {
     closeWelcome: function() {
       this.$modal.hide('welcome');
     },
-
-    toggleWallDetails: function() {
-      store.commit('toggleWallDetails');
-    },
-
   },
 };
 </script>
