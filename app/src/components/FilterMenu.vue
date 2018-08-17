@@ -9,9 +9,6 @@
       <div :class="{ active: labelFilterIsActive }" class="menu-btn" @click="toggleLabelFilter">
         <i class="fas fa-tag" />
       </div>
-      <div class="menu-btn" @click="$root.$emit('toggleSidebar')">
-        <i class="fas fa-save" />
-      </div>
       <div :class="{ active: anyColorFilterIsActive }" class="menu-btn" @click="toggleColorFilter">
         <i class="fas fa-palette" />
       </div>
@@ -49,7 +46,7 @@ import CloseBtn from './CloseBtn';
 import AnimatedNumber from './AnimatedNumber';
 import ColorMountain from './ColorMountain';
 import LabelStack from './LabelStack';
-import { savedSate, store } from '../store';
+import { store } from '../store';
 
 fontawesome.library.add(faPalette);
 fontawesome.library.add(faTag);
@@ -110,10 +107,6 @@ export default {
       if (this.colorFilterOpen) this.colorFilterOpen = false;
 
       this.labelFilterOpen = !this.labelFilterOpen;
-    },
-
-    savePalette() {
-      savedSate.commit('savePalette', this.staticColors.slice(0));
     },
 
     executeFiltering() {
