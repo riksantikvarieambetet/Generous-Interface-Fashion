@@ -17,7 +17,9 @@ export default {
 
 <style scoped>
 div {
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
   margin-right: 5px;
   cursor: pointer;
   width: 20px;
@@ -25,4 +27,9 @@ div {
   background: #e7e7e7;
   border-radius: 100%;
 }
+
+div:hover{
+  filter: brightness(0.9);
+}
+
 </style>

@@ -15,18 +15,15 @@
     </div>
     <transition name="slide-north">
       <filter-container v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
-
-        <close-btn @click.native="toggleColorFilter" />
-
         <color-mountain :colors="colorStats" />
-
+        <close-btn @click.native="toggleColorFilter" />
       </filter-container>
     </transition>
 
     <transition name="slide-north">
       <filter-container v-if="labelFilterOpen">
-        <close-btn @click.native="toggleLabelFilter" />
         <label-stack :labels="labelStats" />
+        <close-btn @click.native="toggleLabelFilter" />
       </filter-container>
     </transition>
   </div>
