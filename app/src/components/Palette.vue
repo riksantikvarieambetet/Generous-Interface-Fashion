@@ -66,21 +66,21 @@ export default {
 
 .color {
   display: inline-block;
-  width: 100px;
+  border-radius: 50%;
+  width: 50px;
   height: 50px;
   border: 2px solid black;
 }
 
 .btn {
-  border-radius: 10px;
   box-sizing: border-box;
   margin: 0 5px;
   padding: 1em 0;
   cursor: pointer;
 }
 
-.btn:hover {
-  background: #f5f5f5;
+.shuffle {
+  border-radius: 10px;
 }
 
 .btn:hover,
