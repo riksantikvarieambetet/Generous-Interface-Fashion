@@ -201,10 +201,4 @@ export default {
 .menu-btn.active {
   border-bottom: solid 6px #008cff;
 }
-
-@media only screen and (max-width: 410px) {
-  .menu-btn {
-    width: 30px;
-  }
-}
 </style>
