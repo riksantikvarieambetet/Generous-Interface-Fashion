@@ -1,7 +1,7 @@
 <template>
   <div class="color-mountain">
 
-    <p>{{ $t('filterWithColor') }}</p>
+    <!--p>{{ $t('filterWithColor') }}</p-->
 
     <div class="colors">
       <div v-for="c in sortedColors" :key="c[0]" :style="{ background: c[0], height: 10 + c[1]/sortedColors[0][1] * 100 + 'px', width: 100 / colors.length + '%' }" class="color" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" @click="setSelectedSnappedColorId(c[0])">
@@ -71,6 +71,10 @@ p {
   -webkit-transition: height 1.5s; /* Safari */
   transition: height 1.5s ease-in-out;
   box-sizing: border-box;
+}
+
+.color:hover{
+
 }
 
 .color:not(:hover) {
