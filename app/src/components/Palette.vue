@@ -2,10 +2,13 @@
   <div class="root">
     <h2>{{ $t('theEnd') }}</h2>
     <p>{{ $t('explorePalette') }}</p>
-    <div :key="color[0]" :style="{ background: color[0], 'border-color': color[0] }" class="color btn" @click="filterWithPalette(color[0])" />
-    <div :key="color[1]" :style="{ background: color[1], 'border-color': color[1] }" class="color btn" @click="filterWithPalette(color[1])" />
-    <div :key="color[2]" :style="{ background: color[2], 'border-color': color[2] }" class="color btn" @click="filterWithPalette(color[2])" />
-    <p><div class="shuffle btn" @click="randomPalette">{{ $t('shuffle') }} <i class="fas fa-random" /></div></p>
+
+    <div v-for="color in colors" :key="color" :style="{ background: color, 'border-color': color }" class="color btn" @click="filterWithPalette(color)"></div>
+
+    <div class="shuffle btn" @click="randomPalette">
+      {{ $t('shuffle') }} <i class="fas fa-random"></i>
+    </div>
+
   </div>
 </template>
 
@@ -20,7 +23,7 @@ export default {
   name: 'Palette',
   data() {
     return {
-      color: [],
+      s: [],
     };
   },
   created() {
@@ -37,13 +40,13 @@ export default {
     randomPalette: function() {
       const palettes = ['crimson', 'brown', 'lightsalmon', 'firebrick', 'tomato', 'darkslategrey', 'black', 'dimgrey', 'darkgrey', 'grey', 'silver', 'whitesmoke', 'lavender', 'indianred', 'sienna', 'darkolivegreen', 'per', 'rosybrown', 'gainsboro', 'saddlebrown', 'antiquewhite', 'midnightblue', 'darkslateblue', 'slategrey', 'tan', 'burlywood', 'darkkhaki', 'wheat', 'lightslategrey', 'navajowhite', 'palegoldenrod', 'darksalmon', 'lightpink', 'yellowgreen', 'khaki', 'blanchedalmond', 'chocolate', 'goldenrod', 'palevioletred', 'bisque', 'lightsteelblue', 'cornflowerblue', 'lightgrey', 'sandybrown', 'maroon', 'linen', 'teal', 'steelblue', 'beige', 'skyblue', 'mediumaquamarine', 'darkseagreen', 'darkorange', 'ghostwhite', 'cadetblue', 'powderblue', 'thistle', 'mediumpurple', 'coral', 'olivedrab', 'lightskyblue', 'royalblue', 'darkgoldenrod', 'oldlace', 'olive', 'lightcoral', 'darkgreen', 'salmon', 'gold', 'dodgerblue', 'seagreen'];
 
-      let color = [];
+      let colors = [];
 
-      color[0] = palettes[Math.floor(Math.random() * palettes.length)];
-      color[1] = palettes[Math.floor(Math.random() * palettes.length)];
-      color[2] = palettes[Math.floor(Math.random() * palettes.length)];
+      colors[0] = palettes[Math.floor(Math.random() * palettes.length)];
+      colors[1] = palettes[Math.floor(Math.random() * palettes.length)];
+      colors[2] = palettes[Math.floor(Math.random() * palettes.length)];
 
-      this.color = color;
+      this.colors = colors;
     },
   },
 };
@@ -68,14 +71,6 @@ export default {
   border: 2px solid black;
 }
 
-.shuffle {
-  background: white;
-  display: inline-block;
-  border: 1px solid black;
-  width: 200px;
-  height: 50px;
-}
-
 .btn {
   border-radius: 10px;
   box-sizing: border-box;
@@ -91,6 +86,16 @@ export default {
 .btn:hover,
 .btn.active {
   box-shadow: inset 0 0 0 2px white;
+}
+
+.btn.shuffle {
+  background: white;
+  border: 1px solid black;
+  width: 200px;
+  height: 50px;
+  display: block;
+  margin: auto;
+  margin-top: 5px;
 }
 
 </style>
