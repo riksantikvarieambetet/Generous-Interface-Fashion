@@ -179,6 +179,7 @@ export default {
   border-radius: 10px;
   background: #dadada;
   border: solid 2px #dadada;
+  line-height: 46px;
 }
 
 .logo {
