@@ -14,7 +14,6 @@ export const store = new Vuex.Store({
 
     selectedSnappedColorIds: [],
     selectedLabelIds: [],
-    wallDetails: false,
   },
   mutations: {
     addAllItems(state, items) {
@@ -64,9 +63,6 @@ export const store = new Vuex.Store({
       } else {
         state.selectedLabelIds.push(id);
       }
-    },
-    toggleWallDetails: (state) => {
-      state.wallDetails = !state.wallDetails;
     },
   },
   getters: {
