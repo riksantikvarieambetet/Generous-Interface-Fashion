@@ -3,10 +3,10 @@
     <h2>{{ $t('theEnd') }}</h2>
     <p>{{ $t('explorePalette') }}</p>
 
-    <div v-for="color in colors" :key="color" :style="{ background: color, 'border-color': color }" class="color btn" @click="filterWithPalette(color)"></div>
+    <div v-for="color in colors" :key="color" :style="{ background: color, 'border-color': color }" class="color btn" @click="filterWithPalette(color)" />
 
     <div class="shuffle btn" @click="randomPalette">
-      {{ $t('shuffle') }} <i class="fas fa-random"></i>
+      {{ $t('shuffle') }} <i class="fas fa-random" />
     </div>
 
   </div>
