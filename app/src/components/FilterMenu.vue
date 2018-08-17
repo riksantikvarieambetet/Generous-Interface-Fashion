@@ -3,7 +3,7 @@
     <div class="menu">
       <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" @click="openModal">
 
-      <span class="left">{{ $t('nItemsPrefix') }} <animated-number :number="numberOfActiveItems" />{{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
+      <span class="left">{{ $t('nItemsPrefix') }} <animated-number :number="numberOfActiveItems" /> {{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
 
       <div :class="{ active: labelFilterIsActive }" class="menu-btn" @click="toggleLabelFilter">
         <i class="fas fa-tag" />

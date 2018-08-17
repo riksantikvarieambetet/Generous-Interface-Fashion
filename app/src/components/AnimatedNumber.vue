@@ -1,7 +1,5 @@
 <template>
-  <span>
-    {{ displayNumber }}
-  </span>
+  <span class="number" :class="{isAnimating: number != displayNumber}">{{ displayNumber }}</span>
 </template>
 
 <script>
@@ -31,7 +29,7 @@ export default {
 
       this.interval = window.setInterval(() => {
         if (this.displayNumber !== this.number) {
-          let change = (this.number - this.displayNumber) / 10;
+          let change = (this.number - this.displayNumber) / 20;
           change = change >= 0 ? Math.ceil(change) : Math.floor(change);
           this.displayNumber = this.displayNumber + change;
         }
@@ -40,3 +38,19 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+
+.number{
+  border-radius: 5px;
+  padding: 3px;
+  transition: background 3s;
+  background: white;
+}
+
+.isAnimating{
+  background: rgb(24,143,252);
+  transition: background 0.5s;
+}
+
+</style>
