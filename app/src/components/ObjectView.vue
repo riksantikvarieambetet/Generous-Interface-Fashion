@@ -70,9 +70,9 @@ export default {
       this.isShown = !this.isShown;
     },
 
-    resolveLicense(lisence) {
-      if (lisence === 'http://creativecommons.org/licenses/by-nc-nd/2.5/') return 'Attribution-NonCommercial-NoDerivs 2.5 Generic';
-      if (lisence === 'http://creativecommons.org/licenses/by/2.5/') return 'Attribution 2.5 Generic';
+    resolveLicense(licence) {
+      if (licence === 'http://creativecommons.org/licenses/by-nc-nd/2.5/') return 'Attribution-NonCommercial-NoDerivs 2.5 Generic';
+      if (licence === 'http://creativecommons.org/licenses/by/2.5/') return 'Attribution 2.5 Generic';
     },
 
     filterByColor(color) {
