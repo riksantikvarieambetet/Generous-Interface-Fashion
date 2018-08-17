@@ -171,11 +171,14 @@ export default {
 .menu-btn {
   display: inline-block;
   cursor: pointer;
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   text-align: center;
-  margin-right: 5px;
+  margin: 2px 6px 2px 2px;
   box-sizing: border-box;
+  border-radius: 10px;
+  background: #dadada;
+  border: solid 2px #dadada;
 }
 
 .logo {
@@ -186,10 +189,10 @@ export default {
 }
 
 .menu-btn:hover {
-  background: #f5f5f5;
+  background: #fff;
 }
 
 .menu-btn.active {
-  border-bottom: solid 6px #008cff;
+  box-shadow: inset 0 0 0 2px white;
 }
 </style>
