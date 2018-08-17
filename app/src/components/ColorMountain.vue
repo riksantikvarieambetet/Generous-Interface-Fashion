@@ -5,7 +5,7 @@
 
     <div class="colors">
       <div v-for="c in sortedColors" :key="c[0]" class="colorContainer" @click="setSelectedSnappedColorId(c[0])">
-        <div  :style="{ background: c[0], height: 10 + c[1]/sortedColors[0][1] * 100 + 'px'}" class="color" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" >
+        <div  :style="{ background: c[0], height: 30 + c[1]/sortedColors[0][1] * 100 + 'px'}" class="color" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" >
         </div>
       </div>
     </div>
