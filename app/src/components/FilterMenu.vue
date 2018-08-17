@@ -14,7 +14,7 @@
 
     </div>
     <transition name="slide-north">
-      <filter-container v-if="colorFilterOpen" v-hammer:swipe.up="toggleColorFilter">
+      <filter-container v-if="colorFilterOpen">
         <color-mountain :colors="colorStats" />
         <close-btn @click.native="toggleColorFilter" />
       </filter-container>
