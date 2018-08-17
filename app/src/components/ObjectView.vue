@@ -19,7 +19,12 @@
         <label-btn v-for="label in object.application.labels" :key="label" :label="label" />
       </div>
 
-      <p>Bilden tillhandlahållas av <a :href="object.edm_is_shown_at" target="_blank">{{ object.edm_data_provider }}</a> under licensen <a :href="object.edm_rights" target="_blank">{{ resolveLicense(object.edm_rights) }}</a>.</p>
+      <p>{{ object.application.description }}</p>
+
+      <p class="fine-print">Bilden tillhandahålls av {{ object.edm_data_provider }} under licensen <a :href="object.edm_rights" target="_blank">{{ resolveLicense(object.edm_rights) }} <i class="fas fa-external-link-alt" /></a>. Mer information om objektet hos <a :href="object.edm_is_shown_at" target="_blank">{{ object.edm_data_provider }} <i class="fas fa-external-link-alt" /></a></p>
+      
+
+      
 
     </modal>
   </div>
@@ -30,6 +35,10 @@ import LabelBtn from './LabelBtn';
 import ColorBtn from './ColorBtn';
 import CloseBtn from './CloseBtn';
 import { store } from '../store';
+import fontawesome from '@fortawesome/fontawesome';
+import faExternalLinkAlt from '@fortawesome/fontawesome-free-solid/faExternalLinkAlt';
+
+fontawesome.library.add(faExternalLinkAlt);
 
 export default {
   name: 'ObjectView',
@@ -126,7 +135,7 @@ export default {
 }
 
 .details img {
-  max-height: calc(100vh - 200px);
+  max-height: calc(100vh - 240px);
   margin: auto;
   display: block;
   max-width: 100vw;
@@ -146,6 +155,10 @@ export default {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 10px;
+}
+
+.fine-print {
+  font-size: 0.8em;
 }
 
 @media only screen and (min-width: 600px) {
