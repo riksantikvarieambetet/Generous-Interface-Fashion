@@ -6,7 +6,7 @@
       <div v-show="!isShown"><i class="fas fa-angle-up" /></div>
     </div>
     <div v-show="isShown" ref="footer" class="footer">
-      <div v-for="color in selectedSnappedColorIds" :key="color" :style="{ background: color }" class="color">
+      <div v-for="color in selectedSnappedColorIds" :key="color" :style="{ background: color, 'border-color': color }" class="color">
         <div class="close-btn" @click="removeColor(color)">
           <i class="fas fa-trash-alt" />
         </div>
@@ -127,19 +127,30 @@ export default {
   box-sizing: border-box;
 }
 
-.label {
+.label, .color {
   height: 55px;
-  float: left;
   margin-left: 5px;
   margin-top: 5px;
-  border-radius: 10px;
-  padding: 5px;
   box-sizing: border-box;
+  margin-bottom: 5px;
+  position: relative;
+  padding: 7px;
+  border: solid 2px #dadada;
+  box-shadow: inset 0 0 0 2px white;
+}
+
+.label {
+  float: left;
+  border-radius: 10px;
   background: #dadada;
   line-height: 45px;
-  position: relative;
-  margin-bottom: 5px;
   cursor: default;
+}
+
+.color {
+  width: 70px;
+  float: left;
+  border-radius: 10px;
 }
 
 .label span {
@@ -148,26 +159,13 @@ export default {
   font-size: 120%;
 }
 
-.color {
-  width: 70px;
-  height: 55px;
-  float: left;
-  margin-top: 5px;
-  margin-left: 5px;
-  box-sizing: border-box;
-  border-radius: 10px;
-  padding: 5px;
-  position: relative;
-  margin-bottom: 5px;
-}
-
 .close-btn {
   display: inline;
   cursor: pointer;
   height: 21px;
   line-height: 21px;
   position: absolute;
-  left: 5px;
+  left: 7px;
 }
 
 .close-btn svg {
