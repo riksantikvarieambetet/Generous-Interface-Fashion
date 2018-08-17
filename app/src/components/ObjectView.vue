@@ -2,7 +2,7 @@
   <div class="object">
     <img :src="object.edm_preview" :alt="object.application.description" @click="toggle()">
 
-    <modal v-hammer:swipe.up="toggle" :name="object.europeana_record" :classes="['v--modal details']" height="auto" transition="slide-north">
+    <modal :name="object.europeana_record" :classes="['v--modal details']" height="auto" transition="slide-north">
       <close-btn @click.native="toggle" />
 
       <img :src="object.edm_preview" :alt="object.application.description">

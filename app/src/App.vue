@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <image-wall />
-    <modal v-hammer:swipe.up="closeWelcome" :classes="['v--modal', 'welcome']" name="welcome" transition="slide-north">
+    <modal :classes="['v--modal', 'welcome']" name="welcome" transition="slide-north">
       <h1>{{ $t('appTitle') }}</h1>
       <p class="big-text">{{ $t('explore') }}{{ $t('tags') }} <i class="fas fa-tag" />{{ $t('and') }}{{ $t('color') }} <i class="fas fa-palette" />!</p>
       <p>{{ $t('appDescription') }}</p>

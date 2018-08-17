@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueResource from 'vue-resource';
-import { VueHammer } from 'vue2-hammer';
 import vmodal from 'vue-js-modal';
 import VueI18n from 'vue-i18n';
 
@@ -10,7 +9,6 @@ import { store } from './store';
 
 Vue.use(VueI18n);
 Vue.use(vmodal);
-Vue.use(VueHammer);
 Vue.use(VueResource);
 
 Vue.config.productionTip = false;
