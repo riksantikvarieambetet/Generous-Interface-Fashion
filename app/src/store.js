@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex);
 
@@ -86,15 +85,5 @@ export const store = new Vuex.Store({
 
     selectedSnappedColorIds: state => state.selectedSnappedColorIds,
     selectedLabelIds: state => state.selectedLabelIds,
-  },
-});
-
-export const savedSate = new Vuex.Store({
-  plugins: [createPersistedState()],
-  state: {
-    savedPalettes: [],
-  },
-  mutations: {
-    savePalette: (state, palette) => (state.savedPalettes.push(palette)),
   },
 });
