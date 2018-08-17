@@ -29,7 +29,8 @@ export default {
 
       this.interval = window.setInterval(() => {
         if (this.displayNumber !== this.number) {
-          let change = (this.number - this.displayNumber) / 50;
+          let diff = (this.number - this.displayNumber);
+          let change = (this.number - this.displayNumber) / 10;
           change = change >= 0 ? Math.ceil(change) : Math.floor(change);
           this.displayNumber = this.displayNumber + change;
         }
