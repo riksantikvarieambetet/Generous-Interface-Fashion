@@ -18,10 +18,6 @@
       <p>{{ object.application.description }}</p>
 
       <p class="fine-print">{{ $t('imageProvidedBy') }} {{ object.edm_data_provider }} {{ $t('underLicense') }} <a :href="object.edm_rights" target="_blank">{{ resolveLicense(object.edm_rights) }} <i class="fas fa-external-link-alt" /></a>. {{ $t('moreObjectDetails') }} <a :href="object.edm_is_shown_at" target="_blank">{{ object.edm_data_provider }} <i class="fas fa-external-link-alt" /></a></p>
-      
-
-      
-
     </modal>
   </div>
 </template>
@@ -144,7 +140,7 @@ export default {
 }
 
 .fine-print {
-  font-size: 0.8em;
+  font-size: .8em;
 }
 
 @media only screen and (min-width: 600px) {
