@@ -5,6 +5,7 @@
       <h1>{{ $t('appTitle') }}</h1>
       <p class="big-text">{{ $t('explore') }}{{ $t('tags') }} <i class="fas fa-tag" />{{ $t('and') }}{{ $t('color') }} <i class="fas fa-palette" />!</p>
       <p>{{ $t('appDescription') }}</p>
+      <p>{{ $t('dataDescription') }}</p>
       <div class="btn-container"><button @click="closeWelcome">{{ $t('appBegin') }}</button></div>
     </modal>
 
