@@ -1,6 +1,6 @@
 <template>
   <div class="label">
-    <span :class="{ active: isActive }" class="btn" @click="setSelectedLabelId()">{{ label }}</span>
+    <span :class="{ active: isActive }" class="btn" role="button" :aria-pressed="isActive" @click="setSelectedLabelId()">{{ label }}</span>
   </div>
 </template>
 
@@ -50,9 +50,6 @@ export default {
 }
 
 .btn.active {
-  /* background: lightblue; */
-
-  /* border: 1px solid black; */
   background: rgb(240, 240, 240);
   border-color: rgb(150, 150, 150);
 }

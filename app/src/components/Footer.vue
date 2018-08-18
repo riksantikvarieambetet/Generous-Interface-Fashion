@@ -1,26 +1,26 @@
 <template>
   <div>
-    <div v-show="labelFilterIsActive || anyColorFilterIsActive" ref="flerp" class="flerp" @click="toggle">
+    <div v-show="labelFilterIsActive || anyColorFilterIsActive" ref="flerp" class="flerp" role="button" :aria-pressed="isShown" @click="toggle">
       <span>{{ $t('selectedFilters') }}</span>
-      <div v-show="isShown"><i class="fas fa-angle-down" /></div>
-      <div v-show="!isShown"><i class="fas fa-angle-up" /></div>
+      <div v-show="isShown" aria-hidden="true"><i class="fas fa-angle-down" /></div>
+      <div v-show="!isShown" aria-hidden="true"><i class="fas fa-angle-up" /></div>
     </div>
     <div v-show="isShown" ref="footer" class="footer">
       <div v-for="color in selectedSnappedColorIds" :key="color" :style="{ background: color, 'border-color': color }" class="color">
-        <div class="close-btn" @click="removeColor(color)">
-          <i class="fas fa-trash-alt" />
+        <div class="close-btn" aria-label="remove color" role="button" @click="removeColor(color)">
+          <i class="fas fa-trash-alt" aria-hidden="true" />
         </div>
       </div>
 
       <div v-for="label in selectedLabelIds" :key="label" class="label">
-        <div class="close-btn" @click="removeLabel(label)">
-          <i class="fas fa-trash-alt" />
+        <div class="close-btn" aria-label="remove label" @click="removeLabel(label)">
+          <i class="fas fa-trash-alt" aria-hidden="true" />
         </div>
         <span>{{ label }}</span>
       </div>
 
-      <div v-show="labelFilterIsActive || anyColorFilterIsActive" class="right-btn" @click="resetFilters">
-        <i class="fas fa-bomb" />
+      <div v-show="labelFilterIsActive || anyColorFilterIsActive" class="right-btn" aria-label="remove all filters" role="button" @click="resetFilters">
+        <i class="fas fa-bomb" aria-hidden="true" />
       </div>
     </div>
   </div>

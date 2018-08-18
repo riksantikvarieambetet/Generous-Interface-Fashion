@@ -1,7 +1,7 @@
 <template>
   <div class="color">
 
-    <div :class="{ active: isActive }" :style="{ background: color, 'border-color': color }" class="btn" @click="filterByColor(color)" />
+    <div :class="{ active: isActive }" :style="{ background: color, 'border-color': color }" class="btn" role="button" :aria-pressed="isActive" @click="filterByColor(color)" />
 
   </div>
 </template>

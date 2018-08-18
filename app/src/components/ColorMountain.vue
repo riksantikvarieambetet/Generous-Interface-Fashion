@@ -1,11 +1,9 @@
 <template>
   <div class="color-mountain">
 
-    <!--p>{{ $t('filterWithColor') }}</p-->
-
     <div class="colors">
       <div v-for="c in sortedColors" :key="c[0]" class="color-container" @click="setSelectedSnappedColorId(c[0])">
-        <div :style="{ background: c[0], height: 15 + c[1]/sortedColors[0][1] * 100 + 'px'}" class="color" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" />
+        <div :style="{ background: c[0], height: 15 + c[1]/sortedColors[0][1] * 100 + 'px'}" class="color" role="button" :aria-pressed="selectedSnappedColorIds.includes(c[0])" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" />
       </div>
     </div>
 
@@ -54,13 +52,6 @@ export default {
   width: 100%;
 }
 
-p {
-  position: absolute;
-  font-size: 1vw;
-  right: 10px;
-  top: 10px;
-}
-
 .color-container {
   flex: 1 1 auto;
   display: flex;
@@ -86,12 +77,5 @@ p {
   height: 2px;
   width: 100%;
   background: white;
-}
-
-@media (max-width: 450px) {
-  p {
-    font-size: 14px;
-    right: 35px;
-  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <span class="number" :class="{isAnimating: number != displayNumber}">{{ displayNumber }}</span>
+  <span class="number" :class="{ isAnimating: number != displayNumber }">{{ displayNumber }}</span>
 </template>
 
 <script>

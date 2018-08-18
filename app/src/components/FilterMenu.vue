@@ -1,15 +1,15 @@
 <template>
   <div>
     <div class="menu">
-      <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" @click="openModal">
+      <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" role="button" @click="openModal">
 
       <span class="left"><span class="no-mobile">{{ $t('nItemsPrefix') }} </span><animated-number :number="numberOfActiveItems" /> {{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
 
-      <div :class="{ active: labelFilterIsActive }" class="menu-btn" @click="toggleLabelFilter">
-        <i class="fas fa-tag" />
+      <div :class="{ active: labelFilterIsActive }" class="menu-btn" role="button" aria-label="Toggle label filter" :aria-pressed="labelFilterOpen" @click="toggleLabelFilter">
+        <i aria-hidden="true" class="fas fa-tag" />
       </div>
-      <div :class="{ active: anyColorFilterIsActive }" class="menu-btn" @click="toggleColorFilter">
-        <i class="fas fa-palette" />
+      <div :class="{ active: anyColorFilterIsActive }" class="menu-btn" role="button" aria-label="Toggle color filter" :aria-pressed="colorFilterOpen" @click="toggleColorFilter">
+        <i aria-hidden="true" class="fas fa-palette" />
       </div>
 
     </div>

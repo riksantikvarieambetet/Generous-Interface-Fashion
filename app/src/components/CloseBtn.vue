@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <i class="fas fa-times" />
+  <div role="button">
+    <i aria-label="close" class="fas fa-times" />
   </div>
 </template>
 

@@ -17,7 +17,7 @@
 
       <p>{{ object.application.description }}</p>
 
-      <p class="fine-print">{{ $t('imageProvidedBy') }} {{ object.edm_data_provider }} {{ $t('underLicense') }} <a :href="object.edm_rights" target="_blank">{{ resolveLicense(object.edm_rights) }} <i class="fas fa-external-link-alt" /></a>. {{ $t('moreObjectDetails') }} <a :href="object.edm_is_shown_at" target="_blank">{{ object.edm_data_provider }} <i class="fas fa-external-link-alt" /></a></p>
+      <p class="fine-print">{{ $t('imageProvidedBy') }} {{ object.edm_data_provider }} {{ $t('underLicense') }} <a :href="object.edm_rights" target="_blank">{{ resolveLicense(object.edm_rights) }} <i aria-hidden="true" class="fas fa-external-link-alt" /></a>. {{ $t('moreObjectDetails') }} <a :href="object.edm_is_shown_at" target="_blank">{{ object.edm_data_provider }} <i aria-hidden="true" class="fas fa-external-link-alt" /></a></p>
     </modal>
   </div>
 </template>

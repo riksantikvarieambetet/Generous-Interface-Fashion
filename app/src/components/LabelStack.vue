@@ -1,7 +1,7 @@
 <template>
   <div>
     <span v-for="label in labels" :key="label[0]" :style="{ fontSize: label[1] }">
-      <span :class="{ selectedLabel: selectedLabelIds.includes(label[0]) }" class="label" @click="setSelectedLabelId(label[0])">{{ label[0] }}</span>
+      <span :class="{ selectedLabel: selectedLabelIds.includes(label[0]) }" class="label" role="button" :aria-pressed="selectedLabelIds.includes(label[0])" @click="setSelectedLabelId(label[0])">{{ label[0] }}</span>
       <span>, </span>
     </span>
   </div>
