@@ -41,7 +41,7 @@ export default {
 
 <style scoped>
 
-.number{
+.number {
   border-radius: 5px;
   padding: 3px;
   transition: background 2s;
@@ -49,9 +49,9 @@ export default {
   color: black;
 }
 
-.isAnimating{
-  background: rgb(24,143,252);
-  transition: background 0.5s;
+.isAnimating {
+  background: rgb(24, 143, 252);
+  transition: background .5s;
   color: white;
 }
 

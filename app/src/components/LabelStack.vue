@@ -35,7 +35,7 @@ export default {
 <style scoped>
 .label {
   cursor: pointer;
-  transition: background-color 0.5s ease;
+  transition: background-color .5s ease;
 }
 
 .selectedLabel {

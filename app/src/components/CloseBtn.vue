@@ -28,8 +28,8 @@ div {
   border-radius: 100%;
 }
 
-div:hover{
-  filter: brightness(0.9);
+div:hover {
+  filter: brightness(.9);
 }
 
 </style>

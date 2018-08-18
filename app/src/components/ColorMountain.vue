@@ -4,7 +4,7 @@
     <!--p>{{ $t('filterWithColor') }}</p-->
 
     <div class="colors">
-      <div v-for="c in sortedColors" :key="c[0]" class="colorContainer" @click="setSelectedSnappedColorId(c[0])">
+      <div v-for="c in sortedColors" :key="c[0]" class="color-container" @click="setSelectedSnappedColorId(c[0])">
         <div :style="{ background: c[0], height: 15 + c[1]/sortedColors[0][1] * 100 + 'px'}" class="color" :class="{ selected: selectedSnappedColorIds.includes(c[0]) }" />
       </div>
     </div>
@@ -46,13 +46,9 @@ export default {
 <style scoped>
 .color-mountain {
   position: relative;
-
-  /*transform: scaleY(-1);*/
-  /*display: inline-block;*/
-
 }
 
-.colors{
+.colors {
   display: flex;
   align-items: stretch;
   width: 100%;
@@ -65,7 +61,7 @@ p {
   top: 10px;
 }
 
-.colorContainer{
+.color-container {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
@@ -79,8 +75,9 @@ p {
   border-bottom: 5px solid white;
 }
 
-.colorContainer:hover > .color, .color.selected {
-  border-bottom-width: 0px;
+.color-container:hover > .color,
+.color.selected {
+  border-bottom-width: 0;
 }
 
 .color-line {
