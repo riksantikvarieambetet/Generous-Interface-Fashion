@@ -89,6 +89,11 @@ for item in unprocessed_items:
         if css_color not in output['application']['css_colors']:
             output['application']['css_colors'].append(css_color)
 
+    # if lavender and darkgrey are the only colors it's likely that this is a broken thumbnail.
+    if len(output['application']['css_colors']) == 2:
+        if 'darkgrey' in output['application']['css_colors'] and 'lavender' in output['application']['css_colors']:
+            continue
+
     output['application']['labels'] = list()
     labels = vision.get_labels(output['edm_preview'])
     for label in labels:
