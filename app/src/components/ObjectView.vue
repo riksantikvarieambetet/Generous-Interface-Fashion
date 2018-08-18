@@ -65,6 +65,7 @@ export default {
     resolveLicense(licence) {
       if (licence === 'http://creativecommons.org/licenses/by-nc-nd/2.5/') return 'Attribution-NonCommercial-NoDerivs 2.5 Generic';
       if (licence === 'http://creativecommons.org/licenses/by/2.5/') return 'Attribution 2.5 Generic';
+      if (licence === 'http://creativecommons.org/licenses/by-sa/4.0/') return 'Attribution-ShareAlike 4.0 International';
     },
 
     filterByColor(color) {
