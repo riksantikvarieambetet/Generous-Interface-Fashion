@@ -93,6 +93,8 @@ for item in unprocessed_items:
         if label['score'] > 0.5:
             output['application']['labels'].append(label['value'])
 
+    output['application']['labels'] = list(set(output['application']['labels']))
+
     application_description = transformation.get_shortified_description(output['dc_description'])
     if application_description == '':
         application_description = output['dc_title']
