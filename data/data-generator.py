@@ -78,11 +78,10 @@ for item in unprocessed_items:
     if 'dcDescription' in item.item:
         output['dc_description'] = item.item['dcDescription'][0]
 
-    output['application']['garment'] = item.type
-    output['application']['colors'] = vision.get_colors(output['edm_preview'])
+    colors = vision.get_colors(output['edm_preview'])
 
     output['application']['css_colors'] = list()
-    for color in output['application']['colors']:
+    for color in colors:
         css_color = snap_color(CSS_3, color['hex'])[1]
         if css_color not in output['application']['css_colors']:
             output['application']['css_colors'].append(css_color)
