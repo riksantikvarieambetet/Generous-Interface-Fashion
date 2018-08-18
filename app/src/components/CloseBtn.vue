@@ -18,8 +18,8 @@ export default {
 <style scoped>
 div {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 10px;
+  right: 10px;
   margin: 5px;
   cursor: pointer;
   width: 20px;
