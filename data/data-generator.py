@@ -56,6 +56,9 @@ for item in search.generic_query_generator('query=f%C3%B6rpackning%20NOT%20photo
 for item in search.generic_query_generator('query=291%20NOT%20photographs%20NOT%20oddner&qf=DATA_PROVIDER%3A%22Malm%C3%B6%20museer%22&reusability=open&thumbnail=true&media=true'):
     unprocessed_items.append(ItemStorage('none', 'none', item))
 
+for item in islice(search.generic_query_generator('query=textil&qf=DATA_PROVIDER%3A%22Nationalmuseum%2C+Sweden%22&reusability=open&thumbnail=true&media=true'), 200):
+    unprocessed_items.append(ItemStorage('none', 'none', item))
+
 result = list()
 indexed_ids = list() # to avoid duplicates
 for item in unprocessed_items:
