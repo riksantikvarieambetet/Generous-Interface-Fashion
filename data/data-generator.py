@@ -62,6 +62,9 @@ for item in unprocessed_items:
     if item.item['id'] in indexed_ids:
         continue
 
+    if item.item['rights'][0] == 'http://rightsstatements.org/vocab/InC/1.0/':
+        continue
+
     output = {}
     output['application'] = {}
 
