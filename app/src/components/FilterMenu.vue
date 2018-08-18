@@ -186,6 +186,10 @@ export default {
   cursor: pointer;
 }
 
+.menu div:last-child {
+  margin-right: 10px;
+}
+
 .menu-btn:hover {
   background: #fff;
 }

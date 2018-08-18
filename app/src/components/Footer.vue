@@ -188,7 +188,7 @@ export default {
   height: 36px;
   width: 36px;
   float: right;
-  margin-right: 5px;
+  margin-right: 15px;
   margin-top: 5px;
   cursor: pointer;
   border: solid 2px #dadada;
