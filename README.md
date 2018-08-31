@@ -5,6 +5,8 @@ This project was created within an evaluation of generous interfaces as a comple
 
 The project is a partnership between the National Heritage Board, the Nordic Museum, the Museums of World Cultures, the National Museum of Art, and Malmö Museums.
 
+Note that our prototype does not currently work in Internet Explorer and we're not likely to change that. The reason being we view the prototype as being a concept prototype and demonstrator (a minimum learnable product) rather than a pre-cursor to a operational product.
+
 ## Setup
 
 ```bash
