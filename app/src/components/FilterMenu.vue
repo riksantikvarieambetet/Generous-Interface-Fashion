@@ -97,6 +97,7 @@ export default {
     },
 
     executeFiltering() {
+      const t0 = performance.now();
       let finalList = store.state.allItems;
       console.log('debug: executing filtering');
 
@@ -136,6 +137,8 @@ export default {
       });
 
       store.commit('addActiveItems', finalList);
+      const t1 = performance.now();
+      console.log('Took ' + (t1 - t0) + ' milliseconds.');
 
       // handle reseting of visibleLimit on filter change
       console.log('debug: reseting visibleLimit');
