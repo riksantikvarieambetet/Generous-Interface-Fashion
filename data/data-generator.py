@@ -44,19 +44,19 @@ print('This might take a while...')
 
 unprocessed_items = list()
 
-for item in search.generic_query_generator('qf=DATA_PROVIDER%3A"Malmö+museer"&query=modeplansch'):
+for item in islice(search.generic_query_generator('qf=DATA_PROVIDER%3A"Nationalmuseum%2C+Sweden"&query=%28paintings+AND+%28bröstbild+OR+porträtt%29%29+OR+dräkt+OR+mode+OR+textil+OR+smycke&reusability=open&thumbnail=true'), 1000):
     unprocessed_items.append(ItemStorage('none', 'none', item))
 
-for item in search.generic_query_generator('qf=DATA_PROVIDER%3A"Etnografiska museet"&query=who%3A(Harlin%2C+Alf+%3F)'):
+for item in islice(search.generic_query_generator('qf=DATA_PROVIDER%3A"Världskulturmuseet"&query=dräkt+OR+textil+OR+smycke'), 1000):
     unprocessed_items.append(ItemStorage('none', 'none', item))
 
-for item in search.generic_query_generator('query=f%C3%B6rpackning%20NOT%20photographs%20NOT%20524%20NOT%20metall%20NOT%20m%C3%A4ssing&qf=DATA_PROVIDER%3A%22Stiftelsen%20Nordiska%20museet%22&qf=DATA_PROVIDER%3A%22Nationalmuseum%2C%20Sweden%22&qf=DATA_PROVIDER%3A%22Etnografiska%20museet%22&qf=DATA_PROVIDER%3A%22Malm%C3%B6%20museer%22&thumbnail=true&media=true'):
+for item in isslice(search.generic_query_generator('qf=costume&query=europeana_collectionName%3A(2048211_Ag_EU_EuropeanaFashion_1019)'), 1000):
     unprocessed_items.append(ItemStorage('none', 'none', item))
 
-for item in search.generic_query_generator('query=291%20NOT%20photographs%20NOT%20oddner&qf=DATA_PROVIDER%3A%22Malm%C3%B6%20museer%22&reusability=open&thumbnail=true&media=true'):
+for item in islice(search.generic_query_generator('qf=DATA_PROVIDER%3A"Världskulturmuseet"&qf=DATA_PROVIDER%3A"Östasiatiska+museet"&qf=DATA_PROVIDER%3A"Etnografiska+museet"&query=%28%28kimono+OR+träsnitt+OR+inro+OR+netsuke+OR+solfjäder+OR+docka%29+AND+japan%29&thumbnail=true'), 1000):
     unprocessed_items.append(ItemStorage('none', 'none', item))
 
-for item in islice(search.generic_query_generator('query=textil&qf=DATA_PROVIDER%3A%22Nationalmuseum%2C+Sweden%22&reusability=open&thumbnail=true&media=true'), 200):
+for item in islice(search.generic_query_generator('query=NOT+oddner+AND+%28dräkt+OR+mode+OR+kläder+OR+textil+OR+smycke%29&qf=DATA_PROVIDER%3A"Malmö%20museer"&reusability=open&reusability=restricted&thumbnail=true'), 1000):
     unprocessed_items.append(ItemStorage('none', 'none', item))
 
 result = list()
