@@ -128,9 +128,9 @@ export default {
       });
       labelStats = Array.from(new Set(labelStats.map(JSON.stringify)), JSON.parse).filter(y => y[1] > 2);
 
-      let max = labelStats.reduce((tot, lab) => Math.max(tot, lab[1]), 0);
+      const max = labelStats.reduce((tot, lab) => Math.max(tot, lab[1]), 0);
       this.labelStats = labelStats.map(l => {
-        let norm = ((l[1] - 2) / (max - 2));
+        const norm = ((l[1] - 2) / (max - 2));
         l[1] = norm * 30 + 10;
         l[1] += 'px';
         return l;
