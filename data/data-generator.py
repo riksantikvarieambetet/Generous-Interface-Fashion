@@ -50,7 +50,7 @@ for item in islice(search.generic_query_generator('qf=DATA_PROVIDER%3A"Nationalm
 for item in islice(search.generic_query_generator('qf=DATA_PROVIDER%3A"Världskulturmuseet"&query=dräkt+OR+textil+OR+smycke'), 1000):
     unprocessed_items.append(ItemStorage('none', 'none', item))
 
-for item in isslice(search.generic_query_generator('qf=costume&query=europeana_collectionName%3A(2048211_Ag_EU_EuropeanaFashion_1019)'), 1000):
+for item in islice(search.generic_query_generator('qf=costume&query=europeana_collectionName%3A(2048211_Ag_EU_EuropeanaFashion_1019)'), 1000):
     unprocessed_items.append(ItemStorage('none', 'none', item))
 
 for item in islice(search.generic_query_generator('qf=DATA_PROVIDER%3A"Världskulturmuseet"&qf=DATA_PROVIDER%3A"Östasiatiska+museet"&qf=DATA_PROVIDER%3A"Etnografiska+museet"&query=%28%28kimono+OR+träsnitt+OR+inro+OR+netsuke+OR+solfjäder+OR+docka%29+AND+japan%29&thumbnail=true'), 1000):
