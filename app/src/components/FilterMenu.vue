@@ -109,6 +109,10 @@ export default {
       if (!this.anyColorFilterIsActive && !this.labelFilterIsActive && this.preCalculated.status) {
         console.log('debug: using cache for filtering.')
         store.commit('addActiveItems', finalList);
+
+        this.colorStats = this.preCalculated.colorStats;
+        this.labelStats = this.preCalculated.labelStats;
+
         console.log('debug: reseting visibleLimit');
         store.commit('resetVisibleLimit');
         window.scrollTo(0, 0);
