@@ -62,6 +62,11 @@ export default {
       labelFilterOpen: false,
       colorStats: [],
       labelStats: [],
+      preCalculated: {
+        status: false,
+        colorStats: [],
+        labelStats: [],
+      },
     };
   },
   computed: {
@@ -97,9 +102,18 @@ export default {
     },
 
     executeFiltering() {
+      console.log('debug: executing filtering');
       const t0 = performance.now();
       let finalList = store.state.allItems;
-      console.log('debug: executing filtering');
+
+      if (!this.anyColorFilterIsActive && !this.labelFilterIsActive && this.preCalculated.status) {
+        console.log('debug: using cache for filtering.')
+        store.commit('addActiveItems', finalList);
+        console.log('debug: reseting visibleLimit');
+        store.commit('resetVisibleLimit');
+        window.scrollTo(0, 0);
+        return;
+      }
 
       this.selectedLabelIds.forEach(label => {
         finalList = finalList.filter(item => item.application.labels.includes(label));
@@ -135,6 +149,13 @@ export default {
         l[1] += 'px';
         return l;
       });
+
+      // cache
+      if (!this.preCalculated.status) {
+        this.preCalculated.colorStats = this.colorStats;
+        this.preCalculated.labelStats = this.labelStats;
+        this.preCalculated.status = true;
+      }
 
       store.commit('addActiveItems', finalList);
       const t1 = performance.now();
