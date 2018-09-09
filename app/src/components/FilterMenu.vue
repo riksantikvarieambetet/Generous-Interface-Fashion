@@ -62,6 +62,11 @@ export default {
       labelFilterOpen: false,
       colorStats: [],
       labelStats: [],
+      preCalculated: {
+        status: false,
+        colorStats: [],
+        labelStats: [],
+      },
     };
   },
   computed: {
@@ -97,8 +102,22 @@ export default {
     },
 
     executeFiltering() {
-      let finalList = store.state.allItems;
       console.log('debug: executing filtering');
+      const t0 = performance.now();
+      let finalList = store.state.allItems;
+
+      if (!this.anyColorFilterIsActive && !this.labelFilterIsActive && this.preCalculated.status) {
+        console.log('debug: using cache for filtering.')
+        store.commit('addActiveItems', finalList);
+
+        this.colorStats = this.preCalculated.colorStats;
+        this.labelStats = this.preCalculated.labelStats;
+
+        console.log('debug: reseting visibleLimit');
+        store.commit('resetVisibleLimit');
+        window.scrollTo(0, 0);
+        return;
+      }
 
       this.selectedLabelIds.forEach(label => {
         finalList = finalList.filter(item => item.application.labels.includes(label));
@@ -127,15 +146,24 @@ export default {
       });
       labelStats = Array.from(new Set(labelStats.map(JSON.stringify)), JSON.parse).filter(y => y[1] > 2);
 
-      let max = labelStats.reduce((tot, lab) => Math.max(tot, lab[1]), 0);
+      const max = labelStats.reduce((tot, lab) => Math.max(tot, lab[1]), 0);
       this.labelStats = labelStats.map(l => {
-        let norm = ((l[1] - 2) / (max - 2));
+        const norm = ((l[1] - 2) / (max - 2));
         l[1] = norm * 30 + 10;
         l[1] += 'px';
         return l;
       });
 
+      // cache
+      if (!this.preCalculated.status) {
+        this.preCalculated.colorStats = this.colorStats;
+        this.preCalculated.labelStats = this.labelStats;
+        this.preCalculated.status = true;
+      }
+
       store.commit('addActiveItems', finalList);
+      const t1 = performance.now();
+      console.log('Took ' + (t1 - t0) + ' milliseconds.');
 
       // handle reseting of visibleLimit on filter change
       console.log('debug: reseting visibleLimit');
