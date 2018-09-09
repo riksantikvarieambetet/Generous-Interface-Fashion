@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ noscroll: showingSplash }">
     <image-wall />
     <modal :classes="['v--modal', 'welcome']" name="welcome" transition="slide-north">
       <h1>{{ $t('appTitle') }}</h1>
@@ -9,7 +9,9 @@
       <div class="btn-container"><button @click="closeWelcome">{{ $t('appBegin') }}</button></div>
     </modal>
 
-    <Footer />
+    <footer />
+
+    <splash v-if="showingSplash" />
 
     <spinner v-if="loading || loadingJson" class="spinner" size="big" />
   </div>
@@ -20,6 +22,7 @@ import Spinner from 'vue-simple-spinner';
 
 import ImageWall from './components/ImageWall';
 import Footer from './components/Footer';
+import Splash from './components/Splash';
 import { store } from './store';
 
 export default {
@@ -28,10 +31,12 @@ export default {
     ImageWall,
     Spinner,
     Footer,
+    Splash,
   },
   data() {
     return {
       loadingJson: true,
+      showingSplash: true,
     };
   },
   computed: {
@@ -54,6 +59,10 @@ export default {
     setTimeout(() => {
       this.$modal.show('welcome');
     }, 100);
+
+    setTimeout(() => {
+      this.showingSplash = false;
+    }, 12000);
   },
   destroyed: function() {
     window.removeEventListener('scroll', this.handleScroll);
@@ -102,6 +111,11 @@ html {
 body {
   margin: 0;
   background: #e9e9e9;
+}
+
+.noscroll {
+  overflow-y: hidden;
+  max-height: 100vh;
 }
 
 a,
