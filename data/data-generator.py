@@ -102,6 +102,10 @@ for item in unprocessed_items:
 
     output['application']['labels'] = list(set(output['application']['labels']))
 
+    # exclude documents
+    if 'document' in output['application']['labels']:
+        continue
+
     application_description = transformation.get_shortified_description(output['dc_description'])
     if application_description == '':
         application_description = output['dc_title']
