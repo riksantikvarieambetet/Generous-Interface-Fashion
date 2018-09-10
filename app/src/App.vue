@@ -9,7 +9,7 @@
       <div class="btn-container"><button @click="closeWelcome">{{ $t('appBegin') }}</button></div>
     </modal>
 
-    <footer />
+    <Footer />
 
     <splash v-if="showingSplash" />
 
