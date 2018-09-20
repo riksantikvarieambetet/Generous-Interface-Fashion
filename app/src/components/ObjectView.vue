@@ -64,8 +64,11 @@ export default {
 
     resolveLicense(licence) {
       if (licence === 'http://creativecommons.org/licenses/by-nc-nd/2.5/') return 'Attribution-NonCommercial-NoDerivs 2.5 Generic';
+      if (licence === 'http://creativecommons.org/licenses/by-nc-nd/4.0/') return 'Attribution-NonCommercial-NoDerivs 4.0 Generic';
       if (licence === 'http://creativecommons.org/licenses/by/2.5/') return 'Attribution 2.5 Generic';
       if (licence === 'http://creativecommons.org/licenses/by-sa/4.0/') return 'Attribution-ShareAlike 4.0 International';
+      if (licence === 'http://creativecommons.org/licenses/by-sa/3.0/') return 'Attribution-ShareAlike 3.0 International';
+      if (licence === 'http://creativecommons.org/publicdomain/mark/1.0/') return 'Public Domain Mark 1.0';
     },
 
     filterByColor(color) {
