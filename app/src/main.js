@@ -13,11 +13,11 @@ Vue.use(VueResource);
 
 Vue.config.productionTip = false;
 
-let locale;
+let locale = 'en';
+
+// remove these 3 lines to disable Swedish
 if (navigator.languages.includes('sv')) {
   locale = 'sv';
-} else {
-  locale = 'en';
 }
 
 const i18n = new VueI18n({
