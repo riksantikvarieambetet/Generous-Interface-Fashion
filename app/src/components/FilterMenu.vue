@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="menu">
-      <img src="http://via.placeholder.com/90x90?text=logo" alt="logo and information" class="logo" role="button" @click="openModal">
+      <img :src="logoUrl" alt="logo and information" class="logo" role="button" @click="openModal">
 
       <span class="left"><span class="no-mobile">{{ $t('nItemsPrefix') }} </span><animated-number :number="numberOfActiveItems" /> {{ $t('nItemsMidfix') }} {{ numberOfItems }} {{ $t('nItemsSuffix') }}</span>
 
@@ -42,6 +42,7 @@ import AnimatedNumber from './AnimatedNumber';
 import ColorMountain from './ColorMountain';
 import LabelStack from './LabelStack';
 import { store } from '../store';
+import { logoUrl } from '../main';
 
 fontawesome.library.add(faPalette);
 fontawesome.library.add(faTag);
@@ -62,6 +63,7 @@ export default {
       labelFilterOpen: false,
       colorStats: [],
       labelStats: [],
+      logoUrl: logoUrl,
       preCalculated: {
         status: false,
         colorStats: [],
@@ -107,7 +109,7 @@ export default {
       let finalList = store.state.allItems;
 
       if (!this.anyColorFilterIsActive && !this.labelFilterIsActive && this.preCalculated.status) {
-        console.log('debug: using cache for filtering.')
+        console.log('debug: using cache for filtering.');
         store.commit('addActiveItems', finalList);
 
         this.colorStats = this.preCalculated.colorStats;
